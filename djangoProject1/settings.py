@@ -129,6 +129,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 WHITENOISE_USE_FINDERS = True
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://hemant-to-do.herokuapp.com'
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
