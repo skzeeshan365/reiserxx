@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>ReiserX</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/favicon1.png' %}">
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -40,10 +41,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-4 col-xs-12">
-                <p><i class="fa fa-phone"></i><span> Phone</span>010-020-0340</p>
+                <p><i class="fa fa-phone"></i><span> Phone</span>not available</p>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12">
-                <p><i class="fa fa-envelope-o"></i><span> Email</span><a href="#">skzeeshan3650@gmail.com</a></p>
+                <p><i class="fa fa-envelope-o"></i><span> Email</span><a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=skzeeshan3650@gmail.com">skzeeshan3650@gmail.com</a></p>
             </div>
             <div class="col-md-5 col-sm-4 col-xs-12">
                 <ul class="social-icon">
@@ -147,7 +148,7 @@
                         <h3 class="media-heading">FLY</h3>
                     </div>
                     <div class="media-body">
-                        <p>Using this you can get everytype of data from your phone, just a simple setup and you are
+                        <p>Using this you can get every type of data from your phone, just a simple setup and you are
                             ready to fly</p>
                     </div>
                 </div>
@@ -165,28 +166,24 @@
                 <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s"><span>DOWNLOAD</span> REISERX</h2>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.3s">
-                <a href="policy.html">
                 <div class="team-wrapper">
-                    <img src="{% static 'images/team-img3.jpg' %}" class="img-responsive" alt="team img 3">
+                    <img src="{% static 'images/screen1.jpg' %}" class="img-responsive" alt="team img 3">
                     <div class="team-des">
                         <h4 style="color:white;">REISERX PANEL</h4>
-                        <span>INSTALL</span>
+                        <a href="policy.html"><span>INSTALL</span></a>
                         <p style="color:white;">ReiserX panel a control panel for this system</p>
                     </div>
                 </div>
-                    </a>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.6s">
-                <a href="policy.html">
                     <div class="team-wrapper">
-                        <img src="{% static 'images/team-img4.jpg' %}" class="img-responsive" alt="team img 4">
+                        <img src="{% static 'images/screen2.jpg' %}" class="img-responsive" alt="team img 4">
                         <div class="team-des">
                             <h4 style="color:white;">REISERX</h4>
-                            <span>INSTALL</span>
+                            <a href="policy.html"><span>INSTALL</span></a>
                             <p style="color:white;">this is the driver app that needs to be installed on second device</p>
                         </div>
                     </div>
-                </a>
             </div>
         </div>
     </div>
@@ -278,7 +275,10 @@
                 <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">CONTACT <span>US</span></h2>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
-                <form action="#" method="post">
+                <form action="contact" method="post">
+
+                    {% csrf_token %}
+
                     <label>NAME</label>
                     <input name="fullname" type="text" class="form-control" id="fullname">
 
@@ -293,11 +293,11 @@
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s">
                 <address>
-                    <p class="address-title">OUR ADDRESS</p>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie.</span>
-                    <p><i class="fa fa-phone"></i> 010-020-0340</p>
-                    <p><i class="fa fa-envelope-o"></i> awesome@company.com</p>
-                    <p><i class="fa fa-map-marker"></i> 663 New Walk Roadside, Birdeye View, GO 11020</p>
+                    <p class="address-title">OR CONTACT ON</p>
+                    <span>For any Queries about our policy, setup, support you can contact us anytime we will respond as soon as possible.</span>
+                    <p><i class="fa fa-phone"></i> Not available now</p>
+                    <p><i class="fa fa-envelope-o"></i> skzeeshan3650@gmail.com</p>
+                    <p><i class="fa fa-map-marker"></i> Mumbai, India</p>
                 </address>
                 <ul class="social-icon">
                     <li><h4>WE ARE SOCIAL</h4></li>
@@ -326,3 +326,8 @@
 
 </body>
 </html>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
