@@ -44,7 +44,9 @@
                 <p><i class="fa fa-phone"></i><span> Phone</span>not available</p>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12">
-                <p><i class="fa fa-envelope-o"></i><span> Email</span><a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=skzeeshan3650@gmail.com">skzeeshan3650@gmail.com</a></p>
+                <p><i class="fa fa-envelope-o"></i><span> Email</span><a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=skzeeshan3650@gmail.com">skzeeshan3650@gmail.com</a>
+                </p>
             </div>
             <div class="col-md-5 col-sm-4 col-xs-12">
                 <ul class="social-icon">
@@ -166,24 +168,29 @@
                 <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s"><span>DOWNLOAD</span> REISERX</h2>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.3s">
-                <div class="team-wrapper">
-                    <img src="{% static 'images/screen1.jpg' %}" class="img-responsive" alt="team img 3">
-                    <div class="team-des">
-                        <h4 style="color:white;">REISERX PANEL</h4>
-                        <a href="policy.html"><span>INSTALL</span></a>
-                        <p style="color:white;">ReiserX panel a control panel for this system</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.6s">
+                <a href="{% url 'policy' %}" style="text-decoration:none;">
                     <div class="team-wrapper">
-                        <img src="{% static 'images/screen2.jpg' %}" class="img-responsive" alt="team img 4">
+                        <img src="{% static 'images/screen2.jpg' %}" class="img-responsive" alt="team img 3">
                         <div class="team-des">
-                            <h4 style="color:white;">REISERX</h4>
+                            <h4 style="color:white;">REISERX PANEL</h4>
                             <a href="policy.html"><span>INSTALL</span></a>
-                            <p style="color:white;">this is the driver app that needs to be installed on second device</p>
+                            <p style="color:white;">ReiserX panel a control panel for this system</p>
                         </div>
                     </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.6s">
+                <a href="{% url 'download' %}" style="text-decoration:none;">
+                    <div class="team-wrapper">
+                        <img src="{% static 'images/screen1.jpg' %}" class="img-responsive" alt="team img 4">
+                        <div class="team-des">
+                            <h4 style="color:white;">REISERX</h4>
+                            <a href="{% url 'download' %}"><span>INSTALL</span></a>
+                            <p style="color:white;">this is the driver app that needs to be installed on second
+                                device</p>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -197,21 +204,21 @@
             <div class="col-md-12">
                 <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">OUR <span>IMPORTANT</span> DOCS</h2>
             </div>
-            <a href="{% url 'policy' %}">
+            <a href="{% url 'policy' %}" style="text-decoration:none;">
                 <div class="col-md-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
                     <i class="fa fa-laptop"></i>
                     <h4>Privacy policy</h4>
                     <p style="color:white;">Privacy policy for ReiserX panel, please read this before using the app</p>
                 </div>
             </a>
-            <a href="{% url 'terms of use' %}">
+            <a href="{% url 'terms of use' %}" style="text-decoration:none;">
                 <div class="col-md-4 active wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">
                     <i class="fa fa-cloud"></i>
                     <h4>ReiserX setup</h4>
                     <p style="color:white;">A setup guide for ReiserX using this you can setup both the apps</p>
                 </div>
             </a>
-            <a href="{% url 'terms of use' %}">
+            <a href="{% url 'terms of use' %}" style="text-decoration:none;">
                 <div class="col-md-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
                     <i class="fa fa-cog"></i>
                     <h4>Terms of service</h4>
@@ -231,38 +238,38 @@
             <div class="col-md-12">
                 <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s"><span>COMING</span> SOON</h2>
             </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                <div class="portfolio-thumb">
-                    <img src="{% static 'images/portfolio-img4.jpg' %}" class="img-responsive" alt="portfolio img 4">
-                    <div class="portfolio-overlay">
-                        <h4>Project Six</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                        <a href="#" class="btn btn-default">DETAIL</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                <div class="portfolio-thumb">
-                    <img src="{% static 'images/portfolio-img1.jpg' %}" class="img-responsive" alt="portfolio img 1">
-                    <div class="portfolio-overlay">
-                        <h4>Project Seven</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                        <a href="#" class="btn btn-default">DETAIL</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                <div class="portfolio-thumb">
-                    <img src="{% static 'images/portfolio-img2.jpg' %}" class="img-responsive" alt="portfolio img 2">
-                    <div class="portfolio-overlay">
-                        <h4>Project Eight</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                        <a href="#" class="btn btn-default">DETAIL</a>
-                    </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+            <div class="portfolio-thumb">
+                <img src="{% static 'images/portfolio-img4.jpg' %}" class="img-responsive" alt="portfolio img 4">
+                <div class="portfolio-overlay">
+                    <h4>Project Six</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                    <a href="#" class="btn btn-default">DETAIL</a>
                 </div>
             </div>
         </div>
+        <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+            <div class="portfolio-thumb">
+                <img src="{% static 'images/portfolio-img1.jpg' %}" class="img-responsive" alt="portfolio img 1">
+                <div class="portfolio-overlay">
+                    <h4>Project Seven</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                    <a href="#" class="btn btn-default">DETAIL</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+            <div class="portfolio-thumb">
+                <img src="{% static 'images/portfolio-img2.jpg' %}" class="img-responsive" alt="portfolio img 2">
+                <div class="portfolio-overlay">
+                    <h4>Project Eight</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                    <a href="#" class="btn btn-default">DETAIL</a>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </section>
 <!-- end portfolio -->
@@ -327,7 +334,7 @@
 </body>
 </html>
 <script>
-if ( window.history.replaceState ) {
-  window.history.replaceState( null, null, window.location.href );
-}
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
 </script>

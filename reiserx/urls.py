@@ -6,4 +6,5 @@ urlpatterns = [
     path('policy/', views.policy, name="policy"),
     path('terms of use/', views.terms, name="terms of use"),
     path('contact', views.contact, name="contact"),
+    path('download', views.downloadReiserX, name="download"),
 ]
