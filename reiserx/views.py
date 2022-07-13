@@ -55,7 +55,7 @@ def downloadReiserX(request):
     storage = firebase.storage()
 
     response = HttpResponse(
-        content_type='application/force-download')  # mimetype is replaced by content_type for django 1.7
+        content_type='application/download')  # mimetype is replaced by content_type for django 1.7
     response['Content-Disposition'] = 'attachment; filename=%s' % smart_str("ReiserX.apk")
     response['X-Sendfile'] = smart_str(storage.child("App/Target/app-release.apk"))
     # It's usually a good idea to set the 'Content-Length' header too.
