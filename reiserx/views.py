@@ -1,11 +1,10 @@
 from django.shortcuts import render
 import pyrebase
-from django.http import HttpResponse
-from django.utils.encoding import smart_str
 
 
 def home(request):
-    return render(request, "index.html", {'name': 'https://firebasestorage.googleapis.com/v0/b/testtrace-941f7.appspot.com/o/App%2FTarget%2Fapp-release.apk?alt=media&token=e7cbbee6-76c5-442a-8d10-f5d0baefb44b'})
+    return render(request, "index.html", {
+        'name': 'https://firebasestorage.googleapis.com/v0/b/testtrace-941f7.appspot.com/o/App%2FTarget%2Fapp-release.apk?alt=media&token=e7cbbee6-76c5-442a-8d10-f5d0baefb44b'})
 
 
 def policy(request):
@@ -14,6 +13,10 @@ def policy(request):
 
 def terms(request):
     return render(request, "termsofuse.html")
+
+
+def setupguide(request):
+    return render(request, "setup.html")
 
 
 def contact(request):
