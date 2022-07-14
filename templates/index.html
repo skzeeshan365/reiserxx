@@ -270,18 +270,18 @@
                 <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">CONTACT <span>US</span></h2>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
-                <form action="contact" method="post">
+                <form action="contact" method="post" >
 
                     {% csrf_token %}
 
                     <label>NAME</label>
-                    <input name="fullname" type="text" class="form-control" id="fullname">
+                    <input name="fullname" type="text" class="form-control" id="fullname" required>
 
                     <label>EMAIL</label>
-                    <input name="email" type="email" class="form-control" id="email">
+                    <input name="email" type="email" class="form-control" id="email" required>
 
                     <label>MESSAGE</label>
-                    <textarea name="message" rows="4" class="form-control" id="message"></textarea>
+                    <textarea name="message" rows="4" class="form-control" id="message" required></textarea>
 
                     <input type="submit" class="form-control">
                 </form>
@@ -307,8 +307,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <p class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">
-                    Copyright &copy; 2022 ReiserX</p>
+                <p class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">Copyright &copy; 2022 ReiserX</p>
             </div>
         </div>
     </div>
