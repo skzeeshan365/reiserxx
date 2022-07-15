@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reiserx.apps.ReiserxConfig'
+    'reiserx.apps.ReiserxConfig',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
+
+CLOUDINARY_STORAGE = {
+             'CLOUD_NAME': 'reiserx',
+             'API_KEY': '288963785952138',
+             'API_SECRET': 'fo_72KuD0Pu4QR6WADqHy0Xgkug'
+            }
+DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
 
 ROOT_URLCONF = 'djangoProject1.urls'
 
