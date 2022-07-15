@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'reiserx',
-        'USER': 'postgres',
-        'PASSWORD': 'Zeeshan@92',
-        'HOST': 'localhost'
+        'NAME': 'd6qgnob0vuvpp7',
+        'USER': 'lfxetmvkjlpfds',
+        'PASSWORD': 'e40deea6b1c0458156d15c97cd6dfa1bae2e9365e4cd6d7138d4e2b9401a59e4',
+        'HOST': 'ec2-54-227-248-71.compute-1.amazonaws.com'
     }
 }
 
