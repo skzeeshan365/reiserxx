@@ -23,7 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wws88x=2$xj*2m9p8jiuz&fj0+c_7kbn$t@ueoobf@5$39#@ik'
+SECRET_KEY = os.getenv('SECRET_KEY', 'Optional default value')
+CLOUD_NAME = os.getenv('CLOUD_NAME', 'Optional default value')
+API_KEY = os.getenv('API_KEY', 'Optional default value')
+API_SECRET = os.getenv('API_SECRET', 'Optional default value')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -58,9 +61,9 @@ MIDDLEWARE = [
 ]
 
 CLOUDINARY_STORAGE = {
-             'CLOUD_NAME': 'reiserx',
-             'API_KEY': '288963785952138',
-             'API_SECRET': 'fo_72KuD0Pu4QR6WADqHy0Xgkug'
+             CLOUD_NAME,
+             API_KEY,
+             API_SECRET
             }
 DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
 
