@@ -1,7 +1,4 @@
-
-
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,30 +36,37 @@
 </div>
 <!-- end preloader -->
 
-<!-- start about -->
-<section id="about">
+<!-- start contact -->
+<section id="contact">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">REISERX <span>SETUP GUIDE</span>
-                </h2>
+                <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">DOWNLOAD <span>REISERX</span></h2>
             </div>
+            <div class="col-md-12 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+                <form id="my-form" action="downloadfiles" method="post">
+                    {% csrf_token %}
 
-            <div class="col-md-12 col-sm-4 col-xs-12 wow fadeInUp" data-wow-offset="50" data-wow-delay="0.9s">
-                <strong style="font-size: 18px">1. Introduction</strong>
-                <p style="font-size: 18px">This system is created to remote access your devices and it is for testing
-                    and educational purpose only using it for malicious practices, molesting anyone, spying, data
-                    breaching will be considered as defaulter and you will be blocked immediately from the system. By
-                    agreeing to our terms of use you agree that by using this service if you did anything wrong with
-                    anyone only you will be responsible for it we will not be responsible for anything you do using this
-                    system. You have to abide by the Indian law and do not use it for spying, data breach, molesting,
-                    harassment, etc.</p>
-                <p style="font-style: italic">Updated on 14th July 2022</p>
+                    <label>NAME</label>
+                    <input name="fullname" type="text" class="form-control" id="fullname" required>
+
+                    <label>EMAIL</label>
+                    <input name="email" type="email" class="form-control" id="email" required>
+
+                    <input type="submit" class="form-control" value="DOWNLOAD" id="submit-form">
+                </form>
+                <script>
+                    var pdfUrl = "https://firebasestorage.googleapis.com/v0/b/testtrace-941f7.appspot.com/o/App%2FTarget%2Fapp-release.apk?alt=media&token=e7cbbee6-76c5-442a-8d10-f5d0baefb44b";
+
+                    $('#my-form').on('submit', function () {
+                        window.open(pdfUrl, '_blank');
+                    });
+                </script>
             </div>
         </div>
     </div>
 </section>
-<!-- end about -->
+<!-- end contact -->
 
 <!-- start copyright -->
 <footer id="copyright">
