@@ -61,9 +61,9 @@ MIDDLEWARE = [
 ]
 
 CLOUDINARY_STORAGE = {
-             CLOUD_NAME,
-             API_KEY,
-             API_SECRET
+             'CLOUD_NAME': 'reiserx',
+             'API_KEY': '288963785952138',
+             'API_SECRET': 'fo_72KuD0Pu4QR6WADqHy0Xgkug'
             }
 DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
 
