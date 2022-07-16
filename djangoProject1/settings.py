@@ -14,25 +14,32 @@ from pathlib import Path
 
 import dj_database_url
 import django_heroku
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv('.env')
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'Optional default value')
-CLOUD_NAME = os.getenv('CLOUD_NAME', 'Optional default value')
-API_KEY = os.getenv('API_KEY', 'Optional default value')
-API_SECRET = os.getenv('API_SECRET', 'Optional default value')
+SECRET_KEY = os.getenv('SECRET_KEY')
+CLOUD_NAME = os.getenv('CLOUD_NAME')
+API_KEY = os.getenv('API_KEY')
+API_SECRET = os.getenv('API_SECRET')
+
+print(SECRET_KEY)
+print(API_SECRET)
+print(API_KEY)
+print(CLOUD_NAME)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'https://reiserx.herokuapp.com/']
-
 
 # Application definition
 
@@ -61,11 +68,11 @@ MIDDLEWARE = [
 ]
 
 CLOUDINARY_STORAGE = {
-             'CLOUD_NAME': 'reiserx',
-             'API_KEY': '288963785952138',
-             'API_SECRET': 'fo_72KuD0Pu4QR6WADqHy0Xgkug'
-            }
-DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
+    'CLOUD_NAME': CLOUD_NAME,
+    'API_KEY': API_KEY,
+    'API_SECRET': API_SECRET
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 ROOT_URLCONF = 'djangoProject1.urls'
 
@@ -88,7 +95,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -104,7 +110,6 @@ DATABASES = {
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
