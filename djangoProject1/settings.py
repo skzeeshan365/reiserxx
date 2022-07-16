@@ -29,7 +29,7 @@ API_KEY = os.getenv('API_KEY', 'Optional default value')
 API_SECRET = os.getenv('API_SECRET', 'Optional default value')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'https://reiserx.herokuapp.com/']
 
