@@ -3,17 +3,30 @@ import pyrebase
 
 from .Resources import CONSTANTS
 from .models import Media
+from dotenv import load_dotenv
+import os
+
+load_dotenv('.env')
+
+apiKey = os.getenv('apiKey')
+authDomain = os.getenv('authDomain')
+databaseURL = os.getenv('databaseURL')
+projectId = os.getenv('projectId')
+storageBucket = os.getenv('storageBucket')
+messagingSenderId = os.getenv('messagingSenderId')
+appId = os.getenv('appId')
+measurementId = os.getenv('measurementId')
 
 config = {
-        "apiKey": "AIzaSyBxfeEYK42Z9_5J9QzHXOX1yxHUgVR-i8U",
-        "authDomain": "testtrace-941f7.firebaseapp.com",
-        "databaseURL": "https://testtrace-941f7-default-rtdb.firebaseio.com",
-        "projectId": "testtrace-941f7",
-        "storageBucket": "testtrace-941f7.appspot.com",
-        "messagingSenderId": "145231816902",
-        "appId": "1:145231816902:web:df232c954486dd83254fc7",
-        "measurementId": "G-FCM9GH77KN"
-    }
+    "apiKey": apiKey,
+    "authDomain": authDomain,
+    "databaseURL": databaseURL,
+    "projectId": projectId,
+    "storageBucket": storageBucket,
+    "messagingSenderId": messagingSenderId,
+    "appId": appId,
+    "measurementId": measurementId
+}
 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
@@ -36,10 +49,6 @@ def setupguide(request):
     return render(request, "setup.html", {'const': CONSTANTS})
 
 
-def download(request):
-    return render(request, "download.html")
-
-
 def contact(request):
     val1 = request.POST['fullname']
     val2 = request.POST['email']
@@ -49,13 +58,3 @@ def contact(request):
     db.child("Administration").child("Web").child("contact").push(data)
 
     return render(request, "index.html")
-
-
-def downloadfiles(request):
-    val1 = request.POST['fullname']
-    val2 = request.POST['email']
-
-    data = {"fullname": val1, "email": val2}
-    db.child("Administration").child("Web").child("downloads").push(data)
-
-    return render(request, 'download.html')

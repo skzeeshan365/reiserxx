@@ -30,11 +30,6 @@ CLOUD_NAME = os.getenv('CLOUD_NAME')
 API_KEY = os.getenv('API_KEY')
 API_SECRET = os.getenv('API_SECRET')
 
-print(SECRET_KEY)
-print(API_SECRET)
-print(API_KEY)
-print(CLOUD_NAME)
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
