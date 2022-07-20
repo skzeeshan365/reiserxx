@@ -161,24 +161,22 @@
                         <img src="{% static 'images/screen3.png' %}" class="img-responsive" alt="team img 3">
                         <div class="team-des">
                             <h4 style="color:white;">REISERX PANEL</h4>
-                            <a href="policy.html" style="color:white;"><span>INSTALL</span></a>
+                            <a href="{{ const.CONSTANT.REISERX_DRIVER_DOWNLOAD_URL }}" style="color:white;"><span>INSTALL from Google play</span></a>
                             <p style="color:white;">ReiserX panel a control panel for this system</p>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.6s">
-                <a href="{% url 'download' %}" style="text-decoration:none;">
-                    <div class="team-wrapper">
-                        <img src="{% static 'images/1024.png' %}" class="img-responsive" alt="team img 4">
-                        <div class="team-des">
-                            <h4 style="color:white;">REISERX DRIVER</h4>
-                            <a href="{% url 'download' %}" style="color:white;"><span>INSTALL</span></a>
-                            <p style="color:white;">this is the driver app that needs to be installed on second
-                                device</p>
-                        </div>
+                <div class="team-wrapper">
+                    <img src="{% static 'images/1024.png' %}" class="img-responsive" alt="team img 4">
+                    <div class="team-des">
+                        <h4 style="color:white;">REISERX DRIVER</h4>
+                        <a href="{{ const.CONSTANT.REISERX_DRIVER_DOWNLOAD_URL }}"
+                           style="color:white;"><span>DOWNLOAD</span></a>
+                        <p style="color:white;">ReiserX driver that needs to be install on Device A</p>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </div>
@@ -192,11 +190,11 @@
             <div class="col-md-12">
                 <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">OUR <span>IMPORTANT</span> DOCS</h2>
             </div>
-            <a href="{% url 'policy' %}" style="text-decoration:none;">
+            <a href="{% url 'ReiserX privacy policy' %}" style="text-decoration:none;">
                 <div class="col-md-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
                     <i class="fa fa-lock"></i>
-                    <h4>Privacy policy</h4>
-                    <p style="color:white;">Privacy policy for ReiserX panel, please read this before using the app</p>
+                    <h4>Privacy policy - ReiserX system</h4>
+                    <p style="color:white;">Privacy policy for ReiserX, please read this before using the app</p>
                 </div>
             </a>
             <a href="{% url 'setup' %}" style="text-decoration:none;">
@@ -212,6 +210,13 @@
                     <h4>Terms of service</h4>
                     <p style="color:white;">Terms of service for ReiserX, please read this before using the
                         app</p>
+                </div>
+            </a>
+            <a href="{% url 'policy' %}" style="text-decoration:none;">
+                <div class="col-md-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+                    <i class="fa fa-book"></i>
+                    <h4>Privacy policy - ReiserX panel</h4>
+                    <p style="color:white;">Privacy policy for ReiserX panel, please read this before using the app</p>
                 </div>
             </a>
         </div>

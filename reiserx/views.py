@@ -41,6 +41,10 @@ def policy(request):
     return render(request, "policy.html", {'const': CONSTANTS})
 
 
+def reiserxpolicy(request):
+    return render(request, "reiserxpolicy.html", {'const': CONSTANTS})
+
+
 def terms(request):
     return render(request, "termsofuse.html", {'const': CONSTANTS})
 
