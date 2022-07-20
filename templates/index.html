@@ -87,8 +87,9 @@
                     <div class="sub-element">Brought to you by ReiserX a system that you need</div>
                     <div class="sub-element">Download, install and fly</div>
                 </div>
-                <a data-scroll href="{% url 'setup' %}" class="btn btn-default wow fadeInUp" data-wow-offset="50"
-                   data-wow-delay="0.6s">SETUP GUIDE</a>
+                <a data-scroll href="{% url 'Documentation' %}" class="btn btn-default wow fadeInUp"
+                   data-wow-offset="50"
+                   data-wow-delay="0.6s">DOCUMENTATION</a>
             </div>
         </div>
     </div>
@@ -156,16 +157,14 @@
                 <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s"><span>DOWNLOAD</span> REISERX</h2>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.3s">
-                <a href="{% url 'policy' %}" style="text-decoration:none;">
-                    <div class="team-wrapper">
-                        <img src="{% static 'images/screen3.png' %}" class="img-responsive" alt="team img 3">
-                        <div class="team-des">
-                            <h4 style="color:white;">REISERX PANEL</h4>
-                            <a href="{{ const.CONSTANT.REISERX_DRIVER_DOWNLOAD_URL }}" style="color:white;"><span>INSTALL from Google play</span></a>
-                            <p style="color:white;">ReiserX panel a control panel for this system</p>
-                        </div>
+                <div class="team-wrapper">
+                    <img src="{% static 'images/screen3.png' %}" class="img-responsive" alt="team img 3">
+                    <div class="team-des">
+                        <h4 style="color:white;">REISERX PANEL</h4>
+                        <a href="{{ const.CONSTANT.REISERX_DRIVER_DOWNLOAD_URL }}" style="color:white;"><span>INSTALL from Google play</span></a>
+                        <p style="color:white;">ReiserX panel a control panel for this system</p>
                     </div>
-                </a>
+                </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.6s">
                 <div class="team-wrapper">
@@ -197,11 +196,11 @@
                     <p style="color:white;">Privacy policy for ReiserX, please read this before using the app</p>
                 </div>
             </a>
-            <a href="{% url 'setup' %}" style="text-decoration:none;">
+            <a href="{% url 'Documentation' %}" style="text-decoration:none;">
                 <div class="col-md-4 active wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">
                     <i class="fa fa-mobile-phone"></i>
-                    <h4>ReiserX setup</h4>
-                    <p style="color:white;">A setup guide for ReiserX</p>
+                    <h4>Documentation</h4>
+                    <p style="color:white;">Documention for ReiserX system, Features, setup guide, etc</p>
                 </div>
             </a>
             <a href="{% url 'terms of use' %}" style="text-decoration:none;">
@@ -214,7 +213,7 @@
             </a>
             <a href="{% url 'policy' %}" style="text-decoration:none;">
                 <div class="col-md-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                    <i class="fa fa-book"></i>
+                    <i class="fa fa-lock"></i>
                     <h4>Privacy policy - ReiserX panel</h4>
                     <p style="color:white;">Privacy policy for ReiserX panel, please read this before using the app</p>
                 </div>

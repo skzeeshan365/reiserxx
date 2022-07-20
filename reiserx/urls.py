@@ -7,5 +7,5 @@ urlpatterns = [
     path('reiserxprivacypolicy/', views.reiserxpolicy, name="ReiserX privacy policy"),
     path('terms of use/', views.terms, name="terms of use"),
     path('contact', views.contact, name="contact"),
-    path('setup/', views.setupguide, name="setup"),
+    path('Documentation/', views.setupguide, name="Documentation"),
 ]
