@@ -238,7 +238,11 @@
                     <div class="portfolio-overlay">
                         <h4>{{ media1.name }}</h4>
                         <p>{{ media1.desc }}</p>
-                        <a href="{{ media1.link }}" class="btn btn-default">DETAIL</a>
+                        {% if media1.isInternal %}
+                            <a href="{% url 'media' media1.pk %}" class="btn btn-default">DETAIL</a>
+                        {% else %}
+                            <a href="{{ media1.link }}" class="btn btn-default">DETAIL</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -8,3 +8,5 @@ class Media(models.Model):
     desc = models.TextField()
     img = models.ImageField(upload_to='pics')
     link = models.TextField()
+    isInternal = models.BooleanField(default=False)
+    timestamp = models.DateField(default='2022-07-22')

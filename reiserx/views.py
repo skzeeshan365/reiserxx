@@ -64,7 +64,7 @@ def contact(request):
     return render(request, "index.html")
 
 
-def media(request):
-
-    return render(request, "message.html", {'name': Media.name})
+def media(request, pk):
+    medias = Media.objects.get(id=pk)
+    return render(request, "message.html", {'medias': medias})
 

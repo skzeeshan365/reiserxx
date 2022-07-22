@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{{ name }}</title>
+    <title>{{ medias.name }}</title>
     <link rel="icon" type="image/x-icon" href="{% static '/images/favicon1.png' %}">
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -40,12 +40,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">REISERX <span>{{ name }}</span>
+                <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">REISERX <span>{{ medias.name }}</span>
                 </h2>
             </div>
             <div class="col-md-12 col-sm-4 col-xs-12 wow fadeInUp" data-wow-offset="50" data-wow-delay="0.9s">
-                <p style="font-size: 16px">
-                </p>
+                <p style="font-size: 16px">{{ medias.desc }}</p>
+
+                <p style="font-size: 16px"> updated {{ medias.timestamp }}</p>
             </div>
         </div>
     </div>

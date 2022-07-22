@@ -8,5 +8,5 @@ urlpatterns = [
     path('terms of use/', views.terms, name="terms of use"),
     path('contact', views.contact, name="contact"),
     path('Documentation/', views.setupguide, name="Documentation"),
-    path('media/', views.media, name="media"),
+    path('media/<int:pk>/', views.media, name="media"),
 ]
