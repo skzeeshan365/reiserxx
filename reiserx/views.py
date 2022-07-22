@@ -62,3 +62,9 @@ def contact(request):
     db.child("Administration").child("Web").child("contact").push(data)
 
     return render(request, "index.html")
+
+
+def media(request):
+
+    return render(request, "message.html", {'name': Media.name})
+
