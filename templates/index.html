@@ -83,9 +83,9 @@
             <div class="col-md-offset-2 col-md-8">
                 <h1 class="wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">ReiserX <span>system</span></h1>
                 <div class="element">
-                    <div class="sub-element">Hello aliens</div>
-                    <div class="sub-element">Brought to you by ReiserX a system that you need</div>
-                    <div class="sub-element">Download, install and fly</div>
+                    {% for messages in message %}
+                    <div class="sub-element">{{ messages.message }} {{ messages.timestamp }}</div>
+                    {% endfor %}
                 </div>
                 <a data-scroll href="{% url 'Documentation' %}" class="btn btn-default wow fadeInUp"
                    data-wow-offset="50"

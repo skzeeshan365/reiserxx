@@ -3,6 +3,7 @@ import pyrebase
 
 from .Resources import CONSTANTS
 from .models import Media
+from .models import Message
 from dotenv import load_dotenv
 import os
 
@@ -34,7 +35,8 @@ db = firebase.database()
 
 def home(request):
     medias = Media.objects.all()
-    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS})
+    message = Message.objects.all()
+    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message})
 
 
 def policy(request):

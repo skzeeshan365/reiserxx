@@ -10,3 +10,8 @@ class Media(models.Model):
     link = models.TextField()
     isInternal = models.BooleanField(default=False)
     timestamp = models.DateField(default='2022-07-22')
+
+
+class Message(models.Model):
+    message = models.TextField()
+    timestamp = models.DateField()
