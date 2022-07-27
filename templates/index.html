@@ -84,7 +84,7 @@
                 <h1 class="wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">ReiserX <span>system</span></h1>
                 <div class="element">
                     {% for messages in message %}
-                    <div class="sub-element">{{ messages.message }} {{ ', updated' }} {{ messages.timestamp }}</div>
+                    <div class="sub-element">{{ messages.message }}</div>
                     {% endfor %}
                 </div>
                 <a data-scroll href="{% url 'Documentation' %}" class="btn btn-default wow fadeInUp"

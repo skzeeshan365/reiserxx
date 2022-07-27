@@ -14,4 +14,4 @@ class Media(models.Model):
 
 class Message(models.Model):
     message = models.TextField()
-    timestamp = models.DateField()
+
