@@ -64,34 +64,83 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
-
                     <style>
                         table, th, td {
-                            border-bottom: 1px solid #ddd;
+                            border-bottom: 1px solid #868686;
                             padding: 15px;
                         }
+
                         th {
                             text-align: left;
                         }
-                        tr:hover {background-color: #333333;}
+
+                        td {
+                            color: #b0b0b0;
+                        }
+
+                        #myTable tr.header, #myTable tr:hover {
+                            /* Add a grey background color to the table header and on hover */
+                            background-color: #333333;
+                        }
+
+                        #myInput {
+                            background-position: 10px 12px; /* Position the search icon */
+                            background-repeat: no-repeat; /* Do not repeat the icon image */
+                            width: 100%; /* Full-width */
+                            font-size: 16px; /* Increase font-size */
+                            padding: 12px 20px 12px 40px; /* Add some padding */
+                            border: 1px solid #ddd; /* Add a grey border */
+                            margin-bottom: 12px; /* Add some space below the input */
+                            color: #1b1b1b;
+                        }
                     </style>
 
-                    <table style="width:100%">
-                        <tr>
-                            <th style="width:20%">Timestamp</th>
-                            <th>Log</th>
-                            <th style="width:50%">Description</th>
-                            <th style="width:10%">Open</th>
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for logs">
+                    <table style="width:100%" id="myTable">
+                        <tr class="header">
+                            <th style="width:5%">ID</th>
+                            <th style="width:20%">TIMESTAMP</th>
+                            <th>LOGS</th>
+                            <th style="width:50%">DESCRIPTION</th>
                         </tr>
-
                         {% for log in logs %}
-                        <tr>
-                            <td>{{ log.timestamp }}</td>
-                            <td>{{ log.name }}</td>
-                            <td>{{ log.short_desc }}</td>
-                            <td>{{ log.short_desc }}</td>
-                        </tr>
+                            <tr class='clickable-row' data-href="{% url 'home' %}">
+                                <td>{{ log.pk }}</td>
+                                <td>{{ log.timestamp }}</td>
+                                <td>{{ log.name }}</td>
+                                <td>{{ log.short_desc }}</td>
+                            </tr>
                         {% endfor %}
+                        <script>
+                            function myFunction() {
+                                // Declare variables
+                                var input, filter, table, tr, td, i, txtValue;
+                                input = document.getElementById("myInput");
+                                filter = input.value.toUpperCase();
+                                table = document.getElementById("myTable");
+                                tr = table.getElementsByTagName("tr");
+
+                                // Loop through all table rows, and hide those who don't match the search query
+                                for (i = 0; i < tr.length; i++) {
+                                    td = tr[i].getElementsByTagName("td")[2];
+                                    if (td) {
+                                        txtValue = td.textContent || td.innerText;
+                                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                            tr[i].style.display = "";
+                                        } else {
+                                            tr[i].style.display = "none";
+                                        }
+                                    }
+                                }
+                            }
+                        </script>
+                        <script>
+                            jQuery(document).ready(function ($) {
+                                $(".clickable-row").click(function () {
+                                    window.location = $(this).data("href");
+                                });
+                            });
+                        </script>
                     </table>
                 </div>
             </div>

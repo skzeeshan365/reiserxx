@@ -4,7 +4,7 @@ from .models import Logs
 
 
 def login_page(request):
-    logs = Logs.objects.all()
+    logs = Logs.objects.all().order_by('-id')
     return render(request, "login.html", {'logs': logs})
 
 
