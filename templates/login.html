@@ -11,17 +11,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{% static 'main/css/animate.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/font-awesome.min.css' %}">
-    <link href="{% static "'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css" %}">
-    <link rel="stylesheet" href="{% static 'main/css/templatemo-style.css' %}">
-    <script src="{% static 'main/js/jquery.js' %}"></script>
-    <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'main/js/jquery.singlePageNav.min.js' %}"></script>
-    <script src="{% static 'main/js/typed.js' %}"></script>
-    <script src="{% static 'main/js/wow.min.js' %}"></script>
-    <script src="{% static 'main/js/custom.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'secondary/css/bootstrap.min.css' %}">
+
 </head>
 <body id="top">
 
@@ -37,33 +28,26 @@
 </div>
 <!-- end preloader -->
 
-
 {% if user.is_authenticated %}
-    <!-- start navigation -->
-    <nav class="navbar navbar-default templatemo">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#thetarget">
-                    <span class="icon icon-bar"></span>
-                    <span class="icon icon-bar"></span>
-                    <span class="icon icon-bar"></span>
-                </button>
-                <a href="#" class="navbar-brand">ReiserX</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a class="nav-link" href="{% url 'logout' %}">LOGOUT</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- end navigation -->
     <!-- start lists -->
+
+
+    <link rel="stylesheet" href="{% static 'main/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/font-awesome.min.css' %}">
+    <link href="{% static "'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css" %}">
+    <link rel="stylesheet" href="{% static 'main/css/templatemo-style.css' %}">
+    <script src="{% static 'main/js/jquery.js' %}"></script>
+    <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'main/js/jquery.singlePageNav.min.js' %}"></script>
+    <script src="{% static 'main/js/typed.js' %}"></script>
+    <script src="{% static 'main/js/wow.min.js' %}"></script>
+    <script src="{% static 'main/js/custom.js' %}"></script>
 
     <section id="contact">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+                <div class="col-md-12 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">
                     <style>
                         table, th, td {
                             border-bottom: 1px solid #868686;
@@ -93,9 +77,61 @@
                             margin-bottom: 12px; /* Add some space below the input */
                             color: #1b1b1b;
                         }
+
+                        /* CSS */
+                        .button-2 {
+                            background-color: rgba(128, 128, 128, 0.05);
+                            border-radius: 8px;
+                            border-width: 0;
+                            color: #cecece;
+                            cursor: pointer;
+                            display: inline-block;
+                            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                            font-size: 14px;
+                            font-weight: 500;
+                            line-height: 20px;
+                            list-style: none;
+                            margin: 0;
+                            padding: 10px 12px;
+                            text-align: center;
+                            transition: all 200ms;
+                            vertical-align: baseline;
+                            white-space: nowrap;
+                            user-select: none;
+                            -webkit-user-select: none;
+                            touch-action: manipulation;
+                        }
                     </style>
 
-                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for logs">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6 wow fadeInRight" data-wow-offset="50"
+                             data-wow-delay="0.9s">
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for logs">
+                        </div>
+                        <div align="Right" class="col-md-6 col-sm-6 col-xs-6 wow fadeInLeft" data-wow-offset="50"
+                             data-wow-delay="0.9s">
+
+                            <button id="btn1" onclick="myFunction1()" class="button-2" type="submit" role="button">ADD
+                                LOGS
+                            </button>
+
+                            <button id="btn2" onclick="myFunction2()" type="button" class="button-2">LOGOUT</button>
+                        </div>
+
+                        <script>
+                            function myFunction1() {
+                                location.href="{{ const.CONSTANT.LOGS_ADMIN_URL }}";
+                            }
+                        </script>
+                        <script>
+                            function myFunction2() {
+                                location.href="{% url 'logout' %}";
+                            }
+                        </script>
+
+                    </div>
+
+
                     <table style="width:100%" id="myTable">
                         <tr class="header">
                             <th style="width:5%">ID</th>
@@ -104,7 +140,7 @@
                             <th style="width:50%">DESCRIPTION</th>
                         </tr>
                         {% for log in logs %}
-                            <tr class='clickable-row' data-href="{% url 'home' %}">
+                            <tr class='clickable-row' data-href="{% url 'data' log.pk %}">
                                 <td>{{ log.pk }}</td>
                                 <td>{{ log.timestamp }}</td>
                                 <td>{{ log.name }}</td>
@@ -149,25 +185,42 @@
     <!-- end lists -->
 
 {% else %}
-
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">CONTACT <span>US</span></h2>
+    <style>
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+    </style>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                         class="img-fluid" alt="Phone image">
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <h2>Hello world!</h2>
                     <form action="login" method="post">
                         {% csrf_token %}
-                        <label>NAME</label>
-                        <label for="username"></label><input name="username" type="username" class="form-control"
-                                                             id="username" required>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input name="username" type="text" id="form1Example13"
+                                   class="form-control form-control-lg"/>
+                            <label class="form-label" for="form1Example13">Username</label>
+                        </div>
 
-                        <label>EMAIL</label>
-                        <label for="password"></label><input name="password" type="password" class="form-control"
-                                                             id="password" required>
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            <input name="password" type="password" id="form1Example23"
+                                   class="form-control form-control-lg"/>
+                            <label class="form-label" for="form1Example23">Password</label>
+                        </div>
 
-                        <input type="submit" class="form-control">
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
                     </form>
                 </div>
             </div>
@@ -175,21 +228,5 @@
     </section>
 
 {% endif %}
-<!-- start copyright -->
-<footer id="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <p class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">Copyright &copy; 2022 ReiserX</p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- end copyright -->
 </body>
 </html>
-<script>
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
-</script>

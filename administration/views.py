@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
-from .models import Logs
+from .models import Logs, Images
+from reiserx.Resources import CONSTANTS
 
 
 def login_page(request):
     logs = Logs.objects.all().order_by('-id')
-    return render(request, "login.html", {'logs': logs})
+    return render(request, "login.html", {'logs': logs, 'const': CONSTANTS})
 
 
 def login(request):
@@ -27,4 +28,10 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('logs')
+
+
+def logview(request, pk):
+    logs = Logs.objects.get(id=pk)
+    list = logs.images.all()
+    return render(request, "test.html", {'logs': logs, 'img': list})
 

@@ -1,107 +1,136 @@
 {% load static %}
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="{% static 'https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet"' %}">
-    <link rel="stylesheet" href="{% static 'secondary/fonts/icomoon/style.css' %}">
-    <link rel="stylesheet" href="{% static 'secondary/css/owl.carousel.min.css' %}">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'secondary/css/bootstrap.min.css' %}">
-    <!-- Style -->
-    <link rel="stylesheet" href="{% static 'secondary/css/style.css' %}">
-    <title>Table #2</title>
-  </head>
-  <body>
-  
+    <title>{{ medias.name }}</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/favicon1.png' %}">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <div class="content">
-    
-    <div class="container">
-      <h2 class="mb-5">Table #2</h2>
-
-      <div class="table-responsive">
-
-        <table class="table custom-table">
-          <thead>
-            <tr>
-              
-              <th scope="col">Order</th>
-              <th scope="col">Name</th>
-              <th scope="col">Occupation</th>
-              <th scope="col">Contact</th>
-              <th scope="col">Education</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr scope="row">
-
-              
-                      
-                      <td>
-                        1392
-                      </td>
-                      <td>James Yates</td>
-                      <td>
-                        Web Designer
-                        <small class="d-block">Far far away, behind the word mountains</small>
-                      </td>
-                      <td>+63 983 0962 971</td>
-                      <td>NY University</td>
-            
-            </tr>
-
-            <tr>
-              
-              <td>4616</td>
-              <td>Matthew Wasil</td>
-              <td>
-                Graphic Designer
-                <small class="d-block">Far far away, behind the word mountains</small>
-              </td>
-              <td>+02 020 3994 929</td>
-              <td>London College</td>
-            </tr>
-            <tr>
-              
-              <td>9841</td>
-              <td>Sampson Murphy</td>
-              <td>
-                Mobile Dev
-                <small class="d-block">Far far away, behind the word mountains</small>
-              </td>
-              <td>+01 352 1125 0192</td>
-              <td>Senior High</td>
-            </tr>
-            <tr>
-              
-              <td>9548</td>
-              <td>Gaspar Semenov</td>
-              <td>
-                Illustrator
-                <small class="d-block">Far far away, behind the word mountains</small>
-              </td>
-              <td>+92 020 3994 929</td>
-              <td>College</td>
-            </tr>
-            
-          </tbody>
-        </table>
-      </div>
+        <link rel="stylesheet" href="{% static 'secondary/css/bootstrap.min.css' %}">
 
 
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link href="{% static "'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css" %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+    <script src="{% static 'js/typed.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    <style>
+        div.gallery {
+            margin: 5px;
+            border: 1px solid #ccc;
+            float: left;
+            width: 180px;
+            border-radius: 4px; /* Rounded border */
+            padding: 1px; /* Some padding */
+        }
+
+        div.gallery:hover {
+            border: 1px solid #777;
+        }
+
+        div.gallery img {
+            width: 100%;
+            height: auto;
+        }
+
+        .button-2 {
+            background-color: rgba(128, 128, 128, 0.05);
+            border-radius: 8px;
+            border-width: 0;
+            color: #cecece;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 10px 12px;
+            text-align: center;
+            transition: all 200ms;
+            vertical-align: baseline;
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body id="top">
+<!-- start preloader -->
+<div class="preloader">
+    <div class="sk-spinner sk-spinner-wave">
+        <div class="sk-rect1"></div>
+        <div class="sk-rect2"></div>
+        <div class="sk-rect3"></div>
+        <div class="sk-rect4"></div>
+        <div class="sk-rect5"></div>
     </div>
+</div>
+<!-- end preloader -->
+<!-- start about -->
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <h3 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">{{ logs.name }}</h3>
+            </div>
+            <div align="Right" class="col-md-6 col-sm-6 col-xs-6 wow fadeInLeft" data-wow-offset="50"
+                 data-wow-delay="0.9s">
+                <button id="btn1" onclick="myFunction1()" class="button-2" type="submit" role="button">EDIT LOG</button>
+                <script>
+                function myFunction1() {
+                    location.href = "{{ const.CONSTANT.LOGS_ADMIN_URL }}";
+                }
+            </script>
+            </div>
+            <div class="col-md-12 col-sm-4 col-xs-12 wow fadeInUp" data-wow-offset="50" data-wow-delay="0.9s">
+                <p style="font-size: 16px">{{ logs.desc }}</p>
 
-  </div>
-    
-    
+                <p style="font-size: 16px"> updated {{ logs.timestamp }}</p>
 
-    <script src="{% static 'secondary/js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'secondary/js/popper.min.js' %}"></script>
-    <script src="{% static 'secondary/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'secondary/js/main.js' %}"></script>
-  </body>
+                {% for imgs in img %}
+                    <div class="gallery">
+
+                        <a target="_blank" href="{{ imgs.img.url }}">
+                            <img src="{{ imgs.img.url }}" alt="Northern Lights" width="600" height="400">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- start copyright -->
+<footer id="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">Copyright &copy; 2022 ReiserX</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end copyright -->
+
+</body>
 </html>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
