@@ -33,5 +33,11 @@ def logout(request):
 def logview(request, pk):
     logs = Logs.objects.get(id=pk)
     list = logs.images.all()
-    return render(request, "test.html", {'logs': logs, 'img': list})
+    return render(request, "test.html", {'logs': logs, 'img': list, 'const': CONSTANTS})
+
+
+def delete(request, pk):
+    logs = Logs.objects.get(id=pk)
+    logs.delete()
+    return redirect('logs')
 

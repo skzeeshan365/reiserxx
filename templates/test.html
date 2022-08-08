@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="{% static 'secondary/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'secondary/css/bootstrap.min.css' %}">
 
 
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
@@ -90,12 +90,18 @@
             </div>
             <div align="Right" class="col-md-6 col-sm-6 col-xs-6 wow fadeInLeft" data-wow-offset="50"
                  data-wow-delay="0.9s">
-                <button id="btn1" onclick="myFunction1()" class="button-2" type="submit" role="button">EDIT LOG</button>
+                <button id="btn1" onclick="myFunction1()" class="button-2" role="button">EDIT LOG</button>
+                <button id="btn1" onclick="myFunction2()" class="button-2" role="button">DELETE</button>
+
                 <script>
-                function myFunction1() {
-                    location.href = "{{ const.CONSTANT.LOGS_ADMIN_URL }}";
-                }
-            </script>
+                    function myFunction1() {
+                        location.href = "{{ const.CONSTANT.LOGS_CHANGE_URL }}{{ logs.pk }}{{ '/' }}{{ 'change/' }}";
+                    }</script>
+                <script>
+                    function myFunction2() {
+                        location.href = "{% url 'delete' logs.pk %}";
+                    }</script>
+
             </div>
             <div class="col-md-12 col-sm-4 col-xs-12 wow fadeInUp" data-wow-offset="50" data-wow-delay="0.9s">
                 <p style="font-size: 16px">{{ logs.desc }}</p>
