@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link href="{% static "'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css" %}">
-    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/templatemo-style.css' %}">
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
@@ -44,6 +44,12 @@
             <div class="col-md-3 col-sm-4 col-xs-12">
                 <p><i class="fa fa-envelope-o"></i><span> Email</span><a
                         href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to={{ const.CONSTANT.EMAIL_ADDRESS }}">{{ const.CONSTANT.EMAIL_ADDRESS }}</a>
+                </p>
+            </div>
+
+            <div class="col-md-3 col-sm-4 col-xs-12">
+                <p><i class="fa fa-envelope-o"></i><span> Administration</span><a
+                        href="{% url 'logs' %}">access</a>
                 </p>
             </div>
         </div>

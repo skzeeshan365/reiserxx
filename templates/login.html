@@ -1,0 +1,146 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ReiserX</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/favicon1.png' %}">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'main/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/font-awesome.min.css' %}">
+    <link href="{% static "'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css" %}">
+    <link rel="stylesheet" href="{% static 'main/css/templatemo-style.css' %}">
+    <script src="{% static 'main/js/jquery.js' %}"></script>
+    <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'main/js/jquery.singlePageNav.min.js' %}"></script>
+    <script src="{% static 'main/js/typed.js' %}"></script>
+    <script src="{% static 'main/js/wow.min.js' %}"></script>
+    <script src="{% static 'main/js/custom.js' %}"></script>
+</head>
+<body id="top">
+
+<!-- start preloader -->
+<div class="preloader">
+    <div class="sk-spinner sk-spinner-wave">
+        <div class="sk-rect1"></div>
+        <div class="sk-rect2"></div>
+        <div class="sk-rect3"></div>
+        <div class="sk-rect4"></div>
+        <div class="sk-rect5"></div>
+    </div>
+</div>
+<!-- end preloader -->
+
+
+{% if user.is_authenticated %}
+    <!-- start navigation -->
+    <nav class="navbar navbar-default templatemo">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#thetarget">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">ReiserX</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="nav-link" href="{% url 'logout' %}">LOGOUT</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- end navigation -->
+    <!-- start lists -->
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+
+                    <style>
+                        table, th, td {
+                            border-bottom: 1px solid #ddd;
+                            padding: 15px;
+                        }
+                        th {
+                            text-align: left;
+                        }
+                        tr:hover {background-color: #333333;}
+                    </style>
+
+                    <table style="width:100%">
+                        <tr>
+                            <th style="width:20%">Timestamp</th>
+                            <th>Log</th>
+                            <th style="width:50%">Description</th>
+                            <th style="width:10%">Open</th>
+                        </tr>
+
+                        {% for log in logs %}
+                        <tr>
+                            <td>{{ log.timestamp }}</td>
+                            <td>{{ log.name }}</td>
+                            <td>{{ log.short_desc }}</td>
+                            <td>{{ log.short_desc }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end lists -->
+
+{% else %}
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">CONTACT <span>US</span></h2>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+                    <form action="login" method="post">
+                        {% csrf_token %}
+                        <label>NAME</label>
+                        <label for="username"></label><input name="username" type="username" class="form-control"
+                                                             id="username" required>
+
+                        <label>EMAIL</label>
+                        <label for="password"></label><input name="password" type="password" class="form-control"
+                                                             id="password" required>
+
+                        <input type="submit" class="form-control">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endif %}
+<!-- start copyright -->
+<footer id="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">Copyright &copy; 2022 ReiserX</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end copyright -->
+</body>
+</html>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>

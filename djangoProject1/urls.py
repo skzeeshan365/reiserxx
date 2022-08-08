@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('reiserx.urls')),
+    path('logs/', include('administration.urls')),
     path('admin/', admin.site.urls),
 ]
 

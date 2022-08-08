@@ -31,7 +31,7 @@ API_KEY = os.getenv('API_KEY')
 API_SECRET = os.getenv('API_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'https://reiserx.herokuapp.com/']
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reiserx.apps.ReiserxConfig',
+    'administration.apps.AdministrationConfig',
     'cloudinary_storage',
     'cloudinary',
 ]
