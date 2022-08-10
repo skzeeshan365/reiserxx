@@ -28,10 +28,8 @@
 </div>
 <!-- end preloader -->
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.is_superuser %}
     <!-- start lists -->
-
-
     <link rel="stylesheet" href="{% static 'main/css/animate.min.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/font-awesome.min.css' %}">
@@ -126,12 +124,12 @@
 
                         <script>
                             function myFunction1() {
-                                location.href="{{ const.CONSTANT.LOGS_ADD_URL }}";
+                                location.href = "{{ const.CONSTANT.LOGS_ADD_URL }}";
                             }
                         </script>
                         <script>
                             function myFunction2() {
-                                location.href="{% url 'logout' %}";
+                                location.href = "{% url 'logout' %}";
                             }
                         </script>
 
@@ -190,6 +188,31 @@
     </section>
     <!-- end lists -->
 
+{% elif user.is_authenticated %}
+    <style>
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+    </style>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                         class="img-fluid" alt="Phone image">
+                </div>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <h2>Hello world!</h2>
+                    <h3>You don't have access to this data, please contact the administrator</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
 {% else %}
     <style>
         .divider:after,
@@ -227,12 +250,15 @@
 
                         <!-- Submit button -->
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    <br>
+                        {% for message in messages %}
+                        <p align="center" style="color: red">{{ message }}</p>
+                        {% endfor %}
                     </form>
                 </div>
             </div>
         </div>
     </section>
-
 {% endif %}
 </body>
 </html>

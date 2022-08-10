@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
-from .models import Logs, Images
+from .models import Logs
 from reiserx.Resources import CONSTANTS
+from django.contrib import messages
 
 
 def login_page(request):
@@ -20,7 +21,9 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             return redirect('logs')
-        else: return render(request, "login.html")
+        else:
+            messages.info(request, 'invalid credentials')
+            return render(request, "login.html")
     else:
         return render(request, "login.html")
 
