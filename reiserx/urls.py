@@ -9,4 +9,5 @@ urlpatterns = [
     path('contact', views.contact, name="contact"),
     path('Documentation/', views.setupguide, name="Documentation"),
     path('media/<int:pk>/', views.media, name="media"),
+    path('changelogs/', views.changelogs, name="changelogs"),
 ]

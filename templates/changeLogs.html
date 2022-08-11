@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ReiserX</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/favicon1.png' %}">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link href="{% static "'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css" %}">
+    <link rel="stylesheet" href="{% static 'main/css/templatemo-style.css' %}">
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+    <script src="{% static 'js/typed.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+</head>
+<body id="top">
+
+<!-- start preloader -->
+<div class="preloader">
+    <div class="sk-spinner sk-spinner-wave">
+        <div class="sk-rect1"></div>
+        <div class="sk-rect2"></div>
+        <div class="sk-rect3"></div>
+        <div class="sk-rect4"></div>
+        <div class="sk-rect5"></div>
+    </div>
+</div>
+<!-- end preloader -->
+
+<!-- start about -->
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">CHANGE LOGS <span>REISERX</span>
+                </h2>
+            </div>
+
+            {% for log in logs %}
+
+            <p>ReiserX system v{{ log.version }}</p>
+
+            <ol style="line-height:150%">
+            {% for datum in log.logdata.all %}
+            <li>{{ datum.logs }}</li>
+                {% endfor %}
+            </ol>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- end about -->
+
+<!-- start copyright -->
+<footer id="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">Copyright &copy; 2022 ReiserX</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end copyright -->
+
+</body>
+</html>

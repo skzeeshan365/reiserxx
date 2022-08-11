@@ -15,3 +15,11 @@ class Media(models.Model):
 class Message(models.Model):
     message = models.TextField()
 
+
+class ChangeLog(models.Model):
+    version = models.FloatField()
+
+
+class ChangeLogData(models.Model):
+    changelog = models.ForeignKey(ChangeLog, related_name='logdata', on_delete=models.CASCADE)
+    logs = models.CharField(max_length=200)

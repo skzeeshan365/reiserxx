@@ -7,6 +7,9 @@ from .models import Message
 from dotenv import load_dotenv
 import os
 
+from .models import ChangeLog
+from .models import ChangeLogData
+
 load_dotenv('.env')
 
 apiKey = os.getenv('apiKey')
@@ -70,3 +73,7 @@ def media(request, pk):
     medias = Media.objects.get(id=pk)
     return render(request, "message.html", {'medias': medias})
 
+
+def changelogs(request):
+    logs = ChangeLog.objects.all().order_by('-id')
+    return render(request, "changeLogs.html", {'logs': logs, 'const': CONSTANTS})
