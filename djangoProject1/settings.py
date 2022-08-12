@@ -16,11 +16,8 @@ import dj_database_url
 import django_heroku
 from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv('.env')
 
@@ -93,13 +90,18 @@ WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_HOST = os.getenv('DB_HOST')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd6qgnob0vuvpp7',
-        'USER': 'lfxetmvkjlpfds',
-        'PASSWORD': 'e40deea6b1c0458156d15c97cd6dfa1bae2e9365e4cd6d7138d4e2b9401a59e4',
-        'HOST': 'ec2-54-227-248-71.compute-1.amazonaws.com'
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST
     }
 }
 
