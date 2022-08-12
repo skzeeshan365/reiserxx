@@ -3,6 +3,7 @@ from .models import Media
 from .models import Message
 from .models import ChangeLog
 from .models import ChangeLogData
+from .models import DriverDownloadUrl
 # Register your models here.
 
 
@@ -20,3 +21,4 @@ admin.site.register(ChangeLog, ChangeLogAdmin)
 admin.site.register(ChangeLogData)
 admin.site.register(Media)
 admin.site.register(Message)
+admin.site.register(DriverDownloadUrl)

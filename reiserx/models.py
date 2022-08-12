@@ -23,3 +23,7 @@ class ChangeLog(models.Model):
 class ChangeLogData(models.Model):
     changelog = models.ForeignKey(ChangeLog, related_name='logdata', on_delete=models.CASCADE)
     logs = models.CharField(max_length=200)
+
+
+class DriverDownloadUrl(models.Model):
+    url = models.URLField()

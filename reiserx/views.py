@@ -4,11 +4,11 @@ import pyrebase
 from .Resources import CONSTANTS
 from .models import Media
 from .models import Message
+from .models import DriverDownloadUrl
 from dotenv import load_dotenv
 import os
 
 from .models import ChangeLog
-from .models import ChangeLogData
 
 load_dotenv('.env')
 
@@ -39,7 +39,8 @@ db = firebase.database()
 def home(request):
     medias = Media.objects.all()
     message = Message.objects.all()
-    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message})
+    downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
+    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl})
 
 
 def policy(request):
