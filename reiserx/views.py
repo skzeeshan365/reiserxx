@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import pyrebase
 
 from .Resources import CONSTANTS
@@ -81,7 +81,7 @@ def contact(request):
         data = {"fullname": val1, "email": val2, "message": val3}
         db.child("Administration").child("Web").child("contact").push(data)
 
-    return render(request, "index.html")
+    return redirect('home')
 
 
 def media(request, pk):
