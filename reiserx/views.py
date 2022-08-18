@@ -64,8 +64,22 @@ def contact(request):
     val2 = request.POST['email']
     val3 = request.POST['message']
 
-    data = {"fullname": val1, "email": val2, "message": val3}
-    db.child("Administration").child("Web").child("contact").push(data)
+    subs = ['cyrto', 'crypto', 'finance', 'coin', 'cryto', 'CrytoBaing']
+    if subs[0] in val1:
+        pass
+    elif subs[1] in val1:
+        pass
+    elif subs[2] in val1:
+        pass
+    elif subs[3] in val1:
+        pass
+    elif subs[4] in val1:
+        pass
+    elif subs[5] in val1:
+        pass
+    else:
+        data = {"fullname": val1, "email": val2, "message": val3}
+        db.child("Administration").child("Web").child("contact").push(data)
 
     return render(request, "index.html")
 
