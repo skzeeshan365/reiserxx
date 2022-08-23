@@ -3,15 +3,18 @@ from django.contrib.auth.models import auth
 from .models import Logs
 from reiserx.Resources import CONSTANTS
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 def login_page(request):
-    logs = Logs.objects.all().order_by('-id')
-    return render(request, "login.html", {'logs': logs, 'const': CONSTANTS})
+    if request.user.is_authenticated and request.user.is_superuser:
+        logs = Logs.objects.all().order_by('-id')
+        return render(request, "login.html", {'logs': logs, 'const': CONSTANTS})
+    else:
+        return render(request, "login.html", {'const': CONSTANTS})
 
 
 def login(request):
-
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -33,12 +36,14 @@ def logout(request):
     return redirect('logs')
 
 
+@login_required
 def logview(request, pk):
     logs = Logs.objects.get(id=pk)
     list = logs.images.all()
     return render(request, "test.html", {'logs': logs, 'img': list, 'const': CONSTANTS})
 
 
+@login_required
 def delete(request, pk):
     logs = Logs.objects.get(id=pk)
     logs.delete()
