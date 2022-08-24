@@ -7,6 +7,7 @@ from .models import Message
 from .models import DriverDownloadUrl
 from dotenv import load_dotenv
 import os
+from django.contrib import messages
 
 from .models import ChangeLog
 
@@ -60,28 +61,22 @@ def setupguide(request):
 
 
 def contact(request):
-    val1 = request.POST['fullname']
-    val2 = request.POST['email']
-    val3 = request.POST['message']
+    if request.method == 'POST':
 
-    subs = ['cyrto', 'crypto', 'finance', 'coin', 'cryto', 'CrytoBaing']
-    if subs[0] in val1:
-        pass
-    elif subs[1] in val1:
-        pass
-    elif subs[2] in val1:
-        pass
-    elif subs[3] in val1:
-        pass
-    elif subs[4] in val1:
-        pass
-    elif subs[5] in val1:
-        pass
-    else:
+        # Submit contact form
+        val1 = request.POST['fullname']
+        val2 = request.POST['email']
+        val3 = request.POST['message']
         data = {"fullname": val1, "email": val2, "message": val3}
-        db.child("Administration").child("Web").child("contact").push(data)
 
-    return redirect('home')
+        if db.child("Administration").child("Web").child("contact").push(data):
+            messages.info(request, 'success: 1')  # submission response
+        else:
+            messages.info(request, 'fail: 0')  # submission response
+
+        return redirect('home')
+    else:
+        return redirect('home')
 
 
 def media(request, pk):
