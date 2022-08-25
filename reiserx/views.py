@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 import pyrebase
+import time
 
 from .Resources import CONSTANTS
 from .models import Media
@@ -67,7 +68,8 @@ def contact(request):
         val1 = request.POST['fullname']
         val2 = request.POST['email']
         val3 = request.POST['message']
-        data = {"fullname": val1, "email": val2, "message": val3}
+        milliseconds = int(round(time.time() * 1000))
+        data = {"fullname": val1, "email": val2, "message": val3, "timestamp": milliseconds}
 
         if db.child("Administration").child("Web").child("contact").push(data):
             messages.info(request, 'Your message has been successfully submitted, We will respond to your given email '
