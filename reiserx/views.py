@@ -70,11 +70,15 @@ def contact(request):
         data = {"fullname": val1, "email": val2, "message": val3}
 
         if db.child("Administration").child("Web").child("contact").push(data):
-            messages.info(request, 'success: 1')  # submission response
+            messages.info(request, 'Your message has been successfully submitted, We will respond to your given email '
+                                   'address as soon as possible')  # submission response
         else:
-            messages.info(request, 'fail: 0')  # submission response
+            messages.info(request, 'Failed to submit message')  # submission response
 
-        return redirect('home')
+        medias = Media.objects.all()
+        message = Message.objects.all()
+        downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
+        return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl, 'issubmitted': True})
     else:
         return redirect('home')
 
