@@ -1,16 +1,16 @@
-from django.shortcuts import render, redirect
-import pyrebase
+import os
 import time
 
+import pyrebase
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from dotenv import load_dotenv
+
 from .Resources import CONSTANTS
+from .models import ChangeLog
+from .models import DriverDownloadUrl
 from .models import Media
 from .models import Message
-from .models import DriverDownloadUrl
-from dotenv import load_dotenv
-import os
-from django.contrib import messages
-
-from .models import ChangeLog
 
 load_dotenv('.env')
 
@@ -42,7 +42,8 @@ def home(request):
     medias = Media.objects.all()
     message = Message.objects.all()
     downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
-    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl})
+    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message,
+                                          "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl})
 
 
 def policy(request):
@@ -68,19 +69,26 @@ def contact(request):
         val1 = request.POST['fullname']
         val2 = request.POST['email']
         val3 = request.POST['message']
+
+        substring = 'Cryto'
+        substring2 = 'Baing'
+
         milliseconds = int(round(time.time() * 1000))
         data = {"fullname": val1, "email": val2, "message": val3, "timestamp": milliseconds}
 
-        if db.child("Administration").child("Web").child("contact").push(data):
-            messages.info(request, 'Your message has been successfully submitted, We will respond to your given email '
-                                   'address as soon as possible')  # submission response
+        if db.child("Administration").child("Web").child("contact").push(data) and not (
+                                                                                               substring or substring2) in val1:
+            messages.info(request,
+                          'Your message has been successfully submitted, We will respond to your given email '
+                          'address as soon as possible')  # submission response
         else:
             messages.info(request, 'Failed to submit message')  # submission response
 
         medias = Media.objects.all()
         message = Message.objects.all()
         downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
-        return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl, 'issubmitted': True})
+        return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message,
+                                              "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl, 'issubmitted': True})
     else:
         return redirect('home')
 
