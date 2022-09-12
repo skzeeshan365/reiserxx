@@ -76,11 +76,13 @@ def contact(request):
         milliseconds = int(round(time.time() * 1000))
         data = {"fullname": val1, "email": val2, "message": val3, "timestamp": milliseconds}
 
-        if db.child("Administration").child("Web").child("contact").push(data) and not (
-                                                                                               substring or substring2) in val1:
-            messages.info(request,
-                          'Your message has been successfully submitted, We will respond to your given email '
-                          'address as soon as possible')  # submission response
+        if not (substring or substring2) in val1:
+            if db.child("Administration").child("Web").child("contact").push(data):
+                messages.info(request,
+                              'Your message has been successfully submitted, We will respond to your given email '
+                              'address as soon as possible')  # submission response
+            else:
+                messages.info(request, 'Failed to submit message')  # submission response
         else:
             messages.info(request, 'Failed to submit message')  # submission response
 
