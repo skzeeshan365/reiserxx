@@ -144,6 +144,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 WHITENOISE_USE_FINDERS = True
 
 CSRF_TRUSTED_ORIGINS = [
