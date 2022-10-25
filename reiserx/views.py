@@ -39,7 +39,6 @@ db = firebase.database()
 
 
 def home(request):
-    print(request.META.get('REMOTE_ADDR'))
     medias = Media.objects.all()
     message = Message.objects.all()
     downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
