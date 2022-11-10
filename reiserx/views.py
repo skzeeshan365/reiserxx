@@ -3,6 +3,7 @@ import time
 
 import pyrebase
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from dotenv import load_dotenv
 
@@ -103,3 +104,7 @@ def media(request, pk):
 def changelogs(request):
     logs = ChangeLog.objects.all().order_by('-id')
     return render(request, "changeLogs.html", {'logs': logs, 'const': CONSTANTS})
+
+
+def portfolio(request):
+    return render(request, "portfolio.html")
