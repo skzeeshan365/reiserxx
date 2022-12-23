@@ -28,7 +28,7 @@ API_SECRET = os.getenv('API_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'https://reiserx.herokuapp.com/']
+ALLOWED_HOSTS = ['127.0.0.1', 'http://54.238.218.120/']
 
 # Application definition
 
