@@ -36,9 +36,9 @@ config = {
 
 
 def home(request):
-    medias = Media.objects.all()
-    message = Message.objects.all()
-    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message})
+    # medias = Media.objects.all()
+    # message = Message.objects.all()
+    return render(request, "index.html", {'const': CONSTANTS})
 
 
 def policy(request):
@@ -71,22 +71,22 @@ def contact(request):
         milliseconds = int(round(time.time() * 1000))
         data = {"fullname": val1, "email": val2, "message": val3, "timestamp": milliseconds}
 
-        medias = Media.objects.all()
-        message = Message.objects.all()
+        # medias = Media.objects.all()
+        # message = Message.objects.all()
         # downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
-        return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, 'issubmitted': True})
+        return render(request, "index.html", {'const': CONSTANTS, 'issubmitted': True})
     else:
         return redirect('home')
 
 
 def media(request, pk):
-    medias = Media.objects.get(id=pk)
-    return render(request, "message.html", {'medias': medias})
+    # medias = Media.objects.get(id=pk)
+    return render(request, "message.html")
 
 
 def changelogs(request):
-    logs = ChangeLog.objects.all().order_by('-id')
-    return render(request, "changeLogs.html", {'logs': logs, 'const': CONSTANTS})
+    # logs = ChangeLog.objects.all().order_by('-id')
+    return render(request, "changeLogs.html", {'const': CONSTANTS})
 
 
 def portfolio(request):
