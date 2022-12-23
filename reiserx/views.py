@@ -87,9 +87,8 @@ def contact(request):
 
         medias = Media.objects.all()
         message = Message.objects.all()
-        downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
-        return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message,
-                                              "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl, 'issubmitted': True})
+        # downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
+        return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, 'issubmitted': True})
     else:
         return redirect('home')
 
