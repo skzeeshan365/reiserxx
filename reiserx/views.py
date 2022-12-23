@@ -42,9 +42,7 @@ db = firebase.database()
 def home(request):
     medias = Media.objects.all()
     message = Message.objects.all()
-    downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
-    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message,
-                                          "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl})
+    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message})
 
 
 def policy(request):
