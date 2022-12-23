@@ -28,7 +28,7 @@ API_SECRET = os.getenv('API_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'http://54.238.218.120/', '54.238.218.120:8000']
+ALLOWED_HOSTS = ['127.0.0.1', 'http://54.238.218.120/', 'http://54.238.218.120:8000/']
 
 # Application definition
 
@@ -88,7 +88,19 @@ WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'reiserx',
+        'USER': 'tennis',
+        'PASSWORD': 'tennis92',
+        'HOST': 'localhost'
+    }
+}
+
 db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
