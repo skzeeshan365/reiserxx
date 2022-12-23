@@ -28,7 +28,7 @@ API_SECRET = os.getenv('API_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'http://54.238.218.120/', 'http://54.238.218.120:8000/']
+ALLOWED_HOSTS = ['127.0.0.1', 'http://54.238.218.120/', 'http://54.238.218.120:8000/', '54.238.218.120']
 
 # Application definition
 
