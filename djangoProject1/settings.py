@@ -88,15 +88,20 @@ WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+NAME = os.getenv('DB_NAME')
+HOST = os.getenv('DB_HOST')
+USER = os.getenv('DB_USER')
+PASSWORD = os.getenv('DB_PASSWORD')
+PORT = os.getenv('DB_PORT')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'reiserx',
-        'HOST': 'database.chthlio44a9w.ap-northeast-1.rds.amazonaws.com',
-        'USER': 'admin',
-        'PASSWORD': 'tennis92',
-        'PORT': '3306',
+        'NAME': NAME,
+        'HOST': HOST,
+        'USER': USER,
+        'PASSWORD': PASSWORD,
+        'PORT': PORT,
     }
 }
 

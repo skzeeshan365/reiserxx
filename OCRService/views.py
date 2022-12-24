@@ -1,26 +1,51 @@
-import io
 import json
 import os
 
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from dotenv import load_dotenv
 from google.cloud import vision
+from google.oauth2 import service_account
 
 
 @csrf_exempt
 def process(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        process_request(data.get('image'))
-    return HttpResponse('received_json_data')
+        response = process_request(data.get('image'))
+    return HttpResponse(response)
 
 
 def process_request(data):
+    load_dotenv('.env')
 
+    type = os.getenv('vision_type')
+    project_id = os.getenv('vision_project_id')
+    private_key_id = os.getenv('vision_private_key_id')
+    private_key = os.getenv('vision_private_key')
+    client_email = os.getenv('vision_client_email')
+    client_id = os.getenv('vision_client_id')
+    auth_uri = os.getenv('vision_auth_uri')
+    token_uri = os.getenv('vision_token_uri')
+    auth_provider_x509_cert_url = os.getenv('vision_auth_provider_x509_cert_url')
+    client_x509_cert_url = os.getenv('vision_client_x509_cert_url')
+
+    CREDENTIALS = {
+        "type": type,
+        "project_id": project_id,
+        "private_key_id": private_key_id,
+        "private_key": private_key,
+        "client_email": client_email,
+        "client_id": client_id,
+        "auth_uri": auth_uri,
+        "token_uri": token_uri,
+        "auth_provider_x509_cert_url": auth_provider_x509_cert_url,
+        "client_x509_cert_url": client_x509_cert_url
+    }
     # calling up google vision json file
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'D:\Downloads\test-372219-215a3e9402e5.json'
+    credentials = service_account.Credentials.from_service_account_info(CREDENTIALS)
 
-    client = vision.ImageAnnotatorClient()
+    client = vision.ImageAnnotatorClient(credentials=credentials)
 
     content = data
 
@@ -28,29 +53,7 @@ def process_request(data):
 
     response = client.document_text_detection(image=image, image_context={"language_hints": ["en-t-i0-handwrit"]})
 
-    print(response.full_text_annotation.text)
-
-    for page in response.full_text_annotation.pages:
-        for block in page.blocks:
-            print('\nBlock confidence: {}\n'.format(block.confidence))
-
-            for paragraph in block.paragraphs:
-                print('Paragraph confidence: {}'.format(
-                    paragraph.confidence))
-
-                for word in paragraph.words:
-                    word_text = ''.join([
-                        symbol.text for symbol in word.symbols
-                    ])
-                    print('Word text: {} (confidence: {})'.format(
-                        word_text, word.confidence))
-
-                    for symbol in word.symbols:
-                        print('\tSymbol: {} (confidence: {})'.format(
-                            symbol.text, symbol.confidence))
-
     if response.error.message:
-        raise Exception(
-            '{}\nFor more info on error messages, check: '
-            'https://cloud.google.com/apis/design/errors'.format(
-                response.error.message))
+        return response.error.message
+    else:
+        return response.full_text_annotation.text
