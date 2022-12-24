@@ -24,7 +24,7 @@ CLOUD_NAME = os.getenv('CLOUD_NAME')
 API_KEY = os.getenv('API_KEY')
 API_SECRET = os.getenv('API_SECRET')
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = "django-insecure-wws88x=2$xj*2m9p8jiuz&fj0+c_7kbn$t@ueoobf@5$39#@ik"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
