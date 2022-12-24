@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-wws88x=2$xj*2m9p8jiuz&fj0+c_7kbn$t@ueoobf@5$39#@ik
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'http://54.238.218.120/', 'http://54.238.218.120:8000/', '54.238.218.120', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', '54.238.218.120', 'localhost', 'reiserx.com']
 
 # Application definition
 
