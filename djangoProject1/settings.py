@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 
 NAME = os.getenv('DB_NAME', 'reiserx')
 HOST = os.getenv('DB_HOST', 'database.chthlio44a9w.ap-northeast-1.rds.amazonaws.com')
-USER = os.getenv('DB_USER' 'admin')
+USER = os.getenv('DB_USER', 'admin')
 PASSWORD = os.getenv('DB_PASSWORD', 'tennis92')
 PORT = os.getenv('DB_PORT', '3306')
 
