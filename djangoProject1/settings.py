@@ -13,7 +13,6 @@ import os.path
 from pathlib import Path
 
 import dj_database_url
-import django_heroku
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +28,7 @@ SECRET_KEY = "django-insecure-wws88x=2$xj*2m9p8jiuz&fj0+c_7kbn$t@ueoobf@5$39#@ik
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'http://54.238.218.120/', 'http://54.238.218.120:8000/', '54.238.218.120']
+ALLOWED_HOSTS = ['127.0.0.1', 'http://54.238.218.120/', 'http://54.238.218.120:8000/', '54.238.218.120', 'localhost']
 
 # Application definition
 
@@ -96,7 +95,8 @@ DATABASES = {
         'NAME': 'reiserx',
         'USER': 'tennis',
         'PASSWORD': 'tennis92',
-        'HOST': 'localhost'
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 
