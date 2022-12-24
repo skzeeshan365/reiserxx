@@ -91,12 +91,12 @@ WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'reiserx',
-        'USER': 'tennis',
+        'HOST': 'database.chthlio44a9w.ap-northeast-1.rds.amazonaws.com',
+        'USER': 'admin',
         'PASSWORD': 'tennis92',
-        'HOST': 'localhost',
-        'PORT': ''
+        'PORT': '3306',
     }
 }
 
