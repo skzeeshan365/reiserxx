@@ -1,6 +1,6 @@
 import json
 import sys
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from RestrictedPython import safe_builtins
@@ -10,15 +10,15 @@ def process(request):
     if request.method == 'POST':
         if request.headers.get("Authorization") == "check":
             data = json.loads(request.body)
-            result = ''
+            result = {"response": ''}
             try:
-                result = execute_user_code(data.get('code'))
+                result['response'] = execute_user_code(data.get('code'))
             except Exception as e:
                 # to return error in the code
-                result = e
-            return HttpResponse(result)
+                result['response'] = e
+            return JsonResponse(result, content_type='application/json')
         else:
-            return HttpResponse("You are not allowed")
+            return HttpResponse("Permission denied")
 
 
 _SAFE_MODULES = frozenset("math")
