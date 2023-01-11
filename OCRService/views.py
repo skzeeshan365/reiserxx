@@ -21,11 +21,12 @@ def process(request):
             return HttpResponse("Permission denied")
 
 
-_SAFE_MODULES = frozenset("math")
+_SAFE_MODULES = frozenset(("math",))
+
 
 def _safe_import(name, *args, **kwargs):
     if name not in _SAFE_MODULES:
-        raise Exception(f"You are are not allowed to import {name!r}")
+        raise Exception(f"Don't you even think about {name!r}")
     return __import__(name, *args, **kwargs)
 
 
@@ -35,19 +36,18 @@ def execute_user_code(user_code, *args, **kwargs):
             **safe_builtins,
             "__import__": _safe_import,
             "_print_": print,
-            "print": print,
         },
     }
-    byte_code = 0
+
     try:
         byte_code = compile(user_code, filename="<user_code>", mode="exec")
     except SyntaxError as e:
         output = e
+
     try:
         original_stdout = sys.stdout
         sys.stdout = open('file.txt', 'w')
-
-        exec(byte_code, my_globals, {})
+        exec(byte_code, my_globals)
 
         sys.stdout.close()
 
