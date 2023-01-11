@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from RestrictedPython import safe_builtins
 
+
 @csrf_exempt
 def process(request):
     if request.method == 'POST':
@@ -26,7 +27,7 @@ _SAFE_MODULES = frozenset(("math",))
 
 def _safe_import(name, *args, **kwargs):
     if name not in _SAFE_MODULES:
-        raise Exception(f"Don't you even think about {name!r}")
+        raise Exception(f"You are are not allowed to import {name!r}")
     return __import__(name, *args, **kwargs)
 
 
@@ -34,20 +35,19 @@ def execute_user_code(user_code, *args, **kwargs):
     my_globals = {
         "__builtins__": {
             **safe_builtins,
-            "__import__": _safe_import,
-            "_print_": print,
+            "print": print,
+            "__import__": _safe_import
         },
     }
-
     try:
         byte_code = compile(user_code, filename="<user_code>", mode="exec")
-    except SyntaxError as e:
-        output = e
-
+    except SyntaxError:
+        raise
     try:
         original_stdout = sys.stdout
         sys.stdout = open('file.txt', 'w')
-        exec(byte_code, my_globals)
+
+        exec(byte_code, my_globals, {})
 
         sys.stdout.close()
 
@@ -70,7 +70,6 @@ def index(request):
 def runcode(request):
     if request.method == 'POST':
         codeareadata = request.POST['codearea']
-        result = ''
         try:
             result = execute_user_code(codeareadata)
         except Exception as e:
