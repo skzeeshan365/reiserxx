@@ -1,14 +1,14 @@
 import json
-
+import sys
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-
+from RestrictedPython import safe_builtins
 
 @csrf_exempt
 def process(request):
     if request.method == 'POST':
-        if request.headers.get("Authorization")  == "check":
+        if request.headers.get("Authorization") == "check":
             data = json.loads(request.body)
             result = ''
             try:
@@ -20,14 +20,12 @@ def process(request):
         else:
             return HttpResponse("You are not allowed")
 
-from RestrictedPython import safe_builtins, compile_restricted
 
-_SAFE_MODULES = frozenset(("math",))
-
+_SAFE_MODULES = frozenset("math")
 
 def _safe_import(name, *args, **kwargs):
     if name not in _SAFE_MODULES:
-        raise Exception(f"Your are not allowed to import {name!r}")
+        raise Exception(f"You are are not allowed to import {name!r}")
     return __import__(name, *args, **kwargs)
 
 
@@ -36,21 +34,33 @@ def execute_user_code(user_code, *args, **kwargs):
         "__builtins__": {
             **safe_builtins,
             "__import__": _safe_import,
+            "_print_": print,
+            "print": print,
         },
     }
-
+    byte_code = 0
     try:
-        byte_code = compile_restricted(
-            user_code, filename="<user_code>", mode="exec")
-    except SyntaxError:
-        # syntax error in the sandboxed code
-        raise
-
+        byte_code = compile(user_code, filename="<user_code>", mode="exec")
+    except SyntaxError as e:
+        output = e
     try:
-        exec(byte_code, my_globals)
-    except BaseException:
+        original_stdout = sys.stdout
+        sys.stdout = open('file.txt', 'w')
+
+        exec(byte_code, my_globals, {})
+
+        sys.stdout.close()
+
+        sys.stdout = original_stdout  # reset the standard output to its original value
+
+        # finally read output from file and save in output variable
+
+        output = open('file.txt', 'r').read()
+    except BaseException as e:
+        sys.stdout = original_stdout
+        output = e
         # runtime error (probably) in the sandboxed code
-        raise
+    return output
 
 
 def index(request):
