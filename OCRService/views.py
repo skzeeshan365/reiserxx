@@ -120,5 +120,6 @@ def process_vision(code):
     }
     r = requests.post(URL, json=data)
     api_answer = json.loads(r.text)
+    print(r.text)
     rows = api_answer['responses'][0]['textAnnotations']
     return rows[0]['description']
