@@ -1,27 +1,33 @@
 import json
 import sys
-
+import os
 import requests
 from RestrictedPython import safe_builtins
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from .code_formatter import format_code
+from dotenv import load_dotenv
 
+load_dotenv('.env')
 
 @csrf_exempt
 def process(request):
     if request.method == 'POST':
-        if request.headers.get("Authorization") == "check":
+        result = {"response": '', "success": ''}
+        if request.headers.get("Authorization") == os.getenv('PYTHON_KEY'):
             data = json.loads(request.body)
-            result = {"response": ''}
             try:
                 result['response'] = execute_user_code(data.get('code'))
+                result['success'] = 1
             except Exception as e:
-                # to return error in the code
                 result['response'] = e
+                result['success'] = 0
             return JsonResponse(result, content_type='application/json')
         else:
-            return HttpResponse("Permission denied")
+            result['response'] = 'Permission denied'
+            result['success'] = 0
+            return JsonResponse(result, content_type='application/json')
 
 
 _SAFE_MODULES = frozenset(("math",))
@@ -83,17 +89,20 @@ def runcode(request):
 @csrf_exempt
 def scan_document(request):
     if request.method == 'POST':
-        if request.headers.get("Authorization") == "check":
+        result = {"response": '', "success": ''}
+        if request.headers.get("Authorization") == os.getenv('PYTHON_KEY'):
             data = json.loads(request.body)
-
-            response = process_vision(data.get("image"))
-            return HttpResponse(response)
+            result['response'] = format_code(process_vision(data.get("image")))
+            result['success'] = 1
+            return JsonResponse(result, content_type='application/json')
         else:
-            return HttpResponse("Permission denied")
+            result['response'] = 'Permission denied'
+            result['success'] = 0
+            return JsonResponse(result, content_type='application/json')
 
 
 def process_vision(code):
-
+    URL = "https://vision.googleapis.com/v1/images:annotate?key="+os.getenv('VISION_KEY')
     data = {
         "requests": [
             {
@@ -112,4 +121,6 @@ def process_vision(code):
         ]
     }
     r = requests.post(URL, json=data)
-    return r.text
+    api_answer = json.loads(r.text)
+    rows = api_answer['responses'][0]['textAnnotations']
+    return rows[0]['description']
