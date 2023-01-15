@@ -93,7 +93,7 @@ def scan_document(request):
 
 
 def process_vision(code):
-    URL = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDDaAa54HZJ51ybd_OlPwn4bmnk2P7KQtI"
+
     data = {
         "requests": [
             {
