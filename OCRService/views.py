@@ -18,11 +18,9 @@ def process(request):
         if request.headers.get("Authorization") == os.getenv('PYTHON_KEY'):
             data = json.loads(request.body)
             try:
-                result['response'] = execute_user_code(data.get('code'))
-                result['success'] = 1
+                result = {"response": str(execute_user_code(data.get('code'))), "success": 1}
             except Exception as e:
-                result['response'] = e
-                result['success'] = 0
+                result = {"response": str(e), "success": 1}
             return JsonResponse(result, content_type='application/json')
         else:
             result['response'] = 'Permission denied'
