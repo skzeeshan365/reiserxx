@@ -1,9 +1,11 @@
 import json
 import sys
+
+import requests
+from RestrictedPython import safe_builtins
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from RestrictedPython import safe_builtins
 
 
 @csrf_exempt
@@ -76,3 +78,38 @@ def runcode(request):
             # to return error in the code
             result = e
     return render(request, 'codeEditor.html', {"code": codeareadata, "output": result})
+
+
+@csrf_exempt
+def scan_document(request):
+    if request.method == 'POST':
+        if request.headers.get("Authorization") == "check":
+            data = json.loads(request.body)
+
+            response = process_vision(data.get("image"))
+            return HttpResponse(response)
+        else:
+            return HttpResponse("Permission denied")
+
+
+def process_vision(code):
+    URL = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDDaAa54HZJ51ybd_OlPwn4bmnk2P7KQtI"
+    data = {
+        "requests": [
+            {
+                "image": {
+                    "content": code
+                },
+                "features": [
+                    {
+                        "type": "DOCUMENT_TEXT_DETECTION"
+                    }
+                ],
+                "imageContext": {
+                    "languageHints": ["en-t-i0-handwrit"]
+                }
+            }
+        ]
+    }
+    r = requests.post(URL, json=data)
+    return r.text
