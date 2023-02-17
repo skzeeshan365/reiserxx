@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os.path
 from pathlib import Path
-
-import dj_database_url
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -104,9 +102,6 @@ DATABASES = {
         'PORT': PORT,
     }
 }
-
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
