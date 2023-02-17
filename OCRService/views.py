@@ -9,7 +9,6 @@ from django.views.decorators.csrf import csrf_exempt
 from .code_formatter import format_code
 from dotenv import load_dotenv
 from .text_to_handwrit import api
-from django.shortcuts import redirect
 
 load_dotenv('.env')
 
@@ -132,8 +131,8 @@ def text_to_handwrit(request):
     global text
     if request.method == 'POST':
         text = request.POST['text']
-        path = api(text)
-        print(path)
+        api(text)
         return render(request, 'textToHandwrit.html', {'data': True, 'text': text})
     else:
         return render(request, 'textToHandwrit.html', {'data': False})
+
