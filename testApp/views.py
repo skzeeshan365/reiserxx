@@ -4,5 +4,6 @@ from django.contrib.auth.models import auth
 
 
 def wish(request):
-    str1 = '''a = 3\nb = 6\nres = a + b\nprint(res)'''
-    return HttpResponse(exec(str1))
+    title = "Title"
+    message = "Message"
+    return render(request, 'birthday.html', {'title': title, 'message': message})
