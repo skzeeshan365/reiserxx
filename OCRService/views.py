@@ -8,8 +8,11 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from .code_formatter import format_code
 from dotenv import load_dotenv
+from .text_to_handwrit import api
+from django.shortcuts import redirect
 
 load_dotenv('.env')
+
 
 @csrf_exempt
 def process(request):
@@ -100,7 +103,7 @@ def scan_document(request):
 
 
 def process_vision(code):
-    URL = "https://vision.googleapis.com/v1/images:annotate?key="+os.getenv('VISION_KEY')
+    URL = "https://vision.googleapis.com/v1/images:annotate?key=" + os.getenv('VISION_KEY')
     data = {
         "requests": [
             {
@@ -123,3 +126,14 @@ def process_vision(code):
     print(r.text)
     rows = api_answer['responses'][0]['textAnnotations']
     return rows[0]['description']
+
+
+def text_to_handwrit(request):
+    global text
+    if request.method == 'POST':
+        text = request.POST['text']
+        path = api(text)
+        print(path)
+        return render(request, 'textToHandwrit.html', {'data': True, 'text': text})
+    else:
+        return render(request, 'textToHandwrit.html', {'data': False})

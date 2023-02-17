@@ -6,4 +6,5 @@ urlpatterns = [
     path('web/', views.index, name='runweb'),
     path('web/run', views.runcode, name='runweb'),
     path('scan/', views.scan_document, name='run'),
+    path('convert/', views.text_to_handwrit, name='convert'),
 ]
