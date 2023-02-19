@@ -1,16 +1,16 @@
 import os
-import time
 
-from django.contrib import messages
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from dotenv import load_dotenv
 
 from .Resources import CONSTANTS
 from .models import ChangeLog
-from .models import DriverDownloadUrl
 from .models import Media
 from .models import Message
+from .models import Contact
+from .models import DriverDownloadUrl
+
+from django.contrib import messages
 
 load_dotenv('.env')
 
@@ -38,7 +38,8 @@ config = {
 def home(request):
     medias = Media.objects.all()
     message = Message.objects.all()
-    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message})
+    download_url = DriverDownloadUrl.objects.get(pk=1).url
+    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, "REISERX_DRIVER_DOWNLOAD_URL": download_url})
 
 
 def policy(request):
@@ -65,16 +66,16 @@ def contact(request):
         val2 = request.POST['email']
         val3 = request.POST['message']
 
-        substring = 'Cryto'
-        substring2 = 'Baing'
-
-        milliseconds = int(round(time.time() * 1000))
-        data = {"fullname": val1, "email": val2, "message": val3, "timestamp": milliseconds}
+        if Contact.objects.create(username=val1, email=val2, message=val3):
+            messages.info(request, 'Your message has been successfully submitted, We will respond to your given email '
+                                   'address as soon as possible')  # submission response
+        else:
+            messages.info(request, 'Failed to submit message')  # submission response
 
         medias = Media.objects.all()
         message = Message.objects.all()
-        # downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
-        return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, 'issubmitted': True})
+        downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
+        return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, 'issubmitted': True, "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl})
     else:
         return redirect('home')
 

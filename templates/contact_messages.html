@@ -1,0 +1,142 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ReiserX</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/favicon1.png' %}">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'secondary/css/bootstrap.min.css' %}">
+
+</head>
+<body id="top">
+
+<!-- start preloader -->
+<div class="preloader">
+    <div class="sk-spinner sk-spinner-wave">
+        <div class="sk-rect1"></div>
+        <div class="sk-rect2"></div>
+        <div class="sk-rect3"></div>
+        <div class="sk-rect4"></div>
+        <div class="sk-rect5"></div>
+    </div>
+</div>
+<!-- end preloader -->
+
+{% if user.is_authenticated and user.is_superuser %}
+    <!-- start lists -->
+    <link rel="stylesheet" href="{% static 'main/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/font-awesome.min.css' %}">
+    <link href="{% static "'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css" %}">
+    <link rel="stylesheet" href="{% static 'main/css/templatemo-style.css' %}">
+    <script src="{% static 'main/js/jquery.js' %}"></script>
+    <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'main/js/jquery.singlePageNav.min.js' %}"></script>
+    <script src="{% static 'main/js/typed.js' %}"></script>
+    <script src="{% static 'main/js/wow.min.js' %}"></script>
+    <script src="{% static 'main/js/custom.js' %}"></script>
+
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">
+                    <style>
+                        table, th, td {
+                            border-bottom: 1px solid #6e6e6e;
+                            padding: 15px;
+                        }
+
+                        th {
+                            text-align: left;
+                        }
+
+                        td {
+                            color: #b0b0b0;
+                        }
+
+                        #myTable tr:hover {
+                            /* Add a grey background color to the table header and on hover */
+                            background-color: #444444;
+                        }
+
+                        #myTable tr.header, #myTable tr:hover {
+                            /* Add a grey background color to the table header and on hover */
+                            background-color: #3b3b3b;
+                        }
+
+                        #myInput {
+                            background-position: 10px 12px; /* Position the search icon */
+                            background-repeat: no-repeat; /* Do not repeat the icon image */
+                            width: 100%; /* Full-width */
+                            font-size: 16px; /* Increase font-size */
+                            padding: 12px 20px 12px 40px; /* Add some padding */
+                            border: 1px solid #adadad; /* Add a grey border */
+                            margin-bottom: 12px; /* Add some space below the input */
+                            color: #2a2a2a;
+                            border-radius: 10px;
+                        }
+
+                        /* CSS */
+                        .button-2 {
+                            background-color: rgba(128, 128, 128, 0.05);
+                            border-radius: 8px;
+                            border-width: 0;
+                            color: #cecece;
+                            cursor: pointer;
+                            display: inline-block;
+                            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                            font-size: 14px;
+                            font-weight: 500;
+                            line-height: 20px;
+                            list-style: none;
+                            margin: 0;
+                            padding: 10px 12px;
+                            text-align: center;
+                            transition: all 200ms;
+                            vertical-align: baseline;
+                            white-space: nowrap;
+                            user-select: none;
+                            -webkit-user-select: none;
+                            touch-action: manipulation;
+                        }
+                    </style>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6 wow fadeInRight" data-wow-offset="50"
+                             data-wow-delay="0.9s">
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for logs">
+                        </div>
+                    </div>
+
+
+                    <table style="width:100%" id="myTable">
+                        <tr class="header">
+                            <th style="width:20%">TIMESTAMP</th>
+                            <th>NAME</th>
+                            <th>EMAIL</th>
+                            <th style="width:50%">MESSAGE</th>
+                        </tr>
+                        {% for contact in contacts %}
+                            <tr class='clickable-row'>
+                                <td>{{ contact.timestamp }}</td>
+                                <td>{{ contact.username }}</td>
+                                <td>{{ contact.email }}</td>
+                                <td>{{ contact.message }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end lists -->
+
+{% endif %}
+</body>
+</html>

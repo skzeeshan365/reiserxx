@@ -115,11 +115,11 @@
                         <div align="Right" class="col-md-6 col-sm-6 col-xs-6 wow fadeInLeft" data-wow-offset="50"
                              data-wow-delay="0.9s">
 
-                            <button id="btn1" onclick="myFunction1()" class="button-2" type="submit" role="button">ADD
-                                LOGS
-                            </button>
+                            <button id="btn1" onclick="myFunction1()" class="button-2" type="submit" role="button">ADD LOGS</button>
 
                             <button id="btn2" onclick="myFunction2()" type="button" class="button-2">LOGOUT</button>
+
+                            <button id="btn3" onclick="myFunction3()" type="button" class="button-2">CONTACT MESSAGES</button>
                         </div>
 
                         <script>
@@ -130,6 +130,12 @@
                         <script>
                             function myFunction2() {
                                 location.href = "{% url 'logout' %}";
+                            }
+                        </script>
+
+                        <script>
+                            function myFunction3() {
+                                location.href = "{% url 'contacts' %}";
                             }
                         </script>
 
