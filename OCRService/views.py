@@ -134,5 +134,5 @@ def text_to_handwrit(request):
         api(text)
         return render(request, 'textToHandwrit.html', {'data': True, 'text': text})
     else:
-        return render(request, 'textToHandwrit.html', {'data': False})
+        return render(request, 'textToHandwrit.html', {'data': False, 'flag': True, 'heading': 'Currently in development', 'message': 'This feture is currently in development\nWe are adding a feature to use your own handwriting font to produce\nhand written images'})
 
