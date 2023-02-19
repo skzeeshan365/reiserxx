@@ -22,7 +22,6 @@ urlpatterns = [
     path('', include('reiserx.urls')),
     path('logs/', include('administration.urls')),
     path('python/', include('OCRService.urls')),
-    path('message/', include('testApp.urls')),
     path('admin/', admin.site.urls),
 ]
 
