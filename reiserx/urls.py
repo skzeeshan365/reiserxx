@@ -11,4 +11,5 @@ urlpatterns = [
     path('media/<int:pk>/', views.media, name="media"),
     path('changelogs/', views.changelogs, name="changelogs"),
     path('portfolio/', views.portfolio, name="portfolio"),
+    path('certificate/', views.cert, name="cert"),
 ]

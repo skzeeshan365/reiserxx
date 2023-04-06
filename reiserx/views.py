@@ -9,6 +9,7 @@ from .models import Media
 from .models import Message
 from .models import Contact
 from .models import DriverDownloadUrl
+from django.templatetags.static import static
 
 from django.contrib import messages
 
@@ -39,7 +40,8 @@ def home(request):
     medias = Media.objects.all()
     message = Message.objects.all()
     download_url = DriverDownloadUrl.objects.get(pk=1).url
-    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, "REISERX_DRIVER_DOWNLOAD_URL": download_url})
+    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message,
+                                          "REISERX_DRIVER_DOWNLOAD_URL": download_url})
 
 
 def policy(request):
@@ -75,7 +77,9 @@ def contact(request):
         medias = Media.objects.all()
         message = Message.objects.all()
         downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
-        return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message, 'issubmitted': True, "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl})
+        return render(request, "index.html",
+                      {'medias': medias, 'const': CONSTANTS, 'message': message, 'issubmitted': True,
+                       "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl})
     else:
         return redirect('home')
 
@@ -91,4 +95,8 @@ def changelogs(request):
 
 
 def portfolio(request):
-    return render(request, "portfolio.html")
+    return render(request, "portfolio.html", {'file': static('portfolio.pdf'), 'message': "Download my portfolio, currently it's in pdf form!"})
+
+
+def cert(request):
+    return render(request, "portfolio.html", {'file': static('cert.pdf'), 'message': 'This file will be available till 20th April 2023'})

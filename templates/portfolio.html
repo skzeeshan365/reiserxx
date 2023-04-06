@@ -35,9 +35,9 @@
                          class="img-fluid" alt="Phone image">
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                    <h3>Download my portfolio, currently it's in pdf form!</h3>
+                    <h3>{{ message }}</h3>
                         <!-- Submit button -->
-                    <form action="{% static 'portfolio.pdf' %}">
+                    <form action="{{ file }}">
                         <button type="submit" class="btn btn-primary btn-lg btn-block">DOWNLOAD</button>
                     </form>
                 </div>
