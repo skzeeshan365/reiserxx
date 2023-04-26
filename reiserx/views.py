@@ -40,24 +40,24 @@ def home(request):
     medias = Media.objects.all()
     message = Message.objects.all()
     download_url = DriverDownloadUrl.objects.get(pk=1).url
-    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message,
+    return render(request, "secondary/index.html", {'medias': medias, 'const': CONSTANTS, 'message': message,
                                           "REISERX_DRIVER_DOWNLOAD_URL": download_url})
 
 
 def policy(request):
-    return render(request, "policy.html", {'const': CONSTANTS})
+    return render(request, "secondary/policy.html", {'const': CONSTANTS})
 
 
 def reiserxpolicy(request):
-    return render(request, "reiserxpolicy.html", {'const': CONSTANTS})
+    return render(request, "secondary/reiserxpolicy.html", {'const': CONSTANTS})
 
 
 def terms(request):
-    return render(request, "termsofuse.html", {'const': CONSTANTS})
+    return render(request, "secondary/termsofuse.html", {'const': CONSTANTS})
 
 
 def setupguide(request):
-    return render(request, "setup.html", {'const': CONSTANTS})
+    return render(request, "secondary/setup.html", {'const': CONSTANTS})
 
 
 def contact(request):
@@ -77,7 +77,7 @@ def contact(request):
         medias = Media.objects.all()
         message = Message.objects.all()
         downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
-        return render(request, "index.html",
+        return render(request, "secondary/index.html",
                       {'medias': medias, 'const': CONSTANTS, 'message': message, 'issubmitted': True,
                        "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl})
     else:
@@ -86,17 +86,17 @@ def contact(request):
 
 def media(request, pk):
     medias = Media.objects.get(id=pk)
-    return render(request, "message.html", {'medias': medias})
+    return render(request, "secondary/message.html", {'medias': medias})
 
 
 def changelogs(request):
     logs = ChangeLog.objects.all().order_by('-id')
-    return render(request, "changeLogs.html", {'logs': logs, 'const': CONSTANTS})
+    return render(request, "secondary/changeLogs.html", {'logs': logs, 'const': CONSTANTS})
 
 
 def portfolio(request):
-    return render(request, "portfolio.html", {'file': static('portfolio.pdf'), 'message': "Download my portfolio, currently it's in pdf form!"})
+    return render(request, "secondary/portfolio.html", {'file': static('portfolio.pdf'), 'message': "Download my portfolio, currently it's in pdf form!"})
 
 
 def cert(request):
-    return render(request, "portfolio.html", {'file': static('cert.pdf'), 'message': 'This file will be available till 20th April 2023'})
+    return render(request, "secondary/portfolio.html", {'file': static('cert.pdf'), 'message': 'This file will be available till 20th April 2023'})

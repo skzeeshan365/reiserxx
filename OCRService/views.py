@@ -72,7 +72,7 @@ def execute_user_code(user_code, *args, **kwargs):
 
 
 def index(request):
-    return render(request, 'codeEditor.html')
+    return render(request, 'secondary/codeEditor.html')
 
 
 def runcode(request):
@@ -83,7 +83,7 @@ def runcode(request):
         except Exception as e:
             # to return error in the code
             result = e
-    return render(request, 'codeEditor.html', {"code": codeareadata, "output": result})
+    return render(request, 'secondary/codeEditor.html', {"code": codeareadata, "output": result})
 
 
 @csrf_exempt
@@ -132,7 +132,7 @@ def text_to_handwrit(request):
     if request.method == 'POST':
         text = request.POST['text']
         api(text)
-        return render(request, 'textToHandwrit.html', {'data': True, 'text': text})
+        return render(request, 'secondary/textToHandwrit.html', {'data': True, 'text': text})
     else:
-        return render(request, 'textToHandwrit.html', {'data': False, 'flag': True, 'heading': 'Currently in development', 'message': 'This feture is currently in development\nWe are adding a feature to use your own handwriting font to produce\nhand written images'})
+        return render(request, 'secondary/textToHandwrit.html', {'data': False, 'flag': True, 'heading': 'Currently in development', 'message': 'This feture is currently in development\nWe are adding a feature to use your own handwriting font to produce\nhand written images'})
 
