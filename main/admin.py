@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .forms import PostForm
+from administration.forms import PostForm
 from .models import Post, Tag, Category, Comment
 from django import forms
 

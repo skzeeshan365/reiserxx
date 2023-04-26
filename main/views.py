@@ -1,7 +1,7 @@
 from django.forms import modelformset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import CommentForm, PostForm
+from .forms import CommentForm
 from .models import Post
 from .models import Tag
 from .models import Category
