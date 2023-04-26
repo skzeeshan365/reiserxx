@@ -19,8 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', include('reiserx.urls')),
+    path('', include('main.urls')),
     path('logs/', include('administration.urls')),
+    path('python/', include('OCRService.urls')),
+    path('test/', include('testApp.urls')),
     path('admin/', admin.site.urls),
 ]
 

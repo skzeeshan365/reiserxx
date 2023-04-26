@@ -1,11 +1,17 @@
-from django.shortcuts import render
-import pyrebase
+import os
+
+from django.shortcuts import render, redirect
+from dotenv import load_dotenv
 
 from .Resources import CONSTANTS
+from .models import ChangeLog
 from .models import Media
 from .models import Message
-from dotenv import load_dotenv
-import os
+from .models import Contact
+from .models import DriverDownloadUrl
+from django.templatetags.static import static
+
+from django.contrib import messages
 
 load_dotenv('.env')
 
@@ -29,14 +35,13 @@ config = {
     "measurementId": measurementId
 }
 
-firebase = pyrebase.initialize_app(config)
-db = firebase.database()
-
 
 def home(request):
     medias = Media.objects.all()
     message = Message.objects.all()
-    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message})
+    download_url = DriverDownloadUrl.objects.get(pk=1).url
+    return render(request, "index.html", {'medias': medias, 'const': CONSTANTS, 'message': message,
+                                          "REISERX_DRIVER_DOWNLOAD_URL": download_url})
 
 
 def policy(request):
@@ -56,17 +61,42 @@ def setupguide(request):
 
 
 def contact(request):
-    val1 = request.POST['fullname']
-    val2 = request.POST['email']
-    val3 = request.POST['message']
+    if request.method == 'POST':
 
-    data = {"fullname": val1, "email": val2, "message": val3}
-    db.child("Administration").child("Web").child("contact").push(data)
+        # Submit contact form
+        val1 = request.POST['fullname']
+        val2 = request.POST['email']
+        val3 = request.POST['message']
 
-    return render(request, "index.html")
+        if Contact.objects.create(username=val1, email=val2, message=val3):
+            messages.info(request, 'Your message has been successfully submitted, We will respond to your given email '
+                                   'address as soon as possible')  # submission response
+        else:
+            messages.info(request, 'Failed to submit message')  # submission response
+
+        medias = Media.objects.all()
+        message = Message.objects.all()
+        downloadUrl = DriverDownloadUrl.objects.get(pk=1).url
+        return render(request, "index.html",
+                      {'medias': medias, 'const': CONSTANTS, 'message': message, 'issubmitted': True,
+                       "REISERX_DRIVER_DOWNLOAD_URL": downloadUrl})
+    else:
+        return redirect('home')
 
 
 def media(request, pk):
     medias = Media.objects.get(id=pk)
     return render(request, "message.html", {'medias': medias})
 
+
+def changelogs(request):
+    logs = ChangeLog.objects.all().order_by('-id')
+    return render(request, "changeLogs.html", {'logs': logs, 'const': CONSTANTS})
+
+
+def portfolio(request):
+    return render(request, "portfolio.html", {'file': static('portfolio.pdf'), 'message': "Download my portfolio, currently it's in pdf form!"})
+
+
+def cert(request):
+    return render(request, "portfolio.html", {'file': static('cert.pdf'), 'message': 'This file will be available till 20th April 2023'})

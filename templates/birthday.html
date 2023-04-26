@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Apsa</title>
+
+  <link rel="stylesheet" href="{% static 'birthday/styles/flexbox-center-container.css' %}" media="all">
+  <link rel="stylesheet" href="{% static 'birthday/styles/system-fonts.css' %}" media="all">
+  <link rel="stylesheet" href="{% static 'birthday/styles/style.css' %}" media="all">
+</head>
+
+<body>
+  <canvas id=c></canvas>
+  <canvas id="confetti"></canvas>
+  <div class="container" id="count">
+    <h1 id="head">Countdown to your birthday:</h1>
+    <ul>
+      <li><span id="day"></span>days</li>
+      <li><span id="hour"></span>hours</li>
+      <li><span id="minute"></span>minutes</li>
+      <li><span id="second"></span>seconds</li>
+    </ul>
+  </div>
+  <div id="merrywrap" class="merrywrap">
+    <canvas id="snowfall"></canvas>
+    <div class="giftbox">
+      <div class="cover">
+        <div></div>
+      </div>
+      <div class="box"></div>
+    </div>
+  </div>
+</body>
+<script src="{% static 'birthday/scripts/confetti.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'birthday/scripts/index.js' %}" charset="utf-8"></script>
+
+</html>

@@ -28,10 +28,8 @@
 </div>
 <!-- end preloader -->
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.is_superuser %}
     <!-- start lists -->
-
-
     <link rel="stylesheet" href="{% static 'main/css/animate.min.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/font-awesome.min.css' %}">
@@ -44,13 +42,13 @@
     <script src="{% static 'main/js/wow.min.js' %}"></script>
     <script src="{% static 'main/js/custom.js' %}"></script>
 
-    <section id="contact">
+    <section id="about">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">
                     <style>
                         table, th, td {
-                            border-bottom: 1px solid #868686;
+                            border-bottom: 1px solid #6e6e6e;
                             padding: 15px;
                         }
 
@@ -62,9 +60,14 @@
                             color: #b0b0b0;
                         }
 
+                        #myTable tr:hover {
+                            /* Add a grey background color to the table header and on hover */
+                            background-color: #444444;
+                        }
+
                         #myTable tr.header, #myTable tr:hover {
                             /* Add a grey background color to the table header and on hover */
-                            background-color: #333333;
+                            background-color: #3b3b3b;
                         }
 
                         #myInput {
@@ -112,21 +115,27 @@
                         <div align="Right" class="col-md-6 col-sm-6 col-xs-6 wow fadeInLeft" data-wow-offset="50"
                              data-wow-delay="0.9s">
 
-                            <button id="btn1" onclick="myFunction1()" class="button-2" type="submit" role="button">ADD
-                                LOGS
-                            </button>
+                            <button id="btn1" onclick="myFunction1()" class="button-2" type="submit" role="button">ADD LOGS</button>
 
                             <button id="btn2" onclick="myFunction2()" type="button" class="button-2">LOGOUT</button>
+
+                            <button id="btn3" onclick="myFunction3()" type="button" class="button-2">CONTACT MESSAGES</button>
                         </div>
 
                         <script>
                             function myFunction1() {
-                                location.href="{{ const.CONSTANT.LOGS_ADD_URL }}";
+                                location.href = "{{ const.CONSTANT.LOGS_ADD_URL }}";
                             }
                         </script>
                         <script>
                             function myFunction2() {
-                                location.href="{% url 'logout' %}";
+                                location.href = "{% url 'logout' %}";
+                            }
+                        </script>
+
+                        <script>
+                            function myFunction3() {
+                                location.href = "{% url 'contacts' %}";
                             }
                         </script>
 
@@ -185,6 +194,31 @@
     </section>
     <!-- end lists -->
 
+{% elif user.is_authenticated %}
+    <style>
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+    </style>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                         class="img-fluid" alt="Phone image">
+                </div>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <h2>ACCESS DENIED!</h2>
+                    <h3>You don't have access to this data, please contact the administrator</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
 {% else %}
     <style>
         .divider:after,
@@ -204,8 +238,7 @@
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                     <h2>Hello world!</h2>
-                    <form action="login" method="post">
-                        {% csrf_token %}
+                    <form action="login" method="post">{% csrf_token %}
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <input name="username" type="text" id="form1Example13"
@@ -222,12 +255,15 @@
 
                         <!-- Submit button -->
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    <br>
+                        {% for message in messages %}
+                        <p align="center" style="color: red">{{ message }}</p>
+                        {% endfor %}
                     </form>
                 </div>
             </div>
         </div>
     </section>
-
 {% endif %}
 </body>
 </html>
