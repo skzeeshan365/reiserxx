@@ -8,6 +8,13 @@ from main.models import Post, Category
 from django.contrib import messages
 
 
+def login_page(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        return redirect('post_new')
+    else:
+        return render(request, "secondary/login.html")
+
+
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
