@@ -1,7 +1,7 @@
 from django.core.validators import MaxLengthValidator
 from django.db import models
 import math
-from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 from django.utils.text import slugify
@@ -50,13 +50,13 @@ class Post(models.Model):
     timestamp = models.DateTimeField(max_length=50, auto_now=True)
     slug = models.SlugField(unique=True, editable=False)
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE, default=None)
     tags = models.ManyToManyField(Tag, related_name='posts')
 
     def save(self, *args, **kwargs):
         # slugify the title and save the post
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
-
 
     def get_absolute_url(self):
         return f"/posts/{self.slug}/"
@@ -75,7 +75,6 @@ class Post(models.Model):
 
     def get_content(self):
         return self.content
-
 
 
 class Comment(models.Model):

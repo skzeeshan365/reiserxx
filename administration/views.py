@@ -43,6 +43,10 @@ def post_create_view(request):
     if request.method == 'POST':
         formset = PostFormSet(request.POST, request.FILES)
         if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.author = request.user  # set the author field to the currently logged-in user
+                instance.save()
             formset.save()
             return redirect('post_new')
     else:

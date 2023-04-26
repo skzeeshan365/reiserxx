@@ -95,7 +95,6 @@
                         </a>
                         <div class="card-block">
                             <h2 class="card-title"><a href="{% url 'open' post.slug %}">{{ post.title }}</a></h2>
-                            <h4 class="card-text">{{ object.description }}</h4>
                             <div class="metafooter">
                                 <div class="wrapfooter">
 									<span class="meta-footer-thumb">
@@ -104,7 +103,7 @@
                                                                alt="Sal"></a>
 									</span>
                                     <span class="author-meta">
-									<span class="post-name"><a href="author.html">Sal</a></span><br/>
+									<span class="post-name"><a href="author.html">{{ post.author.get_full_name }}</a></span><br/>
 									<span class="post-date">22 July 2017</span><span class="dot"></span><span
                                             class="post-read">6 min read</span>
 									</span>

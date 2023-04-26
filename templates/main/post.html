@@ -139,7 +139,7 @@
                                                    alt="Sal"></a>
                     </div>
                     <div class="col-md-10">
-                        <a class="link-dark" href="author.html">ReiserX</a>
+                        <a class="link-dark" href="author.html">{{ post.author.get_full_name }}</a>
                         <span class="author-description">Founder of WowThemes.net and creator of <b>"Mediumish"</b> theme that you're currently previewing. Developing professional premium themes, templates, plugins, scripts since 2012.</span>
                         <span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span
                             class="post-read">{{ post.get_reading_time }} min read</span>
@@ -204,7 +204,7 @@
                                                            alt="Sal"></a>
 								</span>
                                     <span class="author-meta">
-								<span class="post-name"><a href="author.html">Sal</a></span><br/>
+								<span class="post-name"><a href="author.html">{{ post.author.get_full_name }}</a></span><br/>
 								<span class="post-date">22 July 2017</span><span class="dot"></span><span
                                             class="post-read">6 min read</span>
 								</span>
