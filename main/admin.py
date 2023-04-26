@@ -1,21 +1,14 @@
 from django.contrib import admin
-from .models import Post, Tag, Category
+
+from .forms import PostForm
+from .models import Post, Tag, Category, Comment
+from django import forms
 
 # Register your models here.
 
 
-class TagInline(admin.StackedInline):
-    model = Tag
-
-
 class PostInline(admin.StackedInline):
     model = Post
-
-
-class PostAdmin(admin.ModelAdmin):
-    inlines = [
-        TagInline
-    ]
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -24,6 +17,12 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
 
 
+class PostAdmin(admin.ModelAdmin):
+    form = PostForm
+
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Tag)
+
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Comment)

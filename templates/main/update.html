@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static '/reiserx/img/favicon.ico' %}">
+    <title>Mediumish - A Medium style template by WowThemes.net</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static '/reiserx/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i"
+          rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static '/reiserx/css/mediumish.css' %}" rel="stylesheet">
+
+    <style>
+        /* CSS styles go here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 20px 24px 20px 20px;
+        }
+
+        .post-form {
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        input[type="text"], textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        button[type="submit"] {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0062cc;
+        }
+
+        #add-form {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #add-form:hover {
+            background-color: #0062cc;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var formCount = parseInt($('#id_form-TOTAL_FORMS').val());
+            var addButton = $('#add-form');
+            var formContainer = $('.form-container');
+
+            addButton.click(function (event) {
+                event.preventDefault();
+                var newForm = formContainer.find('.post-form:first').clone();
+                newForm.find(':input').each(function () {
+                    var name = $(this).attr('name').replace('-' + (formCount - 1) + '-', '-' + formCount + '-');
+                    var id = 'id_' + name;
+                    $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+                });
+                formContainer.append(newForm);
+                $('#id_form-TOTAL_FORMS').val(formCount + 1);
+                formCount++;
+            });
+        });
+    </script>
+</head>
+<body>
+
+<!-- Begin Nav
+================================================== -->
+<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="container">
+        <div class=" collapse navbar-collapse" id="navbarsExampleDefault">
+            <!-- Begin Menu -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'category' %}">Post<span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="post.html">Edit post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">Category</a>
+                </li>
+            </ul>
+            <!-- End Menu -->
+        </div>
+    </div>
+</nav>
+<!-- End Nav
+================================================== -->
+
+{% block content %}
+    <h2>New Post</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <div class="form-container">
+            {% for form in formset %}
+                <div class="post-form">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button id="add-form" class="btn btn-secondary btn-block">Add Another Form</button>
+        </div>
+    </form>
+{% endblock %}
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static '/reiserx/js/jquery.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="{% static '/reiserx/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/reiserx/js/ie10-viewport-bug-workaround.js' %}"></script>
+    <script src="{% static '/reiserx/js/mediumish.js' %}"></script>
+</body>
+</html>
