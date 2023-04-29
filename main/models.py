@@ -2,9 +2,28 @@ from django.core.validators import MaxLengthValidator
 from django.db import models
 import math
 from django.contrib.auth.models import User
+from PIL import Image
+import io
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Create your models here.
+from django.utils.crypto import get_random_string
 from django.utils.text import slugify
+
+
+def compress(image):
+    # Open image using PIL
+    img = Image.open(image)
+
+    # Set quality to 80%
+    img.save(image, 'JPEG', quality=80)
+
+    # Read the compressed image into memory
+    in_memory = io.BytesIO()
+    img.save(in_memory, format='JPEG')
+    in_memory.seek(0)
+
+    return in_memory
 
 
 class Category(models.Model):
@@ -56,6 +75,16 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         # slugify the title and save the post
         self.slug = slugify(self.title)
+
+        # check for existing slug and append random string
+        if Post.objects.filter(slug=self.slug).exists():
+            self.slug = f"{self.slug}-{get_random_string(length=6)}"
+
+        if self.image:
+            # Compress the image and save it
+            compressed_image = compress(self.image)
+            self.image = InMemoryUploadedFile(compressed_image, 'ImageField', self.image.name, 'image/jpeg',
+                                              compressed_image.tell, None)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -75,6 +104,23 @@ class Post(models.Model):
 
     def get_content(self):
         return self.content
+
+    def get_comments(self):
+        return self.comments.filter(post=self.pk)
+
+    def get_related_posts(self):
+        return Post.objects.filter(tags__tag__in=self.get_tags()).exclude(slug=self.slug).distinct()
+
+    def get_author_name(self):
+        return slugify(self.author.get_full_name())
+
+    @staticmethod
+    def search_by_title(query):
+        return Post.objects.filter(title__icontains=query).only('title', 'description', 'content', 'image', 'timestamp', 'author')
+
+    @classmethod
+    def get_posts_by_user(cls, user):
+        return cls.objects.filter(author=user).only('title', 'description', 'content', 'image', 'timestamp')
 
 
 class Comment(models.Model):

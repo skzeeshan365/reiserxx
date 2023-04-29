@@ -13,7 +13,7 @@ API_SECRET = os.getenv('API_SECRET')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '54.238.218.120', 'localhost', 'reiserx.com']
 
@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'cloudinary_storage',
     'cloudinary',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
