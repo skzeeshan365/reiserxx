@@ -12,7 +12,7 @@ from .models import Category
 def home(request):
     posts = Post.objects.order_by('-timestamp')[:2]
     all_posts = Post.objects.all()
-    return render(request, 'main/main.html', {'posts': posts, 'all_posts': all_posts})
+    return render(request, 'main/main.html', {'posts': posts, 'all_posts': all_posts, 'current_menu': 1})
 
 
 def open_post(request, user, post_slug):
@@ -41,7 +41,7 @@ def open_post(request, user, post_slug):
 
 
 def about(request):
-    return render(request, 'main/category.html')
+    return render(request, 'main/category.html', {'current_menu': 3})
 
 
 def search(request):
@@ -49,7 +49,7 @@ def search(request):
 
     if query:
         results = Post.search_by_title(query=query)  # Assuming title field is to be searched
-        context = {'query': query, 'posts': results, 'title': 'Results For'}
+        context = {'query': query, 'posts': results, 'title': 'Results For', 'current_menu': 1}
         return render(request, 'main/search.html', context)
     else:
         return redirect('home')
@@ -58,22 +58,22 @@ def search(request):
 def search_by_tag(request, tag_slug):
     tag = Tag.objects.get(slug=tag_slug)
     posts = tag.get_posts()
-    return render(request, 'main/search.html', {'query': tag, 'posts': posts, 'title': 'Results For'})
+    return render(request, 'main/search.html', {'query': tag, 'posts': posts, 'title': 'Results For', 'current_menu': 1})
 
 
 def categories(request):
     category = Category.objects.all()
-    return render(request, 'secondary/categories.html', {'category': category})
+    return render(request, 'main/categories.html', {'category': category, 'current_menu': 2})
 
 
 def search_by_category(request, category_slug):
     cat = Category.objects.get(slug=category_slug)
     posts = cat.get_posts()
-    return render(request, 'main/category.html', {'posts': posts, 'category': cat.category, 'desc': cat.description})
+    return render(request, 'main/category.html', {'posts': posts, 'category': cat.category, 'desc': cat.description, 'current_menu': 2})
 
 
 def search_by_author(request, username):
     user = User.objects.get(username=username)
     posts = Post.get_posts_by_user(user)
-    context = {'posts': posts, 'user': user}
+    context = {'posts': posts, 'user': user, 'current_menu': 1}
     return render(request, 'main/author.html', context)

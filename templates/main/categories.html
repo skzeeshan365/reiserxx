@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <!-- Begin Featured
+        ================================================== -->
+        <section class="featured-posts">
+            <div class="section-title">
+                <h2><span>Featured</span></h2>
+            </div>
+            <div class="card-columns listfeaturedtag">
+
+                {% for object in category %}
+                    <!-- begin post -->
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-md-5 wrapthumbnail">
+                                <a href="{% url 'search_by_category' object.slug %}">
+                                    <div class="thumbnail" style="background-image:url({{ object.image.url }});">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-block">
+                                    <h2 class="card-title"><a
+                                            href="{% url 'search_by_category' object.slug %}">{{ object.category }}</a>
+                                    </h2>
+                                    <h4 class="card-text">{{ object.description }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end post -->
+                {% endfor %}
+            </div>
+        </section>
+        <!-- End Featured
+        ================================================== -->
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

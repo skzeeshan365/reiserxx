@@ -4,14 +4,18 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4FMP7BP8M0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4FMP7BP8M0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'G-4FMP7BP8M0');
-</script>
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-4FMP7BP8M0');
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -62,17 +66,16 @@
         </a>
         <!-- End Logo -->
         <div class=" collapse navbar-collapse" id="navbarsExampleDefault">
-            <!-- Begin Menu -->
+           <!-- Begin Menu -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'category' %}">Categories <span
-                            class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{% url 'home' %}">HOME</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="post.html">Post</a>
+                    <a class="nav-link" href="{% url 'category' %}">CATEGORY</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                    <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
                 </li>
             </ul>
             <!-- End Menu -->
