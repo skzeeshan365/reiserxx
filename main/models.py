@@ -1,7 +1,9 @@
+from ckeditor_uploader.fields import RichTextUploadingField
+from cloudinary.models import CloudinaryField
 from django.core.validators import MaxLengthValidator
 from django.db import models
 import math
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from PIL import Image
 import io
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -9,6 +11,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 # Create your models here.
 from django.utils.crypto import get_random_string
 from django.utils.text import slugify
+from froala_editor.fields import FroalaField
 
 
 def compress(image):
@@ -63,7 +66,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    content = FroalaField()
     description = models.CharField(max_length=1000)
     image = models.ImageField(upload_to='pics/', null=True, blank=True)
     timestamp = models.DateTimeField(max_length=50, auto_now=True)
@@ -112,7 +115,7 @@ class Post(models.Model):
         return Post.objects.filter(tags__tag__in=self.get_tags()).exclude(slug=self.slug).distinct()
 
     def get_author_name(self):
-        return slugify(self.author.get_full_name())
+        return self.author.get_username()
 
     @staticmethod
     def search_by_title(query):

@@ -13,7 +13,7 @@ API_SECRET = os.getenv('API_SECRET')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '54.238.218.120', 'localhost', 'reiserx.com']
 
@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'cloudinary_storage',
     'cloudinary',
-    'ckeditor',
+    'froala_editor',
 ]
 
 MIDDLEWARE = [
@@ -119,13 +119,18 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+FILER_ENABLE_PERMISSIONS = True
+FILER_FILE_STORAGE_BACKEND = 'django_cloudinary.storage.MediaCloudinaryStorage'
+
+FROALA_UPLOAD_PATH = '/froala_editor/upload/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

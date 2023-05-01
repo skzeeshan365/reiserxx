@@ -3,6 +3,7 @@ from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
 
+from main.utils import handle_uploaded_image
 from .forms import PostForm, CategoryForm
 from main.models import Post, Category
 from django.contrib import messages
@@ -51,11 +52,11 @@ def post_create_view(request):
             return redirect('post_new')
     else:
         formset = PostFormSet(queryset=Post.objects.none())
-    return render(request, 'main/update.html', {'formset': formset})
+    return render(request, 'main/update.html', {'formset': formset, 'new': True})
 
 
 def post_edit(request):
-    PostFormSet = modelformset_factory(Post, form=PostForm, extra=1)
+    PostFormSet = modelformset_factory(Post, form=PostForm, extra=0)
     if request.method == 'POST':
         formset = PostFormSet(request.POST, request.FILES)
         if formset.is_valid():
@@ -63,7 +64,7 @@ def post_edit(request):
             return redirect('post_new')
     else:
         formset = PostFormSet(queryset=Post.objects.all())
-    return render(request, 'main/update.html', {'formset': formset})
+    return render(request, 'main/update.html', {'formset': formset, 'new': False})
 
 
 def category(request):

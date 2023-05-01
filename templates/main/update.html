@@ -19,6 +19,11 @@
           rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{% static '/reiserx/css/mediumish.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link href="{% static 'froala_editor/css/froala_editor.pkgd.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'froala_editor/css/froala_style.min.css' %}" rel="stylesheet" type="text/css"/>
+    <script src="{% static 'froala_editor/js/froala_editor.pkgd.min.js' %}"></script>
 
     <style>
         /* CSS styles go here */
@@ -34,10 +39,7 @@
         }
 
         form {
-            max-width: 600px;
-            margin: 0 auto;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin: 30px;
             padding: 20px 24px 20px 20px;
         }
 
@@ -55,13 +57,17 @@
         }
 
         input[type="text"], textarea {
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 10px;
+            outline: none;
+            box-shadow: none;
+    }
 
         label {
             display: block;
@@ -87,15 +93,16 @@
 
         #add-form {
             display: inline-block;
-            margin-left: 10px;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    width: 150px;
         }
 
         #add-form:hover {
@@ -103,26 +110,22 @@
         }
     </style>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            var formCount = parseInt($('#id_form-TOTAL_FORMS').val());
-            var addButton = $('#add-form');
-            var formContainer = $('.form-container');
-
-            addButton.click(function (event) {
-                event.preventDefault();
-                var newForm = formContainer.find('.post-form:first').clone();
-                newForm.find(':input').each(function () {
-                    var name = $(this).attr('name').replace('-' + (formCount - 1) + '-', '-' + formCount + '-');
-                    var id = 'id_' + name;
-                    $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
-                });
-                formContainer.append(newForm);
-                $('#id_form-TOTAL_FORMS').val(formCount + 1);
-                formCount++;
-            });
-        });
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
     </script>
 </head>
 <body>
@@ -159,32 +162,54 @@
 
 {% block content %}
     <h2>New Post</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ formset.management_form }}
-        <div class="form-container">
-            {% for form in formset %}
-                <div class="post-form">
-                    {{ form.as_p }}
-                </div>
-            {% endfor %}
-        </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button id="add-form" class="btn btn-secondary btn-block">Add Another Form</button>
-        </div>
-    </form>
+    <div class="form-container" id="form-container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <div class="form-container">
+                {% for form in formset %}
+                    <div class="post-form">
+                        {{ form.as_p }}
+                        {{ form.media }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                {% if new %}
+                <button id="add-form" class="btn btn-secondary btn-block" type="button" onclick="addForm()">Add Another Form</button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
 {% endblock %}
 
 <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{% static '/reiserx/js/jquery.min.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-            crossorigin="anonymous"></script>
-    <script src="{% static '/reiserx/js/bootstrap.min.js' %}"></script>
-    <script src="{% static '/reiserx/js/ie10-viewport-bug-workaround.js' %}"></script>
-    <script src="{% static '/reiserx/js/mediumish.js' %}"></script>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% static '/reiserx/js/jquery.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="{% static '/reiserx/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/reiserx/js/ie10-viewport-bug-workaround.js' %}"></script>
+<script src="{% static '/reiserx/js/mediumish.js' %}"></script>
+<script>
+    function addForm() {
+        // Get the formset container and the number of existing forms
+        var formContainer = document.getElementById('form-container');
+        var formCount = formContainer.getElementsByTagName('form').length;
+
+        // Create a new form by cloning the first form in the formset
+        var newForm = formContainer.getElementsByTagName('form')[0].cloneNode(true);
+
+        // Update the form prefixes in the new form
+        var formRegex = new RegExp('form-' + (formCount - 1), 'g');
+        newForm.innerHTML = newForm.innerHTML.replace(formRegex, 'form-' + formCount);
+
+        // Append the new form to the formset container
+        formContainer.appendChild(newForm);
+    }
+</script>
 </body>
 </html>

@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from froala_editor import views
 
 urlpatterns = [
-    path('', include('main.urls')),
-    path('admin/', include('administration.urls')),
-    path('python/', include('OCRService.urls')),
     path('administration/', admin.site.urls),
+    path('admin/', include('administration.urls')),
+    path('froala_editor/', include('froala_editor.urls')),
+    path('', include('main.urls')),
+    path('python/', include('OCRService.urls')),
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

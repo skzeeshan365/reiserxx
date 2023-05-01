@@ -90,7 +90,7 @@
                 <!-- begin post -->
                 <div class="authorpostbox">
                     <div class="card">
-                        <a href="{% url 'open' post.get_author_name post.slug %}">
+                        <a href="{% url 'open' post.author.get_username post.slug %}">
                             <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="">
                         </a>
                         <div class="card-block">
@@ -103,7 +103,7 @@
                                                                  alt="Sal"></a>
 									</span>
                                     <span class="author-meta">
-									<span class="post-name"><a href="{% url 'search_by_author' post.author.username %}">{{ post.author.get_full_name }}</a></span><br/>
+									<span class="post-name"><a href="{% url 'search_by_author' post.author.username %}">{{ post.get_author_name }}</a></span><br/>
                                         <span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span class="post-read">{{ post.get_reading_time }} min read</span>
 									</span>
                                     <span class="post-read-more"><a href="{% url 'open' post.get_author_name post.slug %}" title="Read Story"><svg
