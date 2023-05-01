@@ -1,6 +1,4 @@
 from django.db import models
-from time import gmtime, strftime
-from datetime import datetime
 
 
 # Create your models here.

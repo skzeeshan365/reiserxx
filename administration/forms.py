@@ -1,13 +1,10 @@
 import io
 
 from django import forms
-from django.forms import FileInput
 from froala_editor.widgets import FroalaEditor
 
-from main.models import Comment, Post, Tag, Category
+from main.models import Post, Tag, Category
 from PIL import Image
-import re
-from django.core.exceptions import ValidationError
 
 
 class CategoryForm(forms.ModelForm):

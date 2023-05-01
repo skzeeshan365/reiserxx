@@ -3,7 +3,6 @@ from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
 
-from main.utils import handle_uploaded_image
 from .forms import PostForm, CategoryForm
 from main.models import Post, Category
 from django.contrib import messages

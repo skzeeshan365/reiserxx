@@ -1,5 +1,3 @@
-from ckeditor_uploader.fields import RichTextUploadingField
-from cloudinary.models import CloudinaryField
 from django.core.validators import MaxLengthValidator
 from django.db import models
 import math
