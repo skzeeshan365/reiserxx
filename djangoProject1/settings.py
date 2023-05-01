@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'froala_editor',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [

@@ -7,3 +7,5 @@ Allow: /
 
 User-agent: *
 Disallow: /
+
+Sitemap: https://reiserx.com/sitemap.xml
