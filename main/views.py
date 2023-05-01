@@ -28,7 +28,7 @@ def open_post(request, user, post_slug):
             new_comment = form.save(commit=False)
             new_comment.post = post
             new_comment.save()
-            return redirect('open', post_slug=post.slug)
+            return redirect('open', user=user, post_slug=post.slug)
     else:
         form = CommentForm()
     contents = {'post': post,

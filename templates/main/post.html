@@ -22,18 +22,18 @@
     <meta property="og:image" content="{{ post.image.url }}"/>
     <style>
         .card {
-  width: 100%;
-  height: 400px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-}
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
 
-.img-thumb {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
+        .img-thumb {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -139,7 +139,8 @@
                                                      alt="Sal"></a>
                     </div>
                     <div class="col-md-10">
-                        <a class="link-dark" href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a>
+                        <a class="link-dark"
+                           href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a>
                         <span class="author-description">Founder of WowThemes.net and creator of <b>"Mediumish"</b> theme that you're currently previewing. Developing professional premium themes, templates, plugins, scripts since 2012.</span>
                         <span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span
                             class="post-read">{{ post.get_reading_time }} min read</span>
@@ -194,7 +195,8 @@
                             <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="">
                         </a>
                         <div class="card-block">
-                            <h2 class="card-title"><a href="{% url 'open' post.get_author_name post.slug %}">{{ post.title }}</a>
+                            <h2 class="card-title"><a
+                                    href="{% url 'open' post.get_author_name post.slug %}">{{ post.title }}</a>
                             </h2>
                             <div class="metafooter">
                                 <div class="wrapfooter">
@@ -204,11 +206,14 @@
                                                              alt="Sal"></a>
 								</span>
                                     <span class="author-meta">
-								<span class="post-name"><a href="{% url 'search_by_author' post.author.username %}">{{ post.get_author_name }}</a></span><br/>
-								<span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span class="post-read">{{ post.get_reading_time }} min read</span>
+								<span class="post-name"><a
+                                        href="{% url 'search_by_author' post.author.username %}">{{ post.get_author_name }}</a></span><br/>
+								<span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span
+                                            class="post-read">{{ post.get_reading_time }} min read</span>
 								</span>
-                                    <span class="post-read-more"><a href="{% url 'open' post.get_author_name post.slug %}"
-                                                                    title="Read Story"><svg
+                                    <span class="post-read-more"><a
+                                            href="{% url 'open' post.get_author_name post.slug %}"
+                                            title="Read Story"><svg
                                             class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path
                                             d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z"
                                             fill-rule="evenodd"></path></svg></a></span>
@@ -223,120 +228,170 @@
     </div>
 </div>
 
-    <div class="container" id="comments-section">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
-                <div class="comment-section">
-                    <h3>Add a Comment:</h3>
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_table }}
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
-
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s">
-                {% for comment in comments %}
-                    <div class="media content-section">
-                        <div class="media-body">
-                            <h5 class="mt-0">{{ comment.name }}</h5>
-                            <p>{{ comment.content }}</p>
-                            <small>{{ comment.timestamp }}</small>
+<div class="container" id="comments-section">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+            {% for comment in comments %}
+                <div class="media content-section">
+                    <div class="media-body">
+                        <p>{{ comment.content }}</p>
+                        <div class="text-right">
+                            <h6 class="mb-0" style="font-size: 0.9em">{{ comment.name }}</h6>
+                            <small class="text-muted"
+                                   style="font-style: italic">{{ comment.timestamp|timesince }}</small>
                         </div>
                     </div>
-                {% empty %}
-                    <p>No comments yet.</p>
-                {% endfor %}
-            </div>
-
+                </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
         </div>
-    </div>
-    <!-- End Related Posts
-    ================================================== -->
-
-    <!-- Begin AlertBar
-    ================================================== -->
-    <div class="alertbar">
-        <div class="container text-center">
-            <img src="{% static 'reiserx/img/logo.png' %}" alt=""> &nbsp; Never miss a <b>story</b> from us, get weekly
-            updates in your inbox. <a href="#" class="btn subscribe">Get Updates</a>
-        </div>
-    </div>
-    <!-- End AlertBar
-    ================================================== -->
-
-    <!-- Begin Footer
-    ================================================== -->
-    <div class="container">
-        <div class="footer">
-            <p class="pull-left">
-                Copyright &copy; 2023 ReiserX
-            </p>
-            <div class="clearfix">
+        <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s">
+            <div class="comment-section">
+                <h3>Add a Comment:</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_table }}
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         </div>
     </div>
-    <!-- End Footer
-    ================================================== -->
+</div>
+<!-- End Related Posts
+================================================== -->
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{% static '/reiserx/js/jquery.min.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-            crossorigin="anonymous"></script>
-    <script src="{% static '/reiserx/js/bootstrap.min.js' %}"></script>
-    <script src="{% static '/reiserx/js/ie10-viewport-bug-workaround.js' %}"></script>
-    <script src="{% static '/reiserx/js/mediumish.js' %}"></script>
-    <style>
-        .content {
-            white-space: pre-wrap;
-        }
-    </style>
+<!-- Begin AlertBar
+================================================== -->
+<div class="alertbar">
+    <div class="container text-center">
+        <img src="{% static 'reiserx/img/logo.png' %}" alt=""> &nbsp; Never miss a <b>story</b> from us, get weekly
+        updates in your inbox. <a href="#" class="btn subscribe">Get Updates</a>
+    </div>
+</div>
+<!-- End AlertBar
+================================================== -->
 
-    <style>
-        .comment-section {
-            background-color: #f5f5f5;
-            padding: 20px;
-            border-radius: 5px;
-        }
+<!-- Begin Footer
+================================================== -->
+<div class="container">
+    <div class="footer">
+        <p class="pull-left">
+            Copyright &copy; 2023 ReiserX
+        </p>
+        <div class="clearfix">
+        </div>
+    </div>
+</div>
+<!-- End Footer
+================================================== -->
 
-        .comment-section h2 {
-            margin-top: 0;
-        }
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% static '/reiserx/js/jquery.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="{% static '/reiserx/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/reiserx/js/ie10-viewport-bug-workaround.js' %}"></script>
+<script src="{% static '/reiserx/js/mediumish.js' %}"></script>
+<style>
+    .content {
+        white-space: pre-wrap;
+    }
+</style>
 
-        .comment-section form {
-            display: flex;
-            flex-direction: column;
-        }
+<style>
+    .comment-section {
+        background-color: #f5f5f5;
+        padding: 20px;
+        border-radius: 5px;
+    }
 
-        .comment-section label {
-            margin-bottom: 10px;
-        }
+    .comment-section h2 {
+        margin-top: 0;
+    }
 
-        .comment-section input,
-        .comment-section textarea {
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            margin-bottom: 20px;
-        }
+    .comment-section form {
+        display: flex;
+        flex-direction: column;
+    }
 
-        .comment-section button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
+    .comment-section label {
+        margin-bottom: 10px;
+    }
 
-        .comment-section button:hover {
-            background-color: #3e8e41;
-        }
-    </style>
+    .comment-section input,
+    .comment-section textarea {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        margin-bottom: 20px;
+    }
+
+    .comment-section button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    .comment-section button:hover {
+        background-color: #3e8e41;
+    }
+
+    .media.content-section {
+        margin-bottom: 20px;
+        position: relative;
+        margin-top: 20px;
+    }
+
+    .media.content-section::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #ddd;
+    }
+
+    .media.content-section:last-of-type::after {
+        content: none; /* remove divider after last comment */
+    }
+
+    .media.content-section .media-body {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .media.content-section h5 {
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: normal; /* remove bold from name */
+        font-size: 0.8em; /* make name smaller */
+    }
+
+    .media.content-section small {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.8em;
+        color: #999;
+        align-self: flex-end;
+        font-style: italic; /* add italic style to timestamp */
+    }
+
+    .media.content-section p {
+        font-size: 1em;
+        line-height: 1.5;
+        margin-bottom: 5px;
+        color: #555;
+    }
+</style>
 </body>
 </html>

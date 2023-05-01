@@ -51,7 +51,7 @@ def post_create_view(request):
             return redirect('post_new')
     else:
         formset = PostFormSet(queryset=Post.objects.none())
-    return render(request, 'main/update.html', {'formset': formset, 'new': True})
+    return render(request, 'main/../templates/Administration/update.html', {'formset': formset, 'new': True})
 
 
 def post_edit(request):
@@ -63,7 +63,7 @@ def post_edit(request):
             return redirect('post_new')
     else:
         formset = PostFormSet(queryset=Post.objects.all())
-    return render(request, 'main/update.html', {'formset': formset, 'new': False})
+    return render(request, 'main/../templates/Administration/update.html', {'formset': formset, 'new': False})
 
 
 def category(request):
@@ -75,4 +75,4 @@ def category(request):
             return redirect('category')
     else:
         formset = CategoryFormSet()
-    return render(request, 'main/update_category.html', {'formset': formset})
+    return render(request, 'main/../templates/Administration/update_category.html', {'formset': formset})
