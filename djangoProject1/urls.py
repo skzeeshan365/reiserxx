@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from froala_editor import views
 
+import administration.views
 from main.sitemap import sitemaps
 
 urlpatterns = [
@@ -27,6 +28,7 @@ urlpatterns = [
     path('admin/', include('administration.urls')),
     path('froala_editor/', include('froala_editor.urls')),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt/', administration.views.robots_txt, name='robots_txt'),
     path('', include('main.urls')),
     path('python/', include('OCRService.urls')),
 ]
