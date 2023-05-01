@@ -1,8 +1,12 @@
+import os
+
 from django.contrib.auth.decorators import user_passes_test
 from django.forms import modelformset_factory
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
 
+from djangoProject1 import settings
 from .forms import PostForm, CategoryForm
 from main.models import Post, Category
 from django.contrib import messages
@@ -76,3 +80,13 @@ def category(request):
     else:
         formset = CategoryFormSet()
     return render(request, 'main/../templates/Administration/update_category.html', {'formset': formset})
+
+
+def robots_txt(request):
+    lines = []
+    try:
+        with open(os.path.join(settings.BASE_DIR, 'robots.txt'), 'r') as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        lines = ["User-agent: *\n", "Disallow: /"]
+    return HttpResponse(''.join(lines), content_type='text/plain')
