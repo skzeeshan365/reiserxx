@@ -30,7 +30,6 @@ urlpatterns = [
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt/', administration.views.robots_txt, name='robots_txt'),
     path('', include('main.urls')),
-    path('python/', include('OCRService.urls')),
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
