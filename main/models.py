@@ -2,20 +2,16 @@ from django.core.validators import MaxLengthValidator
 from django.db import models
 import math
 from django.contrib.auth.models import User, AbstractUser
-from PIL import Image
-import io
-from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Create your models here.
 from django.utils.crypto import get_random_string
 from django.utils.text import slugify
-from froala_editor.fields import FroalaField
 
 
 class Category(models.Model):
     category = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='pics/', null=True, blank=True)
+    image = models.ImageField(upload_to='category/', null=True, blank=True)
     slug = models.SlugField(unique=True, editable=False)
 
     def __str__(self):
@@ -49,9 +45,9 @@ class Tag(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    content = FroalaField()
+    content = models.TextField()
     description = models.CharField(max_length=1000)
-    image = models.ImageField(upload_to='pics/', null=True, blank=True)
+    image = models.ImageField(upload_to='thumbnail/', null=True, blank=True)
     timestamp = models.DateTimeField(max_length=50, auto_now=True)
     slug = models.SlugField(unique=True, editable=False)
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE)
@@ -59,12 +55,18 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, related_name='posts')
 
     def save(self, *args, **kwargs):
-        # slugify the title and save the post
-        self.slug = slugify(self.title)
-
-        # check for existing slug and append random string
-        if Post.objects.filter(slug=self.slug).exists():
-            self.slug = f"{self.slug}-{get_random_string(length=6)}"
+        if not self.pk:
+            # new object, set slug
+            self.slug = slugify(self.title)
+        else:
+            # object is being updated
+            # check if title has changed
+            old_post = Post.objects.get(pk=self.pk)
+            if old_post.title != self.title:
+                self.slug = slugify(self.title)
+                # check for existing slug and append random string
+                while Post.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
+                    self.slug = f"{slugify(self.title)}-{get_random_string(length=6)}"
 
         super().save(*args, **kwargs)
 

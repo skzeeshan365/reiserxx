@@ -138,14 +138,14 @@
             <!-- Begin Menu -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'category' %}">Post<span
+                    <a class="nav-link" href="{% url 'post_new' %}">Post<span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'post_list' %}">Edit post</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">Category</a>
+                    <a class="nav-link" href="{% url 'categories' %}">Category</a>
                 </li>
             </ul>
             <!-- End Menu -->
@@ -155,9 +155,10 @@
 <!-- End Nav
 ================================================== -->
 
+
 <div class="container">
 {% if list %}
-<ul style="margin-top: 30px">
+<ul style="margin-top: 70px">
   {% for item in items %}
     <li><a href="{% url 'post_edit' item.slug %}">{{ item.title }}</a></li>
   {% endfor %}
@@ -177,6 +178,49 @@
         </form>
     </div>
 
+    <script>
+    tinymce.init({
+		selector: 'textarea',  // change this value according to your HTML
+
+		// For more info regarding local upload in tinymce https://www.tiny.cloud/docs/demo/local-upload/
+        image_title: true,
+    automatic_uploads: false,
+    file_picker_types: 'image',
+    file_picker_callback: function(callback, value, meta) {
+      var input = document.createElement('input');
+      input.setAttribute('type', 'file');
+      input.setAttribute('accept', 'image/*');
+
+      // Listen for the file input change event and invoke the callback with the selected file
+      input.onchange = function() {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.onload = function() {
+          callback(reader.result, {alt: ''});
+        };
+        reader.readAsDataURL(file);
+      };
+
+      // Trigger the file input dialog
+      input.click();
+    },
+
+		height: 456,
+		plugins: [
+	  		'advlist autolink link image lists charmap print preview hr anchor pagebreak',
+		  	'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking',
+		  	'table emoticons template paste help maxchars'
+		],
+		toolbar: 'fullscreen | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+		  	'bullist numlist outdent indent | link image | print preview media fullpage | ' +
+		  	'forecolor backcolor emoticons | uploadimage help ',
+		menu: {
+	  		favs: {title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons'}
+		},
+		menubar: 'favs file edit view insert format tools table help',
+		content_css: "{% static 'tinymce/js/tinymce/skins/content/writer/content.min.css' %}"
+	})
+  </script>
 {% endif %}
 </div>
 

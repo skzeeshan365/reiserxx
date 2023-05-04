@@ -1,14 +1,16 @@
 import io
-import uuid
 
+import cloudinary
 from django import forms
-from django.core.files.uploadedfile import UploadedFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from tinymce.widgets import TinyMCE
 
 from main.models import Post, Tag, Category
 from PIL import Image
-import cloudinary
-from cloudinary import api
+from io import BytesIO
+import base64
+from bs4 import BeautifulSoup
+from cloudinary.uploader import upload
 
 
 def compress(image):
@@ -16,7 +18,7 @@ def compress(image):
     img = Image.open(image)
 
     # Set quality to 80%
-    img.save(image, 'JPEG', quality=80)
+    img.save(image, 'JPEG', quality=70)
 
     # Read the compressed image into memory
     in_memory = io.BytesIO()
@@ -24,6 +26,30 @@ def compress(image):
     in_memory.seek(0)
 
     return in_memory
+
+
+def process_content(content):
+    soup = BeautifulSoup(content, 'html.parser')
+
+    # Upload and replace image blobs with corresponding URLs
+    for img1 in soup.find_all('img'):
+        if 'src' in img1.attrs:
+            src = img1.attrs['src']
+            if src.startswith('data:image/'):
+                # Convert the image blob to an InMemoryUploadedFile
+                img_data = src.split(',')[1]
+                img_file = BytesIO()
+                img_file.write(base64.b64decode(img_data))
+                img_file.seek(0)
+
+                # Upload the image to Cloudinary
+                result = cloudinary.uploader.upload(compress(img_file), folder='content')
+
+                # Replace the blob with the Cloudinary URL
+                img1.attrs['src'] = result['secure_url']
+
+    # Update the post content with the new URLs
+    return str(soup)
 
 
 class CategoryForm(forms.ModelForm):
@@ -35,22 +61,28 @@ class CategoryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['image'].widget.attrs['class'] = 'form-control-file'
 
-        # set initial value for image field if instance has an image
         instance = kwargs.get('instance')
-        if instance and instance.image:
-            self.initial['image'] = instance.image.name
+        if instance:
+            if instance.image:
+                self.fields['image'].initial = instance.image
+            else:
+                self.fields['image'].initial = None
 
     def save(self, commit=True):
         category = super().save(commit=False)
         if commit:
-            category.save()
-
+            # only save the image if it hasn't been uploaded before
             image = self.cleaned_data.get('image')
-            if image:
-                category.image = image
-                category.save()
+            if image != category.image:
+                if image:
+                    # Compress the image
+                    compressed_image = compress(image)
+
+                    # Assign the compressed image as the value for post.image
+                    category.image.save(image.name, compressed_image, save=True)
+
+            category.save()
 
         return category
 
@@ -103,6 +135,8 @@ class PostForm(forms.ModelForm):
 
                 # Assign the compressed image as the value for post.image
                 post.image.save(image.name, compressed_image, save=True)
+
+            post.content = process_content(post.content)
 
             post.save()
         return post
@@ -158,8 +192,6 @@ class PostFormEdit(forms.ModelForm):
                     tag_obj, created = Tag.objects.get_or_create(tag=tag)
                     post.tags.add(tag_obj)
 
-            print(self.cleaned_data['image'])
-            print(post.image)
             image = self.cleaned_data.get('image')
             if image != post.image:
                 if image:
@@ -169,5 +201,6 @@ class PostFormEdit(forms.ModelForm):
                     # Assign the compressed image as the value for post.image
                     post.image.save(image.name, compressed_image, save=True)
 
+            post.content = process_content(post.content)
             post.save()
         return post

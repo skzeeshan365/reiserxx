@@ -25,20 +25,14 @@
             padding: 0;
         }
 
-        h2 {
-            font-size: 24px;
-            color: #333;
-        }
-
         form {
-            margin: 30px;
+            margin: 0px;
             padding: 20px 24px 20px 20px;
         }
 
         .post-form {
             margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            margin-top: 20px;
             padding: 20px;
         }
 
@@ -180,8 +174,27 @@
 		selector: 'textarea',  // change this value according to your HTML
 
 		// For more info regarding local upload in tinymce https://www.tiny.cloud/docs/demo/local-upload/
-		images_upload_url: "{% url 'tinymce_upload' %}", // Image upload address in Django route
-        images_reuse_filename: true,
+        image_title: true,
+    automatic_uploads: false,
+    file_picker_types: 'image',
+    file_picker_callback: function(callback, value, meta) {
+      var input = document.createElement('input');
+      input.setAttribute('type', 'file');
+      input.setAttribute('accept', 'image/*');
+
+      // Listen for the file input change event and invoke the callback with the selected file
+      input.onchange = function() {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.onload = function() {
+          callback(reader.result, {alt: ''});
+        };
+        reader.readAsDataURL(file);
+      };
+
+      // Trigger the file input dialog
+      input.click();
+    },
 
 		height: 456,
 		plugins: [
@@ -192,64 +205,11 @@
 		toolbar: 'fullscreen | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
 		  	'bullist numlist outdent indent | link image | print preview media fullpage | ' +
 		  	'forecolor backcolor emoticons | uploadimage help ',
-		paste_data_images: true,
 		menu: {
 	  		favs: {title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons'}
 		},
 		menubar: 'favs file edit view insert format tools table help',
-		content_css: "{% static 'tinymce/js/tinymce/skins/content/writer/content.min.css' %}",
-        images_upload_handler: function (blobInfo, success, failure) {
-            var xhr, formData;
-            xhr = new XMLHttpRequest();
-            xhr.withCredentials = false;
-            xhr.open('POST', '{% url "tinymce_upload" %}');
-            xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
-            xhr.onload = function() {
-              var json;
-              if (xhr.status === 403) {
-                failure('HTTP Error: ' + xhr.status, { remove: true });
-                return;
-              }
-              if (xhr.status < 200 || xhr.status >= 300) {
-                failure('HTTP Error: ' + xhr.status);
-                return;
-              }
-              json = JSON.parse(xhr.responseText);
-              if (!json || typeof json.location != 'string') {
-                failure('Invalid JSON: ' + xhr.responseText);
-                return;
-              }
-              success(json.location);
-            };
-            xhr.onerror = function () {
-              failure('Image upload failed due to a network error.');
-            };
-            formData = new FormData();
-            formData.append('image', blobInfo.blob(), blobInfo.filename());
-            xhr.send(formData);
-        },
-        cleanup_callback: function(type, value) {
-            console.log('cleanup_callback called');
-        // type is the type of the content being cleaned up (e.g. 'img')
-        // value is the HTML string of the content
-        if (type === 'img') {
-            // Check if the image was removed from the editor
-            if (value.indexOf('reiserx/') === 0) {
-                // Extract the image URL
-                console.log('Image URL:', url);
-                var url = value.replace('reiserx/', '');
-                // Send an AJAX request to delete the image
-                var xhr = new XMLHttpRequest();
-                xhr.open('DELETE', '{% url 'tinymce_upload' %}');
-                xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-                xhr.onload = function() {
-                console.log('Response:', xhr.responseText);
-            };
-                xhr.send(JSON.stringify({ url: url }));
-            }
-        }
-        return value;
-    }
+		content_css: "{% static 'tinymce/js/tinymce/skins/content/writer/content.min.css' %}"
 	})
   </script>
 
