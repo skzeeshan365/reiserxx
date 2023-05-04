@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'cloudinary_storage',
     'cloudinary',
-    'froala_editor',
+    'tinymce',
     'django.contrib.sitemaps',
 ]
 
@@ -50,7 +50,8 @@ MIDDLEWARE = [
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': CLOUD_NAME,
     'API_KEY': API_KEY,
-    'API_SECRET': API_SECRET
+    'API_SECRET': API_SECRET,
+    'FOLDER': 'reiserx'
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -131,7 +132,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 FILER_ENABLE_PERMISSIONS = True
 FILER_FILE_STORAGE_BACKEND = 'django_cloudinary.storage.MediaCloudinaryStorage'
 
-FROALA_UPLOAD_PATH = '/froala_editor/upload/'
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': 'image, code',
+    'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | code',
+    'width': '100%',
+    'height': 300,
+    'image_upload_url': '/tinymce_upload/',  # use your desired upload URL
+    'imageupload_enabled': True,
+}
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

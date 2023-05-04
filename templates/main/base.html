@@ -124,5 +124,28 @@
         crossorigin="anonymous"></script>
 <script src="{% static '/reiserx/js/bootstrap.min.js' %}"></script>
 <script src="{% static '/reiserx/js/ie10-viewport-bug-workaround.js' %}"></script>
+
+<style>
+    .navbar.fixed-top {
+  transition: top 0.3s;
+}
+
+.navbar.hidden {
+  top: -100px !important;
+}
+</style>
+
+<script>
+    var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.querySelector(".navbar.fixed-top").classList.remove("hidden");
+  } else {
+    document.querySelector(".navbar.fixed-top").classList.add("hidden");
+  }
+  prevScrollpos = currentScrollPos;
+}
+</script>
 </body>
 </html>

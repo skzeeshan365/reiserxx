@@ -8,6 +8,6 @@ urlpatterns = [
     path('tag/<slug:tag_slug>/', views.search_by_tag, name='search_by_tag'),
     path('category/', views.categories, name='category'),
     path('category/<slug:category_slug>/', views.search_by_category, name='search_by_category'),
-    path('<str:username>/', views.search_by_author, name='search_by_author'),
     path('<str:user>/<slug:post_slug>/', views.open_post, name='open'),
+    path('author/<str:username>/', views.search_by_author, name='search_by_author'),
 ]

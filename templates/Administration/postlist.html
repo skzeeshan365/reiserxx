@@ -1,0 +1,161 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static '/reiserx/img/favicon.ico' %}">
+    <title>ReiserX</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static '/reiserx/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i"
+          rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static '/reiserx/css/mediumish.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link href="{% static 'froala_editor/css/froala_editor.pkgd.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'froala_editor/css/froala_style.min.css' %}" rel="stylesheet" type="text/css"/>
+    <script src="{% static 'froala_editor/js/froala_editor.pkgd.min.js' %}"></script>
+
+    <style>
+        /* CSS styles go here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            margin: 0px;
+            padding: 20px 24px 20px 20px;
+        }
+
+        .post-form {
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        input[type="text"], textarea {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 10px;
+            outline: none;
+            box-shadow: none;
+    }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        button[type="submit"] {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0062cc;
+        }
+
+        #add-form {
+            display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    width: 150px;
+        }
+
+        #add-form:hover {
+            background-color: #0062cc;
+        }
+    </style>
+
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</head>
+<body>
+
+{% if list %}
+<ul>
+  {% for item in items %}
+    <li><a href="{% url 'post_edit' item.slug %}">{{ item.title }}</a></li>
+  {% endfor %}
+</ul>
+{% else %}
+{% block content %}
+    <div class="form-container" id="form-container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="post-form">
+                {{ form.as_p }}
+                {{ form.media }}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% endif %}
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% static '/reiserx/js/jquery.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="{% static '/reiserx/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/reiserx/js/ie10-viewport-bug-workaround.js' %}"></script>
+<script src="{% static '/reiserx/js/mediumish.js' %}"></script>
+</body>
+</html>

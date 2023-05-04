@@ -12,21 +12,6 @@ from django.utils.text import slugify
 from froala_editor.fields import FroalaField
 
 
-def compress(image):
-    # Open image using PIL
-    img = Image.open(image)
-
-    # Set quality to 80%
-    img.save(image, 'JPEG', quality=80)
-
-    # Read the compressed image into memory
-    in_memory = io.BytesIO()
-    img.save(in_memory, format='JPEG')
-    in_memory.seek(0)
-
-    return in_memory
-
-
 class Category(models.Model):
     category = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
@@ -81,11 +66,6 @@ class Post(models.Model):
         if Post.objects.filter(slug=self.slug).exists():
             self.slug = f"{self.slug}-{get_random_string(length=6)}"
 
-        if self.image:
-            # Compress the image and save it
-            compressed_image = compress(self.image)
-            self.image = InMemoryUploadedFile(compressed_image, 'ImageField', self.image.name, 'image/jpeg',
-                                              compressed_image.tell, None)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

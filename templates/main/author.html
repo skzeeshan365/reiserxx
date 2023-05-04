@@ -33,16 +33,18 @@
 
 <!-- Begin Author Posts
 ================================================== -->
-<div class="graybg authorpage">
+
     <div class="container">
         <div class="listrecent listrelated">
 
             {% for post in posts %}
             <!-- begin post -->
             <div class="authorpostbox">
-                <div class="card">
+                <div class="card card-no-hover">
                     <a href="{% url 'open' post.get_author_name post.slug %}">
-                        <img class="img-fluid img-thumb" src="{{ post.image.url}}" alt="">
+                        <div style="height: 250px; width: auto; overflow: hidden;">
+                            <img style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: auto; width: 100%;" src="{{ post.image.url }}" alt="">
+                        </div>
                     </a>
                     <div class="card-block">
                         <h2 class="card-title"><a href="{% url 'open' post.get_author_name post.slug %}">{{ post.title}}</a></h2>
@@ -60,9 +62,19 @@
             </div>
             <!-- end post -->
             {% endfor %}
+        <style>
+            .card {
+  box-shadow: none !important;
+}
+            .card-block {
+  padding-top: 15px;
+                    padding-left: 1px;
+                    padding-right: unset;
+                    padding-bottom: 8px;
+}
+        </style>
         </div>
     </div>
-</div>
 <!-- End Author Posts
 ================================================== -->
 
