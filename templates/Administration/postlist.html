@@ -41,6 +41,7 @@
 
         .post-form {
             margin-bottom: 20px;
+            margin-top: 20px;
             padding: 20px;
         }
 
@@ -124,14 +125,45 @@
 </head>
 <body>
 
+<!-- Begin Nav
+================================================== -->
+<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="container">
+        <div class=" collapse navbar-collapse" id="navbarsExampleDefault">
+            <!-- Begin Menu -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'category' %}">Post<span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'post_list' %}">Edit post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">Category</a>
+                </li>
+            </ul>
+            <!-- End Menu -->
+        </div>
+    </div>
+</nav>
+<!-- End Nav
+================================================== -->
+
+<div class="container">
 {% if list %}
-<ul>
+<ul style="margin-top: 30px">
   {% for item in items %}
     <li><a href="{% url 'post_edit' item.slug %}">{{ item.title }}</a></li>
   {% endfor %}
 </ul>
 {% else %}
-{% block content %}
+
     <div class="form-container" id="form-container">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -144,8 +176,9 @@
             </div>
         </form>
     </div>
-{% endblock %}
+
 {% endif %}
+</div>
 
 <!-- Bootstrap core JavaScript
     ================================================== -->
