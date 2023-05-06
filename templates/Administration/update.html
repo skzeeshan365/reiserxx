@@ -128,7 +128,7 @@
 <!-- End Nav
 ================================================== -->
 
-
+{% block content %}
     <h2>New Post</h2>
     <div class="form-container" id="form-container">
         <form method="post" enctype="multipart/form-data">
@@ -144,13 +144,11 @@
             </div>
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                {% if new %}
                 <button id="add-form" class="btn btn-secondary btn-block" type="button" onclick="addForm()">Add Another Form</button>
-                {% endif %}
             </div>
         </form>
     </div>
-
+{% endblock %}
     <script>
         function getCookie(name) {
             let cookieValue = null;

@@ -58,6 +58,9 @@ class Post(models.Model):
         if not self.pk:
             # new object, set slug
             self.slug = slugify(self.title)
+
+            while Post.objects.filter(slug=self.slug).exists():
+                self.slug = f"{slugify(self.title)}-{get_random_string(length=10)}"
         else:
             # object is being updated
             # check if title has changed
@@ -66,7 +69,7 @@ class Post(models.Model):
                 self.slug = slugify(self.title)
                 # check for existing slug and append random string
                 while Post.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
-                    self.slug = f"{slugify(self.title)}-{get_random_string(length=6)}"
+                    self.slug = f"{slugify(self.title)}-{get_random_string(length=10)}"
 
         super().save(*args, **kwargs)
 
