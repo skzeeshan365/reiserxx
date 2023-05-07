@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'tinymce',
     'django.contrib.sitemaps',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -140,6 +141,9 @@ TINYMCE_DEFAULT_CONFIG = {
     'image_upload_url': '/tinymce_upload/',  # use your desired upload URL
     'imageupload_enabled': True,
 }
+
+RECAPTCHA_PUBLIC_KEY = os.getenv('CAPTCHA_SITE_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.getenv('CAPTCHA_SITE_SECRET_KEY')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

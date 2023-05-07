@@ -1,11 +1,4 @@
-User-agent: Googlebot
-User-agent: Bingbot
-User-agent: DuckDuckBot
-User-agent: Yandex
-User-agent: Slurp
-Allow: /
-
 User-agent: *
-Disallow: /
+Disallow:
 
 Sitemap: https://reiserx.com/sitemap.xml

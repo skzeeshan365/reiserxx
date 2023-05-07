@@ -41,7 +41,7 @@
     </button>
     <div class="container">
         <!-- Begin Logo -->
-        <a class="navbar-brand" href="main.html"><img src="{% static '/reiserx/img/logo.png' %}" alt="logo"></a>
+        <a class="navbar-brand" href="{% url 'home' %}"><h2>R</h2></a>
         <!-- End Logo -->
         <div class=" collapse navbar-collapse" id="navbarsExampleDefault">
             <!-- Begin Menu -->
@@ -55,7 +55,7 @@
                         <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+                        <a class="nav-link" href="{% url 'contact' %}">CONTACT</a>
                     </li>
                     <!-- home -->
                 {% elif current_menu == 2 %}
@@ -67,7 +67,7 @@
                         <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+                        <a class="nav-link" href="{% url 'contact' %}">CONTACT</a>
                     </li>
                     <!-- category -->
                 {% elif current_menu == 3 %}
@@ -79,7 +79,7 @@
                         <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+                        <a class="nav-link" href="{% url 'contact' %}">CONTACT</a>
                     </li>
                     <!-- about -->
 

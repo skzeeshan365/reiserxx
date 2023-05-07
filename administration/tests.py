@@ -1,8 +1,7 @@
 import io
 
-from django.shortcuts import redirect
 from django.test import TestCase, Client
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth.models import User
 

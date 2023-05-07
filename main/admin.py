@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from administration.forms import PostForm
-from .models import Post, Tag, Category, Comment
+from .models import Post, Tag, Category, Comment, Contact
 from django import forms
 
 # Register your models here.
@@ -26,3 +26,4 @@ admin.site.register(Tag)
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Comment)
+admin.site.register(Contact)

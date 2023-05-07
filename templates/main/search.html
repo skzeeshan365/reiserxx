@@ -15,7 +15,7 @@
                     <div class="card border-0">
                         <a href="{% url 'open' post.get_author_name post.slug %}">
                             <div style="height: 185px; width: auto; overflow: hidden;">
-                            <img style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: auto; width: 100%;" src="{{ post.image.url }}" alt="">
+                            <img style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: auto; width: 100%;" src="{{ post.image.url }}" alt="{{ post.title }}">
                         </div>
                         </a>
                         <div class="card-block">

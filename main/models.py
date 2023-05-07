@@ -115,3 +115,10 @@ class Comment(models.Model):
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+
+class Contact(models.Model):
+    username = models.CharField(max_length=100)
+    email = models.EmailField(max_length=70, blank=True)
+    message = models.TextField()
+    timestamp = models.DateTimeField(max_length=50, auto_now=True)

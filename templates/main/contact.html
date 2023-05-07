@@ -1,0 +1,80 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'contact/fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'contact/css/owl.carousel.min.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'contact/css/bootstrap.min.css' %}">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'contact/css/style.css' %}">
+
+    <title>Contact us</title>
+      <script src="https://www.google.com/recaptcha/api.js?render={{ SITE_KEY }}"></script>
+  </head>
+  <body>
+  
+
+  <div class="content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <div class="row align-items-center">
+            <div class="col-lg-7 mb-5 mb-lg-0">
+              <h3 class="mb-5">CONTACT US</h3>
+
+              <form action="{% url 'contact' %}" class="border-right pr-5 mb-5" method="POST" id="contactForm" name="contactForm">
+                {% csrf_token %}
+                    {{ form.as_p }}
+                <div class="row">
+                  <div class="col-md-12">
+                    <input type="submit" name="submit" value="Send Message" class="btn btn-primary py-2 px-4" style="background-color: #1C9963; color: #FFFFFF; border-color: #1C9963;">
+                    <span class="submitting"></span>
+                  </div>
+                </div>
+              </form>
+                <div id="form-messages"></div>
+
+            </div>
+            <div class="col-lg-4 ml-auto">
+              <h3 class="mb-4">{{ title }}</h3>
+              <p>{{ message }}</p>
+            </div>
+          </div>
+        </div>  
+        </div>
+      </div>
+  </div>
+  <script>
+    var form = document.getElementById("contactForm");
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        grecaptcha.execute('{{ SITE_KEY }}', {action: 'contact'}).then(function(token) {
+            document.getElementById('g-recaptcha-response').value = token;
+            form.submit();
+        });
+    });
+</script>
+  <script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute('{{ SITE_KEY }}', {action: 'contact'}).then(function(token) {
+            document.getElementById('id_recaptcha_response').value = token;
+        });
+    });
+</script>
+    <script src="{% static 'contact/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'contact/js/popper.min.js' %}"></script>
+    <script src="{% static 'contact/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'contact/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'contact/js/main.js' %}"></script>
+  </body>
+</html>

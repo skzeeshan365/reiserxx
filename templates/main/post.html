@@ -62,9 +62,7 @@
     </button>
     <div class="container">
         <!-- Begin Logo -->
-        <a class="navbar-brand" href="../secondary/index.html">
-            <img src="{% static '/reiserx/img/logo.png' %}" alt="logo">
-        </a>
+        <a class="navbar-brand" href="{% url 'home' %}"><h2>R</h2></a>
         <!-- End Logo -->
         <div class=" collapse navbar-collapse" id="navbarsExampleDefault">
            <!-- Begin Menu -->
@@ -76,7 +74,7 @@
                     <a class="nav-link" href="{% url 'category' %}">CATEGORY</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+                    <a class="nav-link" href="{% url 'contact' %}">CONTACT</a>
                 </li>
             </ul>
             <!-- End Menu -->
@@ -109,15 +107,10 @@
 
                 <!-- Begin Top Meta -->
                 <div class="row post-top-meta">
-                    <div class="col-md-2">
-                        <a href="category.html"><img class="author-thumb"
-                                                     src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x"
-                                                     alt="Sal"></a>
-                    </div>
                     <div class="col-md-10">
                         <a class="link-dark"
-                           href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a>
-                        <span class="author-description">Founder of WowThemes.net and creator of <b>"Mediumish"</b> theme that you're currently previewing. Developing professional premium themes, templates, plugins, scripts since 2012.</span>
+                           href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a><br>
+                        <span class="author-description">{{ post.author.userprofile.bio }}</span><br>
                         <span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span
                             class="post-read">{{ post.get_reading_time }} min read</span>
                     </div>
@@ -129,7 +122,7 @@
             </div>
 
             <!-- Begin Featured Image -->
-            <img class="featured-image img-fluid" src="{{ post.image.url }}" alt="">
+            <img class="featured-image img-fluid" src="{{ post.image.url }}" alt="{{ post.title }}">
             <!-- End Featured Image -->
 
             <!-- Begin Post Content -->
@@ -166,7 +159,7 @@
                 <div class="col-md-4">
                     <div class="card card-flat">
                         <a href="{% url 'open' post.get_author_name post.slug %}">
-                            <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="">
+                            <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="{{ post.title }}">
                         </a>
                         <div class="card-block">
                             <h5 class="card-title"><a
