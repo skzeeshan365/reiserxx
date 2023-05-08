@@ -1,15 +1,15 @@
+import io
 import json
 
+from PIL import Image
 from django.contrib.auth.models import User
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, Client
 from django.urls import reverse
 
 from administration.tests import create_image
 from .forms import ContactForm
 from .models import Category, Post, Tag
-from django.core.files.uploadedfile import SimpleUploadedFile
-from PIL import Image
-import io
 
 
 class SearchByCategoryTest(TestCase):

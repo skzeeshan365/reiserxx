@@ -1,12 +1,9 @@
 import re
 
-import requests
-from captcha.fields import ReCaptchaField
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxLengthValidator
 
-from djangoProject1 import settings
 from .models import Comment
 
 

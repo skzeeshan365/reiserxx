@@ -1,15 +1,14 @@
-from django.core.validators import MaxLengthValidator
-from django.db import models, transaction
 import math
-from django.contrib.auth.models import User, AbstractUser
 
+from django.contrib.auth.models import User, AbstractUser
+from django.core.validators import MaxLengthValidator
+from django.db import IntegrityError
+from django.db import models, transaction
 # Create your models here.
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.http import urlencode
 from django.utils.text import slugify
-from django.db import IntegrityError
-from meta.models import ModelMeta
 
 
 class Category(models.Model):

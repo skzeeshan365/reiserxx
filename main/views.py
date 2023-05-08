@@ -1,14 +1,14 @@
-from django.contrib import messages
+import requests
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from djangoProject1 import settings
 from .forms import CommentForm, ContactForm
+from .models import Category
 from .models import Post, Contact
 from .models import Tag
-from .models import Category
-import requests
+
 
 # Create your views here.
 
