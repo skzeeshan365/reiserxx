@@ -22,7 +22,6 @@ def home(request):
 def open_post(request, user, post_slug):
 
     post = Post.objects.get(slug=post_slug)
-    print(post.get_absolute_url())
     tags = post.tags.all()
     related_posts = post.get_related_posts()
     comments = post.get_comments()

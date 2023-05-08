@@ -4,9 +4,12 @@ import math
 from django.contrib.auth.models import User, AbstractUser
 
 # Create your models here.
+from django.urls import reverse
 from django.utils.crypto import get_random_string
+from django.utils.http import urlencode
 from django.utils.text import slugify
 from django.db import IntegrityError
+from meta.models import ModelMeta
 
 
 class Category(models.Model):
@@ -93,7 +96,13 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return f"/posts/{self.slug}/"
+        url = reverse('open', args=[self.author.username, self.slug])
+        query_params = urlencode({
+            'name': self.title,
+            'description': self.description,
+            'image': self.image.url,
+        })
+        return f"{url}?{query_params}"
 
     def get_date(self):
         # Format the date_published field as "22 July 2017"
@@ -126,6 +135,19 @@ class Post(models.Model):
     @classmethod
     def get_posts_by_user(cls, user):
         return cls.objects.filter(author=user).only('title', 'description', 'content', 'image', 'timestamp')
+
+    def get_meta(self, default_meta=None, **kwargs):
+        meta = super().get_meta(default_meta, **kwargs)
+
+        meta.update({
+            'title': self.title,
+            'description': self.description,
+            'og_title': self.title,
+            'og_description': self.description,
+            'og_image': self.image.url if self.image else None,
+        })
+
+        return meta
 
 
 class Comment(models.Model):
