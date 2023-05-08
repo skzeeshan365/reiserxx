@@ -1,13 +1,10 @@
 import os
 
-import cloudinary
-from cloudinary.uploader import upload
 from django.contrib.auth.decorators import user_passes_test
 from django.forms import modelformset_factory
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import auth
-from dotenv import load_dotenv
 
 from djangoProject1 import settings
 from .forms import PostForm, CategoryForm, PostFormEdit
@@ -94,23 +91,3 @@ def robots_txt(request):
     except FileNotFoundError:
         lines = ["User-agent: *\n", "Disallow: /"]
     return HttpResponse(''.join(lines), content_type='text/plain')
-
-
-def tinymce_upload(request):
-    load_dotenv('.env')
-
-    CLOUD_NAME = os.getenv('CLOUD_NAME')
-    API_KEY = os.getenv('API_KEY')
-    API_SECRET = os.getenv('API_SECRET')
-
-    if request.method == 'POST':
-        image = request.FILES.get('image')
-        result = cloudinary.uploader.upload(image, api_key=API_KEY, api_secret=API_SECRET, cloud_name=CLOUD_NAME, folder='reiserx')
-        return JsonResponse({'location': result['secure_url']})
-    elif request.method == 'DELETE':
-        filename = request.GET.get('filename')
-        try:
-            cloudinary.uploader.destroy(filename, api_key=API_KEY, api_secret=API_SECRET, cloud_name=CLOUD_NAME)
-            return HttpResponse(status=204)
-        except Exception as e:
-            return HttpResponse(status=400)

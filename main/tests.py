@@ -1,10 +1,12 @@
 import json
 
+from django.contrib.auth.models import User
 from django.test import TestCase, Client
 from django.urls import reverse
 
+from administration.tests import create_image
 from .forms import ContactForm
-from .models import Category, Post
+from .models import Category, Post, Tag
 from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
 import io
@@ -22,17 +24,24 @@ class SearchByCategoryTest(TestCase):
         return SimpleUploadedFile('test.png', file.getvalue())
 
     def setUp(self):
+        self.user = User.objects.create_superuser(
+            username='testuser',
+            email='testuser@example.com',
+            password='testpass'
+        )
         self.category = Category.objects.create(
             category='Technology', slug='technology', description='Tech news'
         )
         self.post1 = Post.objects.create(
             title='Post 1', content='Content 1', category=self.category,
-            image=self.create_image()
+            image=self.create_image(),
+            author=self.user
         )
         print('Post 1 image:', self.post1.image)
         self.post2 = Post.objects.create(
             title='Post 2', content='Content 2', category=self.category,
-            image=self.create_image()
+            image=self.create_image(),
+            author=self.user
         )
         print('Post 2 image:', self.post2.image)
 
@@ -44,6 +53,8 @@ class SearchByCategoryTest(TestCase):
         self.assertContains(response, self.post2.title)
         self.assertContains(response, self.category.category)
         self.assertContains(response, self.category.description)
+        self.post1.image.delete()
+        self.post2.image.delete()
 
 
 class ContactFormTestCase(TestCase):
@@ -52,7 +63,8 @@ class ContactFormTestCase(TestCase):
         form_data = {
             'username': 'John Doe',
             'email': 'johndoe@example.com',
-            'message': 'Hello, this is a test message'
+            'message': 'Hello, this is a test message',
+            'recaptcha_response': 'valid_token'
         }
         form = ContactForm(data=form_data)
         self.assertTrue(form.is_valid())
@@ -61,7 +73,8 @@ class ContactFormTestCase(TestCase):
         form_data = {
             'username': '',
             'email': '',
-            'message': ''
+            'message': '',
+            'recaptcha_response': ''
         }
         form = ContactForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -70,7 +83,8 @@ class ContactFormTestCase(TestCase):
         form_data = {
             'username': 'John Doe',
             'email': 'invalidemail',
-            'message': 'Hello, this is a test message'
+            'message': 'Hello, this is a test message',
+            'recaptcha_response': 'valid_token'
         }
         form = ContactForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -79,7 +93,8 @@ class ContactFormTestCase(TestCase):
         form_data = {
             'username': 'John Doe',
             'email': 'johndoe@example.com',
-            'message': 'a' * 1600
+            'message': 'a' * 1600,
+            'recaptcha_response': 'valid_token'
         }
         form = ContactForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -125,3 +140,76 @@ class ContactFormViewTestCase(TestCase):
         response = self.client.post(self.url, form_data)
         json_response = json.loads(response.content)
         self.assertEqual(json_response['status'], 'error')
+
+
+class PostTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_superuser(
+            username='testuser',
+            email='testuser@example.com',
+            password='testpass'
+        )
+        self.category = Category.objects.create(category='Test')
+        self.image = SimpleUploadedFile(name='test.jpg', content=create_image().read(), content_type='image/jpeg')
+        self.post1 = Post.objects.create(
+            title='Test Post 1',
+            content='This is a test post.',
+            description='Test description',
+            category=self.category,
+            author=self.user
+        )
+        self.tag = Tag.objects.create(tag='test1')
+        self.post1.tags.add(self.tag)
+
+    def test_save_new_post(self):
+        self.client.login(username='testuser', password='testpass')
+        post3 = Post(title='Test Post 3',
+                     content='This is a test post.',
+                     description='Test description',
+                     category=self.category,
+                     author=self.user
+                     )
+        post3.save()
+        post3.tags.add(self.tag)
+        post3.save()
+        self.assertEqual(post3.slug, 'test-post-3')
+        post3.image.delete()
+
+    def test_save_new_post_with_same_title(self):
+        post3 = Post(title='Test Post 1',
+                     content='This is a test post.',
+                     description='Test description',
+                     category=self.category,
+                     author=self.user
+                     )
+        post3.save()
+        post3.tags.add(self.tag)
+        post3.save()
+        self.assertNotEqual(post3.slug, 'test-post-1')
+        self.assertTrue(post3.slug.startswith('test-post-1'))
+        post3.image.delete()
+
+    def test_update_post_title(self):
+        self.post1.title = 'Test Post 1 Updated'
+        self.post1.save()
+        self.assertEqual(self.post1.slug, 'test-post-1-updated')
+
+    def test_update_post_title_with_same_title(self):
+        self.post1.title = 'Test Post 1'
+        self.post1.save()
+        self.assertEqual(self.post1.slug, 'test-post-1')
+
+    def test_update_post_title_with_duplicate_slug(self):
+        post3 = Post.objects.create(title='Test Post 1 Updated',
+                                    content='This is a test post.',
+                                    description='Test description',
+                                    category=self.category,
+                                    author=self.user
+                                    )
+        post3.save()
+        post3.tags.add()
+        post3.save()
+        self.post1.title = 'Test Post 1 Updated'
+        self.post1.save()
+        self.assertNotEqual(self.post1.slug, post3.slug)
+        self.assertTrue(self.post1.slug.startswith('test-post-1-updated'))

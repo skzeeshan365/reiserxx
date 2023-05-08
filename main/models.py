@@ -1,11 +1,12 @@
 from django.core.validators import MaxLengthValidator
-from django.db import models
+from django.db import models, transaction
 import math
 from django.contrib.auth.models import User, AbstractUser
 
 # Create your models here.
 from django.utils.crypto import get_random_string
 from django.utils.text import slugify
+from django.db import IntegrityError
 
 
 class Category(models.Model):
@@ -59,8 +60,17 @@ class Post(models.Model):
             # new object, set slug
             self.slug = slugify(self.title)
 
-            while Post.objects.filter(slug=self.slug).exists():
-                self.slug = f"{slugify(self.title)}-{get_random_string(length=10)}"
+            while True:
+                try:
+                    with transaction.atomic():
+                        # use select_for_update to lock the row during the transaction
+                        Post.objects.select_for_update().get(slug=self.slug)
+                        self.slug = f"{slugify(self.title)}-{get_random_string(length=10)}"
+                except Post.DoesNotExist:
+                    break
+                except IntegrityError:
+                    # duplicate slug, generate a new one
+                    self.slug = f"{slugify(self.title)}-{get_random_string(length=10)}"
         else:
             # object is being updated
             # check if title has changed
@@ -68,8 +78,17 @@ class Post(models.Model):
             if old_post.title != self.title:
                 self.slug = slugify(self.title)
                 # check for existing slug and append random string
-                while Post.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
-                    self.slug = f"{slugify(self.title)}-{get_random_string(length=10)}"
+                while True:
+                    try:
+                        with transaction.atomic():
+                            # use select_for_update to lock the row during the transaction
+                            Post.objects.select_for_update().exclude(pk=self.pk).get(slug=self.slug)
+                            self.slug = f"{slugify(self.title)}-{get_random_string(length=10)}"
+                    except Post.DoesNotExist:
+                        break
+                    except IntegrityError:
+                        # duplicate slug, generate a new one
+                        self.slug = f"{slugify(self.title)}-{get_random_string(length=10)}"
 
         super().save(*args, **kwargs)
 

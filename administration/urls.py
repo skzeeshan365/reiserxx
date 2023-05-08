@@ -10,5 +10,4 @@ urlpatterns = [
     path('category/', login_required(user_passes_test(lambda u: u.is_superuser)(views.category)), name='categories'),
     path('post/list/', login_required(user_passes_test(lambda u: u.is_superuser)(views.post_list)), name='post_list'),
     path('post/edit/<slug:post_slug>/', login_required(user_passes_test(lambda u: u.is_superuser)(views.post_edit)), name='post_edit'),
-    path('tinymce-upload/', views.tinymce_upload, name='tinymce_upload'),
 ]

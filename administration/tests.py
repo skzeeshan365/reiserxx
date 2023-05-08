@@ -272,7 +272,6 @@ class PostFormEditTestCase(TestCase):
         self.post.image.delete()
         self.post.delete()
         post.image.delete()
-        post.delete()
 
     def test_edit_post_with_invalid_data(self):
         form_data = {
