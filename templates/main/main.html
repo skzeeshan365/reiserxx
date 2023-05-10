@@ -35,7 +35,7 @@
                         <div class="col-md-7">
                             <div class="carding">
                                 <h2 class="card-title"><a href="{% url 'open' post.get_author_name post.slug %}">{{ post.title }}</a></h2>
-                                <h4 class="card-text">{{ post.description|truncatechars:130 }}</h4>
+                                <h4 class="card-text">{{ post.description|truncatechars:250 }}</h4>
                                 <div class="metafooter"><div class="wrapfooter">
 								<span class="author-meta">
                                     <span class="post-name"><a href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a></span><br/>

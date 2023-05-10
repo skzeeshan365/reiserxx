@@ -39,18 +39,8 @@
     <link href="{% static '/reiserx/css/fonting.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static '/reiserx/css/custom.css' %}" rel="stylesheet" type="text/css">
 
-    <!-- META TAGS -->
-    <meta property="og:title" content="{{ post.title }}"/>
-    <meta property="og:description" content="{{ post.description }}"/>
-    <meta property="og:image" content="{{ post.image.url }}"/>
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:type" content="article">
-    <link rel="canonical" href="{{ request.build_absolute_uri }}">
-    <!-- META TAGS -->
-
 </head>
 <body>
-
 <!-- Begin Nav
 ================================================== -->
 <nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
@@ -66,14 +56,14 @@
         <div class=" collapse navbar-collapse" id="navbarsExampleDefault">
            <!-- Begin Menu -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}">HOME</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'category' %}">CATEGORY</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="">ABOUT</a>
                 </li>
             </ul>
             <!-- End Menu -->
@@ -96,124 +86,34 @@
     <div class="row">
 
         <!-- Begin Fixed Left Share -->
-        <div class="col-md-2 col-xs-12">
-        </div>
+        <div class="col-md-2 col-xs-12"></div>
         <!-- End Fixed Left Share -->
 
         <!-- Begin Post -->
         <div class="col-md-8 col-md-offset-2 col-xs-12">
             <div class="mainheading">
 
-                <!-- Begin Top Meta -->
-                <div class="row post-top-meta">
-                    <div class="col-md-10">
-                        <a class="link-dark"
-                           href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a><br>
-                        <span class="author-description">{{ post.author.userprofile.bio }}</span><br>
-                        <span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span
-                            class="post-read">{{ post.get_reading_time }} min read</span>
-                    </div>
-                </div>
-                <!-- End Top Menta -->
-
-                <h1 class="posttitle">{{ post.title }}</h1>
+                <h1 class="posttitle">{{ title }}</h1>
 
             </div>
-
-            <!-- Begin Featured Image -->
-            <img class="featured-image img-fluid" src="{{ post.image.url }}" alt="{{ post.title }}">
-            <!-- End Featured Image -->
 
             <!-- Begin Post Content -->
             <div class="article-post">
-                <div class="content">{{ post.get_content | safe }}</div>
+                <div class="content">{{ content }}</div>
+                <a href="{% url 'home' %}" style="color: #349d00; font-weight: bold; text-decoration: none; font-size: 16px;">Let's launch the universe of ReiserX!</a>
+                <div style="text-align: right;">
+  <a href="{% url 'contact' %}" style="color: #349d00; font-weight: bold; text-decoration: none; font-size: 16px; margin-left: 10px;">Contact Us</a>
+</div>
             </div>
             <!-- End Post Content -->
-
-            <!-- Begin Tags -->
-            <div class="after-post-tags">
-                <ul class="tags">
-                    {% for tag in tagss %}
-                        <li><a href="{% url 'search_by_tag' tag.slug %}">{{ tag }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <!-- End Tags -->
 
         </div>
         <!-- End Post -->
     </div>
 </div>
-<!-- End Article
-================================================== -->
-
-<!-- Begin Related
-================================================== -->
-
-    <div class="container">
-        <div class="row listrecent listrelated">
-
-            {% for post in related %}
-                <!-- begin post -->
-                <div class="col-md-4">
-                    <div class="card card-flat">
-                        <a href="{% url 'open' post.get_author_name post.slug %}">
-                            <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="{{ post.title }}">
-                        </a>
-                        <div class="card-block">
-                            <h5 class="card-title"><a
-                                    href="{% url 'open' post.get_author_name post.slug %} " style="color: black; font-weight: bold">{{ post.title }}</a>
-                            </h5>
-                            <h4 class="card-text">{{ post.description }}</h4>
-                            <div class="metafooter">
-                                <div class="wrapfooter"><span class="author-meta"><span class="post-name"><a href="{% url 'search_by_author' post.author.username %}">{{ post.get_author_name }}</a></span><br/>
-								<span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span
-                                            class="post-read">{{ post.get_reading_time }} min read</span>
-								</span>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- end post -->
-            {% endfor %}
-        </div>
-    </div>
 <br>
-
-<div class="container" id="comments-section">
-    <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
-            {% for comment in comments %}
-                <div class="media content-section">
-                    <div class="media-body">
-                        <p>{{ comment.content }}</p>
-                        <div class="text-right">
-                            <h6 class="mb-0" style="font-size: 0.9em">{{ comment.name }}</h6>
-                            <small class="text-muted"
-                                   style="font-style: italic">{{ comment.timestamp|timesince }}</small>
-                        </div>
-                    </div>
-                </div>
-            {% empty %}
-                <p>No comments yet.</p>
-            {% endfor %}
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s">
-            <div class="comment-section">
-                <h3>Add a Comment:</h3>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_table }}
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Related Posts
+<br>
+<!-- End Article
 ================================================== -->
 
 <!-- Begin AlertBar
@@ -251,7 +151,6 @@
 <script src="{% static '/reiserx/js/bootstrap.min.js' %}"></script>
 <script src="{% static '/reiserx/js/ie10-viewport-bug-workaround.js' %}"></script>
 <script src="{% static '/reiserx/js/mediumish.js' %}"></script>
-
 <script>
     var prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
