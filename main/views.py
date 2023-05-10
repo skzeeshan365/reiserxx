@@ -1,13 +1,18 @@
+import colorthief
+import numpy as np
 import requests
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from sklearn.cluster import KMeans
 
 from djangoProject1 import settings
 from .forms import CommentForm, ContactForm
 from .models import Category
 from .models import Post, Contact
 from .models import Tag
+
+from PIL import Image
 
 
 # Create your views here.

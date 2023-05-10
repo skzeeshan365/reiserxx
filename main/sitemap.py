@@ -6,7 +6,7 @@ from .models import Category, Post, Tag
 
 class CategorySitemap(Sitemap):
     def items(self):
-        return Category.objects.all()
+        return Category.objects.order_by('-id')
 
     def location(self, obj):
         return reverse('search_by_category', args=[obj.slug])
@@ -14,18 +14,20 @@ class CategorySitemap(Sitemap):
 
 class TagSitemap(Sitemap):
     def items(self):
-        return Tag.objects.all()
+        return Tag.objects.order_by('-id')
 
     def location(self, obj):
         return reverse('search_by_tag', args=[obj.slug])
 
 
 class PostSitemap(Sitemap):
+    priority = 1.0
+
     def items(self):
         return Post.objects.order_by('-id')
 
     def location(self, obj):
-        return obj.get_absolute_url()
+        return reverse('open', kwargs={'user': obj.author.username, 'post_slug': obj.slug})
 
     def lastmod(self, obj):
         return obj.timestamp

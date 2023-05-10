@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>html - How to make background line up with image</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+          img {
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  opacity: 1;
+}
+
+body {
+  overflow: hidden;
+  background-image: linear-gradient({{ color1 }}, {{ color2 }}, {{ color3 }});
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+    mix-blend-mode: Difference;
+}
+      </style>
+  </head>
+
+  <body>
+    <img src="{% static 'image.jpg' %}">
+  </body>
+</html>
