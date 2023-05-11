@@ -216,16 +216,18 @@
 <!-- End Related Posts
 ================================================== -->
 
+{% if not subscribed %}
 <!-- Begin AlertBar
 ================================================== -->
 <div class="alertbar">
     <div class="container text-center">
         <img src="{% static 'reiserx/img/logo.png' %}" alt=""> &nbsp; Never miss a <b>story</b> from us, get weekly
-        updates in your inbox. <a href="#" class="btn subscribe">Get Updates</a>
+        updates in your inbox. <a href="{% url 'subscribe' %}" class="btn subscribe">Get Updates</a>
     </div>
 </div>
 <!-- End AlertBar
 ================================================== -->
+{% endif %}
 
 <!-- Begin Footer
 ================================================== -->

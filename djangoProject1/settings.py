@@ -1,5 +1,6 @@
 import os.path
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -144,6 +145,11 @@ TINYMCE_DEFAULT_CONFIG = {
 
 RECAPTCHA_PUBLIC_KEY = os.getenv('CAPTCHA_SITE_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.getenv('CAPTCHA_SITE_SECRET_KEY')
+
+BASE_URL = 'https://www.reiserx.com'
+
+DEFAULT_FROM_EMAIL = "skzeeshan3650@gmail.com"
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

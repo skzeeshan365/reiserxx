@@ -1,11 +1,14 @@
+import json
+
 import requests
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from djangoProject1 import settings
-from .forms import CommentForm, ContactForm
-from .models import Category
+from .forms import CommentForm, ContactForm, SubscriberForm
+from .models import Category, Subscriber
 from .models import Post, Contact
 from .models import Tag
 
@@ -34,11 +37,16 @@ def open_post(request, user, post_slug):
             return redirect('open', user=user, post_slug=post.slug)
     else:
         form = CommentForm()
+
+    subscribed = False
+    if request.session.get('subscriber_id'):
+        subscribed = True
     contents = {'post': post,
                 'related': related_posts,
                 'tagss': tags,
                 'form': form,
-                'comments': comments}
+                'comments': comments,
+                'subscribed': subscribed}
 
     return render(request, 'main/post.html', contents)
 
@@ -57,7 +65,6 @@ def contact(request):
             recaptcha_secret_key = settings.RECAPTCHA_PRIVATE_KEY
             data = {'secret': recaptcha_secret_key, 'response': token}
             response = requests.post(url=recaptcha_url, data=data)
-            print(response.json())
             if response.ok:
                 result = response.json()
                 if result.get('success') and result.get('score', 0) >= 0.5:
@@ -132,3 +139,56 @@ Did you know that there's a planet where it rains diamonds? Or that there's a ma
 
 So come join the fun and excitement of ReiserX, where the possibilities are endless and the adventure never ends. Get ready to blast off into a world of discovery and wonder, and who knows - maybe you'll even discover a new planet or two!"""
     return render(request, 'main/about.html', {'content': content, 'title': "Blast off into the Exciting Universe of ReiserX!"})
+
+
+def subscribe(request):
+    if request.method == 'POST':
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            token = form.cleaned_data.get('recaptcha_response')
+
+            # Validate reCAPTCHA token
+            recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
+            recaptcha_secret_key = settings.RECAPTCHA_PRIVATE_KEY
+            data = {'secret': recaptcha_secret_key, 'response': token}
+            response = requests.post(url=recaptcha_url, data=data)
+            if response.ok:
+                result = response.json()
+                if result.get('success') and result.get('score', 0) >= 0.5:
+                    # Accept form submission
+                    subscriber = form.save()
+                    request.session['subscriber_id'] = subscriber.id
+                    return JsonResponse(
+                        {'status': 'success', 'message': 'Your email is feeling like a lost puppy in the '
+                                                         'digital world. Give it a little love by clicking '
+                                                         'that verification link in your inbox!'})
+                else:
+                    # Reject form submission
+                    return JsonResponse({'status': 'error', 'message': 'Invalid reCAPTCHA. Please try again.'})
+            else:
+                # reCAPTCHA API error
+                return JsonResponse({'status': 'error', 'message': 'reCAPTCHA API error. Please try again.'})
+        else:
+            message = json.loads(form.errors.as_json())
+            return JsonResponse({'status': 'error', 'message': message['email'][0]['message']})
+    else:
+        form = SubscriberForm()
+
+    title = "Let's talk about nothing, it's a short conversation."
+    message = "Ready to join the exclusive club? Subscribe now for access to the latest and greatest content, " \
+              "exciting updates, and more virtual high-fives than you can handle! 😉👊 "
+    return render(request, 'main/subscribe.html', {'form': form,
+                                                   'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
+                                                   'title': title,
+                                                   'message': message})
+
+
+def verify_email(request, subscriber_id):
+    subscriber = Subscriber.objects.get(id=subscriber_id)
+    subscriber.verified = True
+    subscriber.save()
+    messages.success(request, 'Your subscription has been verified. Thank you!')
+    return render(request, 'main/email_verification.html',
+                  {'message': "Congratulations, your email has passed the vibe check!",
+                   'title': 'Email verified'
+                   })

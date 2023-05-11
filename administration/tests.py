@@ -1,13 +1,13 @@
 import io
 
+from PIL import Image
+from django.contrib.auth.models import User
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, Client
 from django.urls import reverse
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.contrib.auth.models import User
 
 from administration.forms import PostForm, PostFormEdit
 from main.models import Post, Tag, Category
-from PIL import Image
 
 
 # Create your tests here.

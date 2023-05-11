@@ -2,8 +2,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
-from .models import Logs, UserProfile
 from .models import Images
+from .models import Logs, UserProfile
 
 
 # Register your models here.

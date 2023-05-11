@@ -4,12 +4,14 @@ import json
 from PIL import Image
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.forms import forms
 from django.test import TestCase, Client
 from django.urls import reverse
 
 from administration.tests import create_image
-from .forms import ContactForm
-from .models import Category, Post, Tag
+from djangoProject1 import settings
+from .forms import ContactForm, SubscriberForm
+from .models import Category, Post, Tag, Subscriber
 
 
 class SearchByCategoryTest(TestCase):
@@ -213,3 +215,33 @@ class PostTestCase(TestCase):
         self.post1.save()
         self.assertNotEqual(self.post1.slug, post3.slug)
         self.assertTrue(self.post1.slug.startswith('test-post-1-updated'))
+
+
+class SubscriberFormTestCase(TestCase):
+    def setUp(self):
+        self.email = 'test@example.com'
+
+    def test_valid_form_submission(self):
+        form_data = {'email': self.email, 'recaptcha_response': 'valid_token'}
+        form = SubscriberForm(data=form_data)
+        self.assertTrue(form.is_valid())
+        subscriber = form.save()
+        self.assertIsInstance(subscriber, Subscriber)
+        self.assertEqual(subscriber.email, self.email)
+        self.assertFalse(subscriber.verified)
+
+    def test_already_subscribed_email(self):
+        Subscriber.objects.create(email=self.email, verified=True)
+        cleaned_data = {'email': self.email, 'recaptcha_response': 'valid_token'}
+        form = SubscriberForm()
+        form.cleaned_data = cleaned_data
+        with self.assertRaises(forms.ValidationError):
+            form.clean_email()
+
+    def test_verification_email_sent(self):
+        form_data = {'email': self.email, 'recaptcha_response': 'valid_token'}
+        form = SubscriberForm(data=form_data)
+        subscriber = form.save()
+        verification_link = form.get_verification_link(subscriber)
+        self.assertIn(settings.BASE_URL, verification_link)
+        self.assertIn(str(subscriber.id), verification_link)

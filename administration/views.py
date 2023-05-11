@@ -1,15 +1,15 @@
 import os
 
+from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import auth
 from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import auth
 
 from djangoProject1 import settings
-from .forms import PostForm, CategoryForm, PostFormEdit
 from main.models import Post, Category
-from django.contrib import messages
+from .forms import PostForm, CategoryForm, PostFormEdit
 
 
 def login_page(request):

@@ -1,10 +1,13 @@
 import math
+import uuid
 
 from django.contrib.auth.models import User, AbstractUser
 from django.core.validators import MaxLengthValidator
 from django.db import IntegrityError
 from django.db import models, transaction
 # Create your models here.
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.http import urlencode
@@ -129,7 +132,8 @@ class Post(models.Model):
 
     @staticmethod
     def search_by_title(query):
-        return Post.objects.filter(title__icontains=query).only('title', 'description', 'content', 'image', 'timestamp', 'author')
+        return Post.objects.filter(title__icontains=query).only('title', 'description', 'content', 'image', 'timestamp',
+                                                                'author')
 
     @classmethod
     def get_posts_by_user(cls, user):
@@ -162,3 +166,17 @@ class Contact(models.Model):
     email = models.EmailField(max_length=70, blank=True)
     message = models.TextField()
     timestamp = models.DateTimeField(max_length=50, auto_now=True)
+
+
+class Subscriber(models.Model):
+    id = models.CharField(primary_key=True, editable=False, unique=True, max_length=36)
+    email = models.EmailField(unique=True, error_messages={'unique': "Looks like you're already on our VIP list! Time "
+                                                                     "to sit back, relax and enjoy the exclusive "
+                                                                     "perks of being one of our favorites"})
+    verified = models.BooleanField(default=False)
+
+
+@receiver(pre_save, sender=Subscriber)
+def subscriber_pre_save(sender, instance, **kwargs):
+    if not instance.id:
+        instance.id = str(uuid.uuid4())

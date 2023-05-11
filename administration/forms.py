@@ -1,16 +1,15 @@
+import base64
 import io
+from io import BytesIO
 
 import cloudinary
+from PIL import Image
+from bs4 import BeautifulSoup
+from cloudinary.uploader import upload
 from django import forms
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from tinymce.widgets import TinyMCE
 
 from main.models import Post, Tag, Category
-from PIL import Image
-from io import BytesIO
-import base64
-from bs4 import BeautifulSoup
-from cloudinary.uploader import upload
 
 
 def compress(image):

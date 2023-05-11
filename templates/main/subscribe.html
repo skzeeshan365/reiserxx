@@ -14,7 +14,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'contact/css/bootstrap.min.css' %}">
-    
+
     <!-- Style -->
     <link rel="stylesheet" href="{% static 'contact/css/style.css' %}">
 
@@ -24,11 +24,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'reiserx/img/favicon/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'reiserx/img/favicon/site.webmanifest' %}">
 
-    <title>Contact us</title>
+    <title>Subscribe</title>
       <script src="https://www.google.com/recaptcha/api.js?render={{ SITE_KEY }}"></script>
   </head>
   <body>
-  
+
 
   <div class="content">
     <div class="container">
@@ -36,14 +36,14 @@
         <div class="col-md-10">
           <div class="row align-items-center">
             <div class="col-lg-7 mb-5 mb-lg-0">
-              <h3 class="mb-5">CONTACT US</h3>
+              <h3 class="mb-5">SUBSCRIBE TO REISERX</h3>
 
-              <form action="{% url 'contact' %}" class="border-right pr-5 mb-5" method="POST" id="contactForm" name="contactForm">
+              <form action="{% url 'subscribe' %}" class="border-right pr-5 mb-5" method="POST" id="contactForm" name="contactForm">
                 {% csrf_token %}
                     {{ form.as_p }}
                 <div class="row">
                   <div class="col-md-12">
-                    <input type="submit" name="submit" value="Send Message" class="btn btn-primary py-2 px-4" style="background-color: #1C9963; color: #FFFFFF; border-color: #1C9963;">
+                    <input type="submit" name="submit" value="Subscribe" class="btn btn-primary py-2 px-4" style="background-color: #1C9963; color: #FFFFFF; border-color: #1C9963;">
                     <span class="submitting"></span>
                   </div>
                 </div>
@@ -56,13 +56,13 @@
               <p>{{ message }}</p>
             </div>
           </div>
-        </div>  
+        </div>
         </div>
       </div>
   </div>
   <script>
     grecaptcha.ready(function() {
-        grecaptcha.execute('{{ SITE_KEY }}', {action: 'contact'}).then(function(token) {
+        grecaptcha.execute('{{ SITE_KEY }}', {action: 'subscribe'}).then(function(token) {
             document.getElementById('id_recaptcha_response').value = token;
         });
     });
