@@ -7,7 +7,6 @@ from PIL import Image
 from bs4 import BeautifulSoup
 from cloudinary.uploader import upload
 from django import forms
-from django.forms import BaseFormSet
 from tinymce.widgets import TinyMCE
 
 from main.models import Post, Tag, Category
