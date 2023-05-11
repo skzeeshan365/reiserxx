@@ -1,3 +1,4 @@
+import base64
 import os
 
 from django.contrib import messages
@@ -8,7 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from djangoProject1 import settings
-from main.models import Post, Category
+from main.models import Post, Category, Tag
 from .forms import PostForm, CategoryForm, PostFormEdit
 
 
@@ -91,3 +92,25 @@ def robots_txt(request):
     except FileNotFoundError:
         lines = ["User-agent: *\n", "Disallow: /"]
     return HttpResponse(''.join(lines), content_type='text/plain')
+
+
+def post_preview(request):
+    post = Post()
+    if request.method == 'POST':
+        data = dict(request.POST)
+        print(data)
+
+        post.title = data['form-0-title'][0]
+        post.content = data['form-0-content'][0]
+        post.description = data['form-0-description'][0]
+        post.category = Category.objects.get(pk=data['form-0-category'][0])
+        post.pk = 999999999
+        for tag_name in data['form-0-tags'][0].split(','):
+            tag_name = tag_name.strip()
+            tag, created = Tag.objects.get_or_create(tag=tag_name)
+            post.tags.add(tag)
+        image = request.FILES['form-0-image']
+        post.image = 'data:image/png;base64,' + base64.b64encode(image.read()).decode('utf-8')
+        post.author = request.user
+
+    return render(request, 'Administration/post.html', {'post': post})

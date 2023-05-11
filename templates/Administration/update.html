@@ -98,6 +98,23 @@
         #add-form:hover {
             background-color: #0062cc;
         }
+        #preview {
+            display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    width: 150px;
+        }
+
+        #preview:hover {
+            background-color: #0062cc;
+        }
     </style>
 </head>
 <body>
@@ -135,7 +152,7 @@
 {% block content %}
     <h2>New Post</h2>
     <div class="form-container" id="form-container">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="post-form">
             {% csrf_token %}
             {{ formset.management_form }}
             <div class="form-container">
@@ -149,6 +166,7 @@
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <button id="add-form" class="btn btn-secondary btn-block" type="button" onclick="addForm()">Add Another Form</button>
+                <button id="preview" type="submit" class="btn btn-secondary btn-block" formaction="{% url 'post_preview' %}" formtarget="_blank">Preview</button>
             </div>
         </form>
     </div>
@@ -214,7 +232,6 @@
 		content_css: "{% static 'tinymce/js/tinymce/skins/content/writer/content.min.css' %}"
 	})
   </script>
-
 <!-- Bootstrap core JavaScript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

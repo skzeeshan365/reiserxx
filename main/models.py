@@ -108,7 +108,10 @@ class Post(models.Model):
 
     def get_date(self):
         # Format the date_published field as "22 July 2017"
-        return self.timestamp.strftime('%d %B %Y')
+        if self.timestamp:
+            return self.timestamp.strftime('%d %B %Y')
+        else:
+            return 'now'
 
     def get_tags(self):
         return self.tags.values_list('tag', flat=True)

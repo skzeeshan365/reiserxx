@@ -1,6 +1,88 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
+    <style>
+    .cc-window {
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(162, 162, 162, 0.5);
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+
+.cc-message {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.cc-link {
+  color: #349d00 !important;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.cc-link:hover {
+  color: #d5d5d5; !important;
+  text-decoration: none;
+}
+
+.cc-compliance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.cc-compliance a {
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+}
+
+.cc-compliance a:hover {
+  color: #ffffff;
+}
+
+.cc-compliance .cc-btn.cc-allow {
+  background-color: #349d00;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cc-compliance .cc-btn.cc-allow:hover {
+  background-color: #195400;
+  color: #fff;
+}
+
+.cc-compliance .cc-btn.cc-deny {
+  background-color: #ffcece;
+  color: #ffffff; !important;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cc-compliance .cc-btn.cc-deny:hover {
+  background-color: #ff3030;
+  color: #fff;
+    text-decoration: none;
+}
+
+    </style>
 
     <div class="container">
 <!-- Begin Site Title
@@ -106,5 +188,25 @@
     ================================================== -->
 <!-- /.container -->
     </div>
-
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+  window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#ffffff"
+    },
+    "button": {
+      "background": "#349d00"
+    }
+  },
+  "position": "bottom-left",
+  "type": "opt-in",
+  "content": {
+    "message": "This website uses cookies to ensure you get the best experience.",
+    "deny": "Deny",
+    "allow": "Accept",
+    "href": "{% url 'about' %}"
+  }
+});
+</script>
 {% endblock %}

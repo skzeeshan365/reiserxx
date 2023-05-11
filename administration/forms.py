@@ -7,6 +7,7 @@ from PIL import Image
 from bs4 import BeautifulSoup
 from cloudinary.uploader import upload
 from django import forms
+from django.forms import BaseFormSet
 from tinymce.widgets import TinyMCE
 
 from main.models import Post, Tag, Category
@@ -87,10 +88,12 @@ class CategoryForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-    tags = forms.CharField(max_length=255, required=False)
-    image = forms.ImageField(required=True)
-
-    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
+    title = forms.CharField(max_length=100, required=True, label=False)
+    description = forms.CharField(max_length=255, required=False, label=False)
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), required=True, label=False, empty_label='Select a category')
+    tags = forms.CharField(max_length=255, required=False, label=False)
+    image = forms.ImageField(required=True, label=False)
+    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}), required=True, label=False)
 
     class Meta:
         model = Post
@@ -108,6 +111,12 @@ class PostForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        required_fields = ['title', 'description', 'category', 'image', 'tags']
+        for field_name, field in self.fields.items():
+            if field_name in required_fields:
+                field.required = True
+                field.widget.attrs['required'] = 'required'
         instance = kwargs.get('instance')
         if instance:
             self.fields['tags'].initial = ', '.join([tag.tag for tag in instance.tags.all()])
@@ -115,6 +124,12 @@ class PostForm(forms.ModelForm):
                 self.fields['image'].initial = instance.image
             else:
                 self.fields['image'].initial = None
+
+        self.fields['title'].widget.attrs['placeholder'] = 'Enter title'
+        self.fields['description'].widget.attrs['placeholder'] = 'Enter description'
+        self.fields['category'].widget.attrs['placeholder'] = 'Select category'
+        self.fields['tags'].widget.attrs['placeholder'] = 'Enter tags'
+        self.fields['image'].widget.attrs['placeholder'] = 'Select image'
 
     def save(self, commit=True):
         post = super().save(commit=False)
@@ -142,10 +157,13 @@ class PostForm(forms.ModelForm):
 
 
 class PostFormEdit(forms.ModelForm):
-    tags = forms.CharField(max_length=255, required=False)
-    image = forms.ImageField(required=True)
-
-    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
+    title = forms.CharField(max_length=100, required=True, label=False)
+    description = forms.CharField(max_length=255, required=False, label=False)
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), required=True, label=False,
+                                      empty_label='Select a category')
+    tags = forms.CharField(max_length=255, required=False, label=False)
+    image = forms.ImageField(required=True, label=False)
+    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}), required=True, label=False)
 
     class Meta:
         model = Post
@@ -170,6 +188,18 @@ class PostFormEdit(forms.ModelForm):
                 self.fields['image'].initial = instance.image
             else:
                 self.fields['image'].initial = None
+
+        required_fields = ['title', 'description', 'category', 'tags']
+        for field_name, field in self.fields.items():
+            if field_name in required_fields:
+                field.required = True
+                field.widget.attrs['required'] = 'required'
+
+        self.fields['title'].widget.attrs['placeholder'] = 'Enter title'
+        self.fields['description'].widget.attrs['placeholder'] = 'Enter description'
+        self.fields['category'].widget.attrs['placeholder'] = 'Select category'
+        self.fields['tags'].widget.attrs['placeholder'] = 'Enter tags'
+        self.fields['image'].widget.attrs['placeholder'] = 'Select image'
 
     def save(self, commit=True):
         post = super().save(commit=False)
