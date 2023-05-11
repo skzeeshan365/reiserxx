@@ -70,8 +70,14 @@ def post_edit(request, post_slug):
     if form.is_valid():
         form.save()
         return redirect('post_list')
-    return render(request, 'Administration/postlist.html', {'form': form, 'list': False})
+    return render(request, 'Administration/postlist.html', {'form': form, 'list': False, 'delete_slug': post_slug})
 
+
+def post_delete(request, post_slug):
+    instance = get_object_or_404(Post, slug=post_slug)
+    instance.image.delete()
+    instance.delete()
+    return redirect('post_list')
 
 def category(request):
     CategoryFormSet = modelformset_factory(Category, form=CategoryForm, extra=1)
