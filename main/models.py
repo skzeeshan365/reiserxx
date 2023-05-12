@@ -31,7 +31,7 @@ class Category(models.Model):
         return f"/{self.slug}/"
 
     def get_posts(self):
-        return Post.objects.filter(category=self)
+        return Post.objects.filter(category=self, draft=False)
 
 
 class Tag(models.Model):
@@ -46,7 +46,7 @@ class Tag(models.Model):
         super().save(*args, **kwargs)
 
     def get_posts(self):
-        return Post.objects.filter(tags__tag=self.tag).exclude(pk=self.pk)
+        return Post.objects.filter(tags__tag=self.tag, draft=False).exclude(pk=self.pk)
 
 
 class Post(models.Model):
@@ -59,6 +59,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE)
     author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE, default=None)
     tags = models.ManyToManyField(Tag, related_name='posts')
+    draft = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -128,32 +129,19 @@ class Post(models.Model):
         return self.comments.filter(post=self.pk)
 
     def get_related_posts(self):
-        return Post.objects.filter(tags__tag__in=self.get_tags()).exclude(slug=self.slug).distinct()
+        return Post.objects.filter(tags__tag__in=self.get_tags(), draft=False).exclude(slug=self.slug).distinct()
 
     def get_author_name(self):
         return self.author.get_username()
 
     @staticmethod
     def search_by_title(query):
-        return Post.objects.filter(title__icontains=query).only('title', 'description', 'content', 'image', 'timestamp',
+        return Post.objects.filter(title__icontains=query, draft=False).only('title', 'description', 'content', 'image', 'timestamp',
                                                                 'author')
 
     @classmethod
     def get_posts_by_user(cls, user):
-        return cls.objects.filter(author=user).only('title', 'description', 'content', 'image', 'timestamp')
-
-    def get_meta(self, default_meta=None, **kwargs):
-        meta = super().get_meta(default_meta, **kwargs)
-
-        meta.update({
-            'title': self.title,
-            'description': self.description,
-            'og_title': self.title,
-            'og_description': self.description,
-            'og_image': self.image.url if self.image else None,
-        })
-
-        return meta
+        return cls.objects.filter(author=user, draft=False).only('title', 'description', 'content', 'image', 'timestamp')
 
 
 class Comment(models.Model):

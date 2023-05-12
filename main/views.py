@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timedelta
 
 import requests
 from django.contrib import messages
@@ -17,8 +18,8 @@ from .models import Tag
 
 
 def home(request):
-    posts = Post.objects.order_by('-timestamp')[:4]
-    all_posts = Post.objects.all()
+    posts = Post.objects.filter(draft=False).order_by('-timestamp')[:4]
+    all_posts = Post.objects.filter(draft=False)
     return render(request, 'main/main.html', {'posts': posts, 'all_posts': all_posts, 'current_menu': 1, 'page_title': "ReiserX"})
 
 
@@ -158,6 +159,11 @@ def subscribe(request):
                     # Accept form submission
                     subscriber = form.save()
                     request.session['subscriber_id'] = subscriber.id
+
+                    # set the cookie expiration time to a year from now
+                    expires_at = datetime.now() + timedelta(days=365)
+                    request.session.set_expiry(expires_at.timestamp())
+
                     return JsonResponse(
                         {'status': 'success', 'message': 'Your email is feeling like a lost puppy in the '
                                                          'digital world. Give it a little love by clicking '

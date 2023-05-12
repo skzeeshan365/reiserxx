@@ -93,10 +93,11 @@ class PostForm(forms.ModelForm):
     tags = forms.CharField(max_length=255, required=False, label=False)
     image = forms.ImageField(required=True, label=False)
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}), required=True, label=False)
+    draft = forms.BooleanField(label='Save as draft')
 
     class Meta:
         model = Post
-        fields = ['title', 'content', 'description', 'category']
+        fields = ['title', 'content', 'description', 'category', 'draft']
 
     def clean_tags(self):
         tags = self.cleaned_data.get('tags')
@@ -166,7 +167,7 @@ class PostFormEdit(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'content', 'description', 'category']
+        fields = ['title', 'content', 'description', 'category', 'draft']
 
     def clean_tags(self):
         tags = self.cleaned_data.get('tags')
