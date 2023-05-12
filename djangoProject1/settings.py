@@ -150,6 +150,8 @@ BASE_URL = 'https://www.reiserx.com'
 
 DEFAULT_FROM_EMAIL = "skzeeshan3650@gmail.com"
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+VERIFALIA_USERNAME = os.getenv('VERIFALIA_USERNAME')
+VERIFALIA_PASSWORD = os.getenv('VERIFALIA_PASSWORD')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

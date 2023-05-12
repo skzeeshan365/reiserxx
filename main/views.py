@@ -81,7 +81,9 @@ def contact(request):
                 return JsonResponse({'status': 'error', 'message': 'reCAPTCHA API error. Please try again.'})
         else:
             # Invalid form data
-            return JsonResponse({'status': 'error', 'message': 'Invalid form data. Please try again.'})
+            message = json.loads(form.errors.as_json())
+            print(message)
+            return JsonResponse({'status': 'error', 'message': message['email'][0]['message']})
     else:
         # GET request
         form = ContactForm()

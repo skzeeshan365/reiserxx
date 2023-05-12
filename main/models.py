@@ -161,9 +161,7 @@ class Contact(models.Model):
 
 class Subscriber(models.Model):
     id = models.CharField(primary_key=True, editable=False, unique=True, max_length=36)
-    email = models.EmailField(unique=True, error_messages={'unique': "Looks like you're already on our VIP list! Time "
-                                                                     "to sit back, relax and enjoy the exclusive "
-                                                                     "perks of being one of our favorites"})
+    email = models.EmailField(unique=True)
     verified = models.BooleanField(default=False)
 
 

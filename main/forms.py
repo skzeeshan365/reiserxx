@@ -1,5 +1,6 @@
 import re
 
+import requests
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxLengthValidator
@@ -8,6 +9,7 @@ from sendgrid import Mail, Content, SendGridAPIClient
 
 from djangoProject1 import settings
 from .models import Comment, Subscriber
+from .utils import is_valid_email
 
 
 class CommentForm(forms.ModelForm):
@@ -39,6 +41,12 @@ class ContactForm(forms.Form):
         email = self.cleaned_data['email']
         if not re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', email):
             raise ValidationError('Invalid email address')
+        else:
+            is_valid, error = is_valid_email(email)
+            if error is not None:
+                raise forms.ValidationError(error, "ghfghfh")
+            elif not is_valid:
+                raise forms.ValidationError("Please enter a valid email address")
         return email
 
 
@@ -56,25 +64,35 @@ class SubscriberForm(forms.ModelForm):
         model = Subscriber
         fields = ('email',)
 
-    def clean_email(self):
+    def is_new_email(self):
         email = self.cleaned_data['email']
         try:
-            subscriber = Subscriber.objects.get(email=email)
+            Subscriber.objects.get(email=email)
         except Subscriber.DoesNotExist:
+            return True
+        return False
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        subscriber = Subscriber.objects.filter(email=email).exists()
+        print(subscriber)
+        if subscriber:
+            raise forms.ValidationError(
+                "Looks like you're already on our VIP list! Time to sit back, relax and enjoy the exclusive perks "
+                "of being one of our favorites")
+        else:
+            # validate the email using Verifalia API
+            is_valid, error = is_valid_email(email)
+            if error is not None:
+                raise forms.ValidationError(error)
+            elif not is_valid:
+                raise forms.ValidationError("Please enter a valid email address")
             return email
-
-        if subscriber.verified:
-            raise forms.ValidationError("Looks like you're already on our VIP list! Time to sit back, relax and enjoy "
-                                        "the exclusive perks of being one of our favorites")
-
-        # Merge the existing unverified subscriber with the new one
-        subscriber.email = email
-        subscriber.save()
-        return email
 
     def save(self, commit=True):
         subscriber = super().save(commit=False)
         if commit:
+            subscriber.email = self.cleaned_data['email']
             subscriber.save()
             verification_link = self.get_verification_link(subscriber)
             self.send_verification_email(subscriber, verification_link)
