@@ -1,4 +1,8 @@
+from io import BytesIO
+
+from PIL import Image
 from django.contrib.auth.models import User
+from django.core.files.base import ContentFile
 from django.db import models
 
 
@@ -20,6 +24,7 @@ class Images(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=1000, blank=True)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics/')
 
     # Create a user profile for each user
     def create_user_profile(sender, instance, created, **kwargs):

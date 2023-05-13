@@ -13,6 +13,14 @@
                         <h1>{{ user.get_full_name }}</h1><br>
                         <span class="author-description">{{ user.userprofile.bio }}</span>
                     </div>
+                    <div class="col-md-2 col-xs-12">
+                        {% if user.userprofile.image.url %}
+                            <img class="author-thumb" src="{{ user.userprofile.image.url }}" alt="{{ user.username }}">
+                        {% else %}
+                            <img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="default">
+                        {% endif %}
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
