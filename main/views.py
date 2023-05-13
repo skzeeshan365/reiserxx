@@ -22,6 +22,7 @@ from .models import Tag
 def home(request):
     posts = Post.objects.filter(draft=False).order_by('-timestamp')[:4]
     all_posts = Post.objects.filter(draft=False)
+    print(settings.CREDENTIALS)
     return render(request, 'main/main.html', {'posts': posts, 'all_posts': all_posts, 'current_menu': 1, 'page_title': "ReiserX"})
 
 
