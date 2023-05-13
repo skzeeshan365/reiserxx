@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from google.cloud import translate
+from google.oauth2 import service_account
 
 from djangoProject1 import settings
 from .forms import CommentForm, ContactForm, SubscriberForm
@@ -47,7 +49,8 @@ def open_post(request, user, post_slug):
                 'tagss': tags,
                 'form': form,
                 'comments': comments,
-                'subscribed': subscribed}
+                'subscribed': subscribed,
+                'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY}
 
     return render(request, 'main/post.html', contents)
 
@@ -200,3 +203,74 @@ def verify_email(request, subscriber_id):
                   {'message': "Congratulations, your email has passed the vibe check!",
                    'title': 'Email verified'
                    })
+
+
+def lang(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        token = data.get('token')
+        response = requests.post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            data={
+                'secret': settings.RECAPTCHA_PRIVATE_KEY,
+                'response': token
+            }
+        )
+
+        result = response.json()
+        if not result.get('success') or result.get('score', 0) < 0.7:
+            # Handle the reCAPTCHA verification failure
+            return JsonResponse({'success': False, 'message': 'reCAPTCHA verification failed. Please try again later.'})
+        else:
+            # Proceed with the operation
+            # ...
+            return JsonResponse({'success': True})
+    else:
+
+        # calling up google vision json file
+        credentials = service_account.Credentials.from_service_account_info(settings.CREDENTIALS)
+
+        # Initialize the Google Cloud Translation API client
+        client = translate.TranslationServiceClient(credentials=credentials)
+
+        # Call the API to retrieve the list of supported languages
+        response = client.get_supported_languages(parent='projects/' + settings.CREDENTIALS['project_id'], display_language_code="en")
+
+        # Create a list of dictionaries containing language code, name, and native name
+        language_list = []
+        for language in response.languages:
+            language_list.append({
+                'code': language.language_code,
+                'name': language.display_name,
+            })
+
+        # Return the language list as a JSON response
+        return JsonResponse({'languages': language_list})
+
+
+def translate_post(request, user, post_slug, code):
+    post = Post.objects.get(slug=post_slug).translate(code)
+    tags = post.tags.all()
+    related_posts = post.get_related_posts()
+    comments = post.get_comments()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+            return redirect('open', user=user, post_slug=post.slug)
+    else:
+        form = CommentForm()
+
+    subscribed = False
+    if request.session.get('subscriber_id'):
+        subscribed = True
+    contents = {'post': post,
+                'related': related_posts,
+                'tagss': tags,
+                'form': form,
+                'comments': comments,
+                'subscribed': subscribed}
+
+    return render(request, 'main/post.html', contents)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{bootstrap, codemirror, cookieconsent, font-awesome, froala-editor, jquery, jquery-3.5.1, jquery-3.6.0, popper.js, profile, tether}" />
+    <file url="file://$PROJECT_DIR$" libraries="{bootstrap, codemirror, cookieconsent, font-awesome, froala-editor, jquery, jquery-3.5.1, jquery-3.6.0, popper.js, profile, tether, twitter-bootstrap}" />
     <excludedPredefinedLibrary name="HTML" />
   </component>
 </project>

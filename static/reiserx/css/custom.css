@@ -124,3 +124,22 @@
             height: 200px;
             object-fit: cover;
         }
+
+        .list-group-item {
+    border-top: 1px solid #dee2e6;
+}
+
+.list-group-item:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+.grecaptcha-badge {
+  display: none;
+}
+.bi-translate:hover path {
+  fill: #349d00; /* change the fill color on hover */
+}
+
+.bi-translate:hover {
+  transform: scale(1.1); /* scale the icon on hover */
+}

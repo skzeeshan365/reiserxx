@@ -12,6 +12,10 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.http import urlencode
 from django.utils.text import slugify
+from google.cloud import translate
+from google.oauth2 import service_account
+
+from djangoProject1 import settings
 
 
 class Category(models.Model):
@@ -136,12 +140,35 @@ class Post(models.Model):
 
     @staticmethod
     def search_by_title(query):
-        return Post.objects.filter(title__icontains=query, draft=False).only('title', 'description', 'content', 'image', 'timestamp',
-                                                                'author')
+        return Post.objects.filter(title__icontains=query, draft=False).only('title', 'description', 'content', 'image',
+                                                                             'timestamp',
+                                                                             'author')
 
     @classmethod
     def get_posts_by_user(cls, user):
-        return cls.objects.filter(author=user, draft=False).only('title', 'description', 'content', 'image', 'timestamp')
+        return cls.objects.filter(author=user, draft=False).only('title', 'description', 'content', 'image',
+                                                                 'timestamp')
+
+    def translate(self, code):
+
+        # calling up google vision json file
+        credentials = service_account.Credentials.from_service_account_info(settings.CREDENTIALS)
+
+        # Initialize the Google Cloud Translation API client
+        client = translate.TranslationServiceClient(credentials=credentials)
+        response = client.translate_text(
+            contents=[self.title, self.content, self.description],
+            target_language_code=code,
+            parent='projects/' + settings.CREDENTIALS['project_id']
+        )
+
+        # Get the translated text from the response and display it
+        translations = response.translations
+        self.title = translations[0].translated_text
+        self.content = translations[1].translated_text
+        self.description = translations[2].translated_text
+
+        return self
 
 
 class Comment(models.Model):

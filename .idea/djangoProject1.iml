@@ -29,6 +29,7 @@
     <orderEntry type="library" name="jquery-3.5.1" level="application" />
     <orderEntry type="library" name="codemirror" level="application" />
     <orderEntry type="library" name="cookieconsent" level="application" />
+    <orderEntry type="library" name="twitter-bootstrap" level="application" />
   </component>
   <component name="PackageRequirementsSettings">
     <option name="removeUnused" value="true" />
