@@ -46,7 +46,7 @@ class Tag(models.Model):
         super().save(*args, **kwargs)
 
     def get_posts(self):
-        return Post.objects.filter(tags__tag=self.tag, draft=False).exclude(pk=self.pk)
+        return Post.objects.filter(tags__tag=self.tag, draft=False).exclude(pk=self.pk)[:3]
 
 
 class Post(models.Model):
@@ -129,7 +129,7 @@ class Post(models.Model):
         return self.comments.filter(post=self.pk)
 
     def get_related_posts(self):
-        return Post.objects.filter(tags__tag__in=self.get_tags(), draft=False).exclude(slug=self.slug).distinct()
+        return Post.objects.filter(tags__tag__in=self.get_tags(), draft=False).exclude(slug=self.slug).distinct()[:3]
 
     def get_author_name(self):
         return self.author.get_username()
