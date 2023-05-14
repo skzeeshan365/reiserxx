@@ -1,10 +1,13 @@
 from django.contrib import admin
-from .models import Media
-from .models import Message
+
 from .models import ChangeLog
 from .models import ChangeLogData
-from .models import DriverDownloadUrl
 from .models import Contact
+from .models import DriverDownloadUrl
+from .models import Media
+from .models import Message
+
+
 # Register your models here.
 
 

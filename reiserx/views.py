@@ -1,17 +1,16 @@
 import os
 
+from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.templatetags.static import static
 from dotenv import load_dotenv
 
 from .Resources import CONSTANTS
 from .models import ChangeLog
-from .models import Media
-from .models import Message
 from .models import Contact
 from .models import DriverDownloadUrl
-from django.templatetags.static import static
-
-from django.contrib import messages
+from .models import Media
+from .models import Message
 
 load_dotenv('.env')
 
