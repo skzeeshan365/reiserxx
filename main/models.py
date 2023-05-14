@@ -1,3 +1,4 @@
+import json
 import math
 import os
 import uuid
@@ -16,6 +17,8 @@ from django.utils.text import slugify
 from dotenv import load_dotenv
 from google.cloud import translate
 from google.oauth2 import service_account
+
+from djangoProject1 import settings
 
 
 class Category(models.Model):
@@ -149,10 +152,12 @@ class Post(models.Model):
         return cls.objects.filter(author=user, draft=False).only('title', 'description', 'content', 'image',
                                                                  'timestamp')
 
-    def translate(self, code, CREDENTIALS):
+    def translate(self, code):
 
         # calling up google vision json file
-        credentials = service_account.Credentials.from_service_account_info(CREDENTIALS)
+        with open(r"main/key.json") as f:
+            credentials_info = json.load(f)
+        credentials = service_account.Credentials.from_service_account_info(credentials_info)
 
         # Initialize the Google Cloud Translation API client
         client = translate.TranslationServiceClient(credentials=credentials)
