@@ -13,17 +13,13 @@ html {
 /* Adjust root font size based on viewport size */
 @media screen and (min-width: 768px) and (max-width: 991px) {
   html {
-    font-size: 16px;
-    line-height: 1.45;
-    letter-spacing: -0.002em;
+    font-size: 15px;
   }
 }
 
 @media screen and (min-width: 992px) {
   html {
     font-size: 16px;
-    line-height: 1.58;
-    letter-spacing: -0.003em;
   }
 }
 
@@ -38,6 +34,8 @@ body {
 /* Apply styles to the post content */
 .article-post .content {
   font-family: 'Source Serif Pro', serif;
+  line-height: 1.58;
+  letter-spacing: -0.003em;
   color: rgba(41, 41, 41, 1);
   margin: 0 auto;
   text-align: justify;
