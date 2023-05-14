@@ -24,7 +24,9 @@ from .models import Tag
 def home(request):
     posts = Post.objects.filter(draft=False).order_by('-timestamp')[:4]
     all_posts = Post.objects.filter(draft=False)
-    return render(request, 'main/main.html', {'posts': posts, 'all_posts': all_posts, 'current_menu': 1, 'page_title': "ReiserX"})
+    load_dotenv('.env')
+    test = os.getenv('universe_domain')
+    return render(request, 'main/main.html', {'posts': posts, 'all_posts': all_posts, 'current_menu': 1, 'page_title': test})
 
 
 def open_post(request, user, post_slug):
