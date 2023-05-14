@@ -1,4 +1,3 @@
-import json
 import math
 import os
 import uuid
@@ -150,26 +149,10 @@ class Post(models.Model):
         return cls.objects.filter(author=user, draft=False).only('title', 'description', 'content', 'image',
                                                                  'timestamp')
 
-    def translate(self, code):
-
-        load_dotenv('.env')
-        CREDENTIALS = {
-            "type": os.getenv('type'),
-            "project_id": os.getenv('project_id'),
-            "private_key_id": os.getenv('private_key_id'),
-            "private_key": os.getenv('private_key'),
-            "client_email": os.getenv('client_email'),
-            "client_id": os.getenv('client_id'),
-            "auth_uri": os.getenv('auth_uri'),
-            "token_uri": os.getenv('token_uri'),
-            "auth_provider_x509_cert_url": os.getenv('auth_provider_x509_cert_url'),
-            "client_x509_cert_url": os.getenv('client_x509_cert_url')
-        }
+    def translate(self, code, CREDENTIALS):
 
         # calling up google vision json file
-        with open(r"main/ocrservice-378111-9a2249f10e5b.json") as f:
-            credentials_info = json.load(f)
-        credentials = service_account.Credentials.from_service_account_info(credentials_info)
+        credentials = service_account.Credentials.from_service_account_info(CREDENTIALS)
 
         # Initialize the Google Cloud Translation API client
         client = translate.TranslationServiceClient(credentials=credentials)

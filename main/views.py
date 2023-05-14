@@ -265,7 +265,7 @@ def lang(request):
 
 
 def translate_post(request, user, post_slug, code):
-    post = Post.objects.get(slug=post_slug).translate(code)
+    post = Post.objects.get(slug=post_slug).translate(code, CREDENTIALS)
     tags = post.tags.all()
     related_posts = post.get_related_posts()
     comments = post.get_comments()
