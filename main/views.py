@@ -21,19 +21,6 @@ from .models import Tag
 # Create your views here.
 
 load_dotenv('.env')
-CREDENTIALS = {
-            "type": os.getenv('type'),
-            "project_id": os.getenv('project_id'),
-            "private_key_id": os.getenv('private_key_id'),
-            "private_key": os.getenv('private_key'),
-            "client_email": os.getenv('client_email'),
-            "client_id": os.getenv('client_id'),
-            "auth_uri": os.getenv('auth_uri'),
-            "token_uri": os.getenv('token_uri'),
-            "auth_provider_x509_cert_url": os.getenv('auth_provider_x509_cert_url'),
-            "client_x509_cert_url": os.getenv('client_x509_cert_url'),
-            "universe_domain": os.getenv('universe_domain'),
-        }
 
 
 def home(request):
@@ -244,6 +231,20 @@ def lang(request):
             return JsonResponse({'success': True})
     else:
         # calling up google vision json file
+
+        CREDENTIALS = {
+            "type": os.getenv('type'),
+            "project_id": os.getenv('project_id'),
+            "private_key_id": os.getenv('private_key_id'),
+            "private_key": os.getenv('private_key'),
+            "client_email": os.getenv('client_email'),
+            "client_id": os.getenv('client_id'),
+            "auth_uri": os.getenv('auth_uri'),
+            "token_uri": os.getenv('token_uri'),
+            "auth_provider_x509_cert_url": os.getenv('auth_provider_x509_cert_url'),
+            "client_x509_cert_url": os.getenv('client_x509_cert_url'),
+            "universe_domain": os.getenv('universe_domain'),
+        }
         credentials = service_account.Credentials.from_service_account_info(CREDENTIALS)
 
         # Initialize the Google Cloud Translation API client
@@ -265,6 +266,19 @@ def lang(request):
 
 
 def translate_post(request, user, post_slug, code):
+    CREDENTIALS = {
+        "type": os.getenv('type'),
+        "project_id": os.getenv('project_id'),
+        "private_key_id": os.getenv('private_key_id'),
+        "private_key": os.getenv('private_key'),
+        "client_email": os.getenv('client_email'),
+        "client_id": os.getenv('client_id'),
+        "auth_uri": os.getenv('auth_uri'),
+        "token_uri": os.getenv('token_uri'),
+        "auth_provider_x509_cert_url": os.getenv('auth_provider_x509_cert_url'),
+        "client_x509_cert_url": os.getenv('client_x509_cert_url'),
+        "universe_domain": os.getenv('universe_domain'),
+    }
     post = Post.objects.get(slug=post_slug).translate(code, CREDENTIALS)
     tags = post.tags.all()
     related_posts = post.get_related_posts()
