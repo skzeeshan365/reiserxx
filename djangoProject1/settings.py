@@ -14,7 +14,7 @@ API_SECRET = os.getenv('API_SECRET')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '54.238.76.143', 'localhost', 'reiserx.com']
 
@@ -152,19 +152,6 @@ DEFAULT_FROM_EMAIL = "skzeeshan3650@gmail.com"
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 VERIFALIA_USERNAME = os.getenv('VERIFALIA_USERNAME')
 VERIFALIA_PASSWORD = os.getenv('VERIFALIA_PASSWORD')
-
-CREDENTIALS = {
-            "type": os.getenv('type'),
-            "project_id": os.getenv('project_id'),
-            "private_key_id": os.getenv('private_key_id'),
-            "private_key": os.getenv('private_key'),
-            "client_email": os.getenv('client_email'),
-            "client_id": os.getenv('client_id'),
-            "auth_uri": os.getenv('auth_uri'),
-            "token_uri": os.getenv('token_uri'),
-            "auth_provider_x509_cert_url": os.getenv('auth_provider_x509_cert_url'),
-            "client_x509_cert_url": os.getenv('client_x509_cert_url')
-}
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
