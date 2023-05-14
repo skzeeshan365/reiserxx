@@ -239,7 +239,8 @@ def lang(request):
             "auth_uri": os.getenv('auth_uri'),
             "token_uri": os.getenv('token_uri'),
             "auth_provider_x509_cert_url": os.getenv('auth_provider_x509_cert_url'),
-            "client_x509_cert_url": os.getenv('client_x509_cert_url')
+            "client_x509_cert_url": os.getenv('client_x509_cert_url'),
+            "universe_domain": os.getenv('universe_domain'),
         }
         # calling up google vision json file
         credentials = service_account.Credentials.from_service_account_info(CREDENTIALS)
