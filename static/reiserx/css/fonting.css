@@ -16,7 +16,6 @@ body {
       /* Apply styles to the post content */
       .article-post .content {
           font-family: 'Source Serif Pro', serif;
-        font-size: 20px;
         line-height: 1.58;
           letter-spacing: -0.003em;
         color: rgba(41, 41, 41, 1);
@@ -108,3 +107,36 @@ body {
       .article-post .content li {
         margin-bottom: 10px;
       }
+
+      /* Define base font size */
+/* Define base font size */
+html {
+  font-size: 14px;
+}
+
+/* Define font sizes for headings and paragraphs using a modular scale */
+h1 {
+  font-size: 2.074rem; /* equivalent to 33px */
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.802rem; /* equivalent to 29px */
+}
+
+p {
+  font-size: 1.236rem; /* equivalent to 20px */
+}
+
+/* Adjust root font size based on viewport size */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  html {
+    font-size: 16px;
+  }
+}

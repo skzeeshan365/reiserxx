@@ -350,6 +350,25 @@ if (!result.success) {
   alert(result.message);
   $('#modalScrollableCenter').modal('hide');
   return;
+} else {
+    // Construct the language list items and add them to the DOM
+  const languageListContainer = document.getElementById('language-list');
+  languageListContainer.innerHTML = ''; // clear existing items
+  const post = {
+    author: '{{ post.author }}',
+    slug: '{{ post.slug }}'
+  };
+  for (let i = 0; i < result.languages.length; i++) {
+    const listItem = document.createElement('li');
+    listItem.classList.add('list-group-item');
+    listItem.textContent = result.languages[i].name;
+    listItem.setAttribute('data-url', `/translate/${post.author}/${post.slug}/${result.languages[i].code}`);
+    listItem.addEventListener('click', () => {
+      const url = listItem.getAttribute('data-url');
+      window.open(url, '_blank');
+    });
+    languageListContainer.appendChild(listItem);
+  }
 }
 
 function getCookie(name) {
@@ -367,30 +386,6 @@ function getCookie(name) {
             }
             return cookieValue;
         }
-
-  // Fetch the language list from the server
-  const languageListResponse = await fetch('/lang/');
-  const languageListData = await languageListResponse.json();
-  const languageList = languageListData.languages;
-
-  // Construct the language list items and add them to the DOM
-  const languageListContainer = document.getElementById('language-list');
-  languageListContainer.innerHTML = ''; // clear existing items
-  const post = {
-    author: '{{ post.author }}',
-    slug: '{{ post.slug }}'
-  };
-  for (let i = 0; i < languageList.length; i++) {
-    const listItem = document.createElement('li');
-    listItem.classList.add('list-group-item');
-    listItem.textContent = languageList[i].name;
-    listItem.setAttribute('data-url', `/translate/${post.author}/${post.slug}/${languageList[i].code}`);
-    listItem.addEventListener('click', () => {
-      const url = listItem.getAttribute('data-url');
-      window.open(url, '_blank');
-    });
-    languageListContainer.appendChild(listItem);
-  }
     // Add search functionality
       const searchInput = document.getElementById('search-input');
       searchInput.addEventListener('input', () => {

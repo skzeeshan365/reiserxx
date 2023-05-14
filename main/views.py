@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import requests
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from dotenv import load_dotenv
 from google.cloud import translate
@@ -224,31 +224,30 @@ def lang(request):
             # Handle the reCAPTCHA verification failure
             return JsonResponse({'success': False, 'message': 'reCAPTCHA verification failed. Please try again later.'})
         else:
-            # Proceed with the operation
-            # ...
-            return JsonResponse({'success': True})
+            # calling up google vision json file
+            with open(r"main/key.json") as f:
+                credentials_info = json.load(f)
+            credentials = service_account.Credentials.from_service_account_info(credentials_info)
+
+            # Initialize the Google Cloud Translation API client
+            client = translate.TranslationServiceClient(credentials=credentials)
+
+            # Call the API to retrieve the list of supported languages
+            response = client.get_supported_languages(parent='projects/' + os.getenv('project_id'),
+                                                      display_language_code="en")
+
+            # Create a list of dictionaries containing language code, name, and native name
+            language_list = []
+            for language in response.languages:
+                language_list.append({
+                    'code': language.language_code,
+                    'name': language.display_name,
+                })
+
+            # Return the language list as a JSON response
+            return JsonResponse({'success': True, 'languages': language_list})
     else:
-        # calling up google vision json file
-        with open(r"main/key.json") as f:
-            credentials_info = json.load(f)
-        credentials = service_account.Credentials.from_service_account_info(credentials_info)
-
-        # Initialize the Google Cloud Translation API client
-        client = translate.TranslationServiceClient(credentials=credentials)
-
-        # Call the API to retrieve the list of supported languages
-        response = client.get_supported_languages(parent='projects/' +os.getenv('project_id') , display_language_code="en")
-
-        # Create a list of dictionaries containing language code, name, and native name
-        language_list = []
-        for language in response.languages:
-            language_list.append({
-                'code': language.language_code,
-                'name': language.display_name,
-            })
-
-        # Return the language list as a JSON response
-        return JsonResponse({'languages': language_list})
+        raise Http404('Page not found')
 
 
 def translate_post(request, user, post_slug, code):

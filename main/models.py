@@ -162,7 +162,8 @@ class Post(models.Model):
         # Initialize the Google Cloud Translation API client
         client = translate.TranslationServiceClient(credentials=credentials)
         response = client.translate_text(
-            contents=[self.title, self.content, self.description],
+            contents=[self.title, self.content+""
+                                               "Translated by AI"],
             target_language_code=code,
             parent='projects/' + os.getenv('project_id')
         )
@@ -171,7 +172,6 @@ class Post(models.Model):
         translations = response.translations
         self.title = translations[0].translated_text
         self.content = translations[1].translated_text
-        self.description = translations[2].translated_text
 
         return self
 
