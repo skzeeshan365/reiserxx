@@ -243,7 +243,9 @@ def lang(request):
             "universe_domain": os.getenv('universe_domain'),
         }
         # calling up google vision json file
-        credentials = service_account.Credentials.from_service_account_info(CREDENTIALS)
+        with open(r"main/ocrservice-378111-9a2249f10e5b.json") as f:
+            credentials_info = json.load(f)
+        credentials = service_account.Credentials.from_service_account_info(credentials_info)
 
         # Initialize the Google Cloud Translation API client
         client = translate.TranslationServiceClient(credentials=credentials)
