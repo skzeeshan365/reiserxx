@@ -5,127 +5,9 @@
   font-style: normal;
 }
 
-body {
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-        line-height: 1.6;
-        color: #666;
-  font-weight: 400;
-      }
-
-      /* Apply styles to the post content */
-      .article-post .content {
-          font-family: 'Source Serif Pro', serif;
-        line-height: 1.58;
-          letter-spacing: -0.003em;
-        color: rgba(41, 41, 41, 1);
-        margin: 0 auto;
-        text-align: justify;
-          font-weight: 400;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      /* Apply styles to images within the post content */
-      .article-post .content img {
-        display: block;
-        margin: 0 auto;
-        max-width: 100%;
-        height: auto;
-      }
-
-      /* Apply styles to links within the post content */
-      .article-post .content a {
-        color: #0078FF;
-        text-decoration: none;
-        border-bottom: 1px solid #0078FF;
-      }
-
-      /* Apply styles to headings within the post content */
-      .article-post .content h1,
-      .article-post .content h2,
-      .article-post .content h3,
-      .article-post .content h4,
-      .article-post .content h5,
-      .article-post .content h6 {
-        font-weight: 600;
-        margin-top: 30px;
-        margin-bottom: 15px;
-      }
-
-      .article-post .content h1 {
-        font-size: 36px;
-        line-height: 1.2;
-      }
-
-      .article-post .content h2 {
-        font-size: 30px;
-        line-height: 1.3;
-      }
-
-      .article-post .content h3 {
-        font-size: 24px;
-        line-height: 1.4;
-      }
-
-      .article-post .content h4 {
-        font-size: 20px;
-        line-height: 1.5;
-      }
-
-      .article-post .content h5 {
-        font-size: 18px;
-        line-height: 1.6;
-      }
-
-      .article-post .content h6 {
-        font-size: 16px;
-        line-height: 1.7;
-      }
-
-      /* Apply styles to blockquotes within the post content */
-      .article-post .content blockquote {
-        margin: 30px 0;
-        padding: 15px 30px;
-        font-style: italic;
-        font-size: 24px;
-        line-height: 1.5;
-        color: #666;
-        border-left: 3px solid #0078FF;
-        background-color: #f7f7f7;
-      }
-
-      /* Apply styles to unordered and ordered lists within the post content */
-      .article-post .content ul,
-      .article-post .content ol {
-        margin: 30px 0;
-        padding: 0 0 0 30px;
-        font-size: 21px;
-        line-height: 1.6;
-      }
-
-      .article-post .content li {
-        margin-bottom: 10px;
-      }
-
-      /* Define base font size */
 /* Define base font size */
 html {
-  font-size: 16px;
-}
-
-/* Define font sizes for headings and paragraphs using a modular scale */
-h1 {
-  font-size: 2.074rem; /* equivalent to 33px */
-  margin-top: 0;
-}
-
-h2 {
-  font-size: 1.802rem; /* equivalent to 29px */
-}
-
-p {
-  font-size: 1.236rem; /* equivalent to 20px */
+  font-size: 15px;
 }
 
 /* Adjust root font size based on viewport size */
@@ -139,4 +21,108 @@ p {
   html {
     font-size: 16px;
   }
+}
+
+/* Apply styles to body */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #666;
+  font-weight: 400;
+}
+
+/* Apply styles to the post content */
+.article-post .content {
+  font-family: 'Source Serif Pro', serif;
+  line-height: 1.58;
+  letter-spacing: -0.003em;
+  color: rgba(41, 41, 41, 1);
+  margin: 0 auto;
+  text-align: justify;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+    font-size: 1.25rem;
+}
+
+/* Apply styles to images within the post content */
+.article-post .content img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Apply styles to links within the post content */
+.article-post .content a {
+  color: #0078FF;
+  text-decoration: none;
+  border-bottom: 1px solid #0078FF;
+}
+
+/* Apply styles to headings within the post content */
+.article-post .content h1,
+.article-post .content h2,
+.article-post .content h3,
+.article-post .content h4,
+.article-post .content h5,
+.article-post .content h6 {
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.article-post .content h1 {
+  font-size: 2.074rem; /* equivalent to 33px */
+  line-height: 1.2;
+}
+
+.article-post .content h2 {
+  font-size: 1.802rem; /* equivalent to 29px */
+  line-height: 1.3;
+}
+
+.article-post .content h3 {
+  font-size: 1.536rem; /* equivalent to 24px */
+  line-height: 1.4;
+}
+
+.article-post .content h4 {
+  font-size: 1.236rem; /* equivalent to 20px */
+  line-height: 1.5;
+}
+
+.article-post .content h5 {
+  font-size: 1.103rem; /* equivalent to 18px */
+  line-height: 1.6;
+}
+
+.article-post .content h6 {
+  font-size: 1rem; /* equivalent to 16px */
+  line-height: 1.7;
+}
+
+/* Apply styles to blockquotes within the post content */
+.article-post .content blockquote {
+  margin: 30px 0;
+  padding: 15px 30px;
+  font-style: italic;
+  font-size: 1.536rem; /* equivalent to 24px */
+  line-height: 1.5;
+  color: #666;
+  border-left: 3px solid #0078FF;
+  background-color: #f7f7f7;
+}
+
+/* Apply styles to unordered and ordered lists within the post content */
+.article-post .content ul,
+.article-post .content ol {
+  margin: 30px 0;
+  padding: 0 0 0 30px;
+  font-size: 1.236rem;
+  line-height: 1.6;
+}
+
+.article-post .content li {
+  margin-bottom: 10px;
 }
