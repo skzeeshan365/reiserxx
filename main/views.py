@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime, timedelta
 
 import requests
@@ -6,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from dotenv import load_dotenv
 from google.cloud import translate
 from google.oauth2 import service_account
 
@@ -226,15 +228,27 @@ def lang(request):
             # ...
             return JsonResponse({'success': True})
     else:
-
+        load_dotenv('.env')
+        CREDENTIALS = {
+            "type": os.getenv('type'),
+            "project_id": os.getenv('project_id'),
+            "private_key_id": os.getenv('private_key_id'),
+            "private_key": os.getenv('private_key'),
+            "client_email": os.getenv('client_email'),
+            "client_id": os.getenv('client_id'),
+            "auth_uri": os.getenv('auth_uri'),
+            "token_uri": os.getenv('token_uri'),
+            "auth_provider_x509_cert_url": os.getenv('auth_provider_x509_cert_url'),
+            "client_x509_cert_url": os.getenv('client_x509_cert_url')
+        }
         # calling up google vision json file
-        credentials = service_account.Credentials.from_service_account_info(settings.CREDENTIALS)
+        credentials = service_account.Credentials.from_service_account_info(CREDENTIALS)
 
         # Initialize the Google Cloud Translation API client
         client = translate.TranslationServiceClient(credentials=credentials)
 
         # Call the API to retrieve the list of supported languages
-        response = client.get_supported_languages(parent='projects/' + settings.CREDENTIALS['project_id'], display_language_code="en")
+        response = client.get_supported_languages(parent='projects/' +os.getenv('project_id') , display_language_code="en")
 
         # Create a list of dictionaries containing language code, name, and native name
         language_list = []
