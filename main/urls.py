@@ -15,5 +15,5 @@ urlpatterns = [
     path('category/<slug:category_slug>/', views.search_by_category, name='search_by_category'),
     path('translate/<str:user>/<slug:post_slug>/<str:code>/', views.translate_post, name='translate'),
     path('<str:user>/<slug:post_slug>/', views.open_post, name='open'),
-    path('auth/<str:username>/', views.search_by_author, name='search_by_author'),
+    path('<str:username>/', views.search_by_author, name='search_by_author'),
 ]
