@@ -23,14 +23,6 @@ html {
   }
 }
 
-/* Apply styles to body */
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #666;
-  font-weight: 400;
-}
-
 /* Apply styles to the post content */
 .article-post .content {
   font-family: 'Source Serif Pro', serif;
