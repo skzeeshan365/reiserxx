@@ -247,7 +247,7 @@
 ================================================== -->
 <div class="alertbar">
     <div class="container text-center">
-        <img src="{% static 'reiserx/img/logo.png' %}" alt=""> &nbsp; Never miss a <b>story</b> from us, get weekly
+        <img src="{% static 'reiserx/img/logo.png' %}" width="35" height="35" alt="logo"> &nbsp; Never miss a <b>story</b> from us, get weekly
         updates in your inbox. <a href="{% url 'subscribe' %}" class="btn subscribe">Get Updates</a>
     </div>
 </div>
@@ -316,74 +316,76 @@ window.onscroll = function() {
 }
 
 async function displayLanguageList() {
-  // Load the reCAPTCHA v3 API and verify the user
-  const token = await grecaptcha.execute('{{ SITE_KEY }}', { action: 'submit' });
-const response = await fetch('/lang/', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken')
-  },
-  body: JSON.stringify({ token: token })
-});
-const result = await response.json();
-if (!result.success) {
-  // Handle the reCAPTCHA verification failure
-  alert(result.message);
-  $('#modalScrollableCenter').modal('hide');
-  return;
-} else {
-    // Construct the language list items and add them to the DOM
-  const languageListContainer = document.getElementById('language-list');
-  languageListContainer.innerHTML = ''; // clear existing items
-  const post = {
-    author: '{{ post.author }}',
-    slug: '{{ post.slug }}'
-  };
-  for (let i = 0; i < result.languages.length; i++) {
-    const listItem = document.createElement('li');
-    listItem.classList.add('list-group-item');
-    listItem.textContent = result.languages[i].name;
-    listItem.setAttribute('data-url', `/translate/${post.author}/${post.slug}/${result.languages[i].code}`);
-    listItem.addEventListener('click', () => {
-      const url = listItem.getAttribute('data-url');
-      window.open(url, '_blank');
+    // Load the reCAPTCHA v3 API and verify the user
+    const token = await grecaptcha.execute('{{ SITE_KEY }}', {action: 'submit'});
+    const response = await fetch('/lang/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({token: token})
     });
-    languageListContainer.appendChild(listItem);
-  }
-}
+    const result = await response.json();
+    if (!result.success) {
+        // Handle the reCAPTCHA verification failure
+        alert(result.message);
+        $('#modalScrollableCenter').modal('hide');
+        return;
+    } else {
+        // Construct the language list items and add them to the DOM
+        const languageListContainer = document.getElementById('language-list');
+        languageListContainer.innerHTML = ''; // clear existing items
+        const post = {
+            author: '{{ post.author }}',
+            slug: '{{ post.slug }}'
+        };
+        for (let i = 0; i < result.languages.length; i++) {
+            const listItem = document.createElement('li');
+            listItem.classList.add('list-group-item');
+            listItem.textContent = result.languages[i].name;
+            listItem.setAttribute('data-url', `/translate/${post.author}/${post.slug}/${result.languages[i].code}`);
+            listItem.addEventListener('click', () => {
+                const url = listItem.getAttribute('data-url');
+                window.open(url, '_blank');
+            });
+            languageListContainer.appendChild(listItem);
+        }
+    }
 
-function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
                 }
             }
-            return cookieValue;
         }
-    // Add search functionality
-      const searchInput = document.getElementById('search-input');
-      searchInput.addEventListener('input', () => {
-          const query = searchInput.value.toLowerCase();
-          for (let i = 0; i < languageList.length; i++) {
-              const listItem = languageListContainer.children[i];
-              const languageName = languageList[i].name.toLowerCase(); // fix here
-              if (languageName.includes(query)) {
-                  listItem.classList.remove('d-none');
-              } else {
-                  listItem.classList.add('d-none');
-              }
-          }
-      });
-  }
+        return cookieValue;
+    }
 
+    // Add search functionality
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        const languageListContainer = document.getElementById('language-list');
+        const languageList = languageListContainer.children;
+        for (let i = 0; i < languageList.length; i++) {
+            const listItem = languageList[i];
+            const languageName = listItem.textContent.toLowerCase(); // Fix: Use listItem.textContent instead of languageList[i].name
+            if (languageName.includes(query)) {
+                listItem.classList.remove('d-none');
+            } else {
+                listItem.classList.add('d-none');
+            }
+        }
+    });
+}
   // Call displayLanguageList() function when modal is shown
   $('#modalScrollableCenter').on('shown.bs.modal', function () {
     displayLanguageList();

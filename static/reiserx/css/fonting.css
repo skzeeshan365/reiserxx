@@ -4,9 +4,6 @@
   font-weight: 400;
   font-style: normal;
 }
-
-/* Define base font size */
-
 /* Adjust root font size based on viewport size */
 @media screen and (max-width: 767px) {
   .article-post .content {
