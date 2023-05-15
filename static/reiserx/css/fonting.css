@@ -13,11 +13,13 @@
     font-size: 16px; !important; /* Reduce the font size for mobile devices */
     line-height: 1.58;
   letter-spacing: -0.002em;
-    margin-left: 8px;
-  margin-right: 8px;
+  }
+
+  body {
+    margin-left: 8px; !important;
+  margin-right: 8px; !important;
   }
 }
-
 
 /* Adjust root font size based on viewport size */
 @media screen and (min-width: 768px) and (max-width: 991px) {
