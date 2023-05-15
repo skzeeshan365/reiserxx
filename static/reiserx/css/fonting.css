@@ -10,7 +10,7 @@
 /* Adjust root font size based on viewport size */
 @media screen and (max-width: 767px) {
   .article-post .content {
-    font-size: 16px; !important; /* Reduce the font size for mobile devices */
+    font-size: 18px; !important; /* Reduce the font size for mobile devices */
     line-height: 1.58;
   letter-spacing: -0.002em;
   }
