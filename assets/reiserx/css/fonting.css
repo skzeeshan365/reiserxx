@@ -13,19 +13,6 @@ body {
   font-weight: 400;
       }
 
-      /* Apply styles to the post content */
-      .article-post .content {
-        font-family: 'Charter', serif;
-        font-size: 20px;
-        line-height: 1.58;
-        color: #333;
-        margin: 0 auto;
-        text-align: justify;
-          font-weight: 400;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
       /* Apply styles to images within the post content */
       .article-post .content img {
         display: block;

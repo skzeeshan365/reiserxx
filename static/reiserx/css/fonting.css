@@ -6,20 +6,25 @@
 }
 
 /* Define base font size */
-html {
-  font-size: 15px;
+
+/* Adjust root font size based on viewport size */
+@media screen and (max-width: 767px) {
+  .article-post .content {
+    font-size: 16px; !important; /* Reduce the font size for mobile devices */
+  }
 }
+
 
 /* Adjust root font size based on viewport size */
 @media screen and (min-width: 768px) and (max-width: 991px) {
-  html {
-    font-size: 15px;
+  .article-post .content {
+    font-size: 20px; !important;
   }
 }
 
 @media screen and (min-width: 992px) {
-  html {
-    font-size: 16px;
+  .article-post .content {
+    font-size: 20px; !important;
   }
 }
 
@@ -34,7 +39,6 @@ html {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-    font-size: 1.25rem;
 }
 
 /* Apply styles to images within the post content */
