@@ -11,7 +11,7 @@
 @media screen and (max-width: 767px) {
   .article-post .content {
     font-size: 16px; !important; /* Reduce the font size for mobile devices */
-    line-height: 1.4;
+    line-height: 1.58;
   letter-spacing: -0.002em;
   }
 }
@@ -39,6 +39,7 @@
   font-family: 'Source Serif Pro', serif;
   color: rgba(41, 41, 41, 1);
   margin: 0 auto;
+  margin-left: revert;
   text-align: initial;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
