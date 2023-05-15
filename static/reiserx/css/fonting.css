@@ -38,8 +38,8 @@
 .article-post .content {
   font-family: 'Source Serif Pro', serif;
   color: rgba(41, 41, 41, 1);
-  margin: 0 auto;
-  margin-left: revert;
+  margin-left: 8px;
+  margin-right: 8px;
   text-align: initial;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
