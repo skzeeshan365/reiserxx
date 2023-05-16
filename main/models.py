@@ -14,11 +14,8 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.http import urlencode
 from django.utils.text import slugify
-from dotenv import load_dotenv
 from google.cloud import translate
 from google.oauth2 import service_account
-
-from djangoProject1 import settings
 
 
 class Category(models.Model):
@@ -42,7 +39,7 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
-    tag = models.CharField(max_length=100, unique=True)
+    tag = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(unique=True, editable=False)
 
     def __str__(self):
@@ -62,7 +59,7 @@ class Post(models.Model):
     description = models.CharField(max_length=1000)
     image = models.ImageField(upload_to='thumbnail/', null=True, blank=True)
     timestamp = models.DateTimeField(max_length=50, auto_now=True)
-    slug = models.SlugField(unique=True, editable=False)
+    slug = models.SlugField(unique=True, editable=False, max_length=255)
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE)
     author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE, default=None)
     tags = models.ManyToManyField(Tag, related_name='posts')
@@ -186,7 +183,7 @@ class Comment(models.Model):
 
 class Contact(models.Model):
     username = models.CharField(max_length=100)
-    email = models.EmailField(max_length=70, blank=True)
+    email = models.EmailField(max_length=100, blank=True)
     message = models.TextField()
     timestamp = models.DateTimeField(max_length=50, auto_now=True)
 

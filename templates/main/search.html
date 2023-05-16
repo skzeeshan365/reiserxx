@@ -1,5 +1,15 @@
 {% extends 'main/base.html' %}
-
+{% load static %}
+{% block meta_tags %}
+    <!-- META TAGS -->
+    <meta property="og:title" content="ReiserX search"/>
+    <meta property="og:description" content="Search from variety of topics"/>
+    <meta property="og:image" content="{% static 'reiserx/img/logo.png' %}"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <!-- META TAGS -->
+{% endblock %}
 {% block content %}
 <div class="container">
         <!-- Begin List Posts

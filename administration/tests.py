@@ -126,6 +126,7 @@ class PostFormTestCase(TestCase):
             'description': 'Test description',
             'category': self.category.pk,
             'tags': 'test, post',
+            'draft': True
         }
 
     def test_valid_post_form(self):
@@ -215,6 +216,7 @@ class PostFormTestCase(TestCase):
             'description': 'Test description',
             'category': self.category.pk,
             'tags': 'test1, test2',
+            'draft': True
         }
         form = PostForm(data=form_data, files={
             'image': self.image

@@ -52,7 +52,7 @@ def process_content(content):
 
 
 class CategoryForm(forms.ModelForm):
-    image = forms.ImageField(required=False)
+    image = forms.ImageField(required=False, max_length=255)
 
     class Meta:
         model = Category
@@ -87,13 +87,13 @@ class CategoryForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-    title = forms.CharField(max_length=100, required=True, label=False)
+    title = forms.CharField(max_length=200, required=True, label=False)
     description = forms.CharField(max_length=255, required=False, label=False)
     category = forms.ModelChoiceField(queryset=Category.objects.all(), required=True, label=False, empty_label='Select a category')
     tags = forms.CharField(max_length=255, required=False, label=False)
     image = forms.ImageField(required=True, label=False)
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}), required=True, label=False)
-    draft = forms.BooleanField(label='Save as draft')
+    draft = forms.BooleanField(label='Save as draft', required=False)
 
     class Meta:
         model = Post
@@ -157,7 +157,7 @@ class PostForm(forms.ModelForm):
 
 
 class PostFormEdit(forms.ModelForm):
-    title = forms.CharField(max_length=100, required=True, label=False)
+    title = forms.CharField(max_length=200, required=True, label=False)
     description = forms.CharField(max_length=255, required=False, label=False)
     category = forms.ModelChoiceField(queryset=Category.objects.all(), required=True, label=False,
                                       empty_label='Select a category')

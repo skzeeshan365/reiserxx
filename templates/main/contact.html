@@ -26,6 +26,16 @@
 
     <title>Contact us</title>
       <script src="https://www.google.com/recaptcha/api.js?render={{ SITE_KEY }}"></script>
+
+    <!-- META TAGS -->
+    <meta property="og:title" content="Contact us"/>
+    <meta property="og:description" content="Lets talk about everything"/>
+    <meta property="og:image" content="{% static 'reiserx/img/logo.png' %}"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <!-- META TAGS -->
+
   </head>
   <body>
   

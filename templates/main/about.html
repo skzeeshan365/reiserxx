@@ -39,6 +39,14 @@
     <link href="{% static '/reiserx/css/fonting.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static '/reiserx/css/custom.css' %}" rel="stylesheet" type="text/css">
 
+    <!-- META TAGS -->
+    <meta property="og:title" content="About"/>
+    <meta property="og:description" content="Discover the wonders of cosmos"/>
+    <meta property="og:image" content="{% static 'reiserx/img/logo.png' %}"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <!-- META TAGS -->
 </head>
 <body>
 <!-- Begin Nav

@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
-from dotenv import load_dotenv
 from google.cloud import translate
 from google.oauth2 import service_account
 
@@ -126,7 +125,7 @@ def categories(request):
 def search_by_category(request, category_slug):
     cat = Category.objects.get(slug=category_slug)
     posts = cat.get_posts()
-    return render(request, 'main/category.html', {'posts': posts, 'category': cat.category, 'desc': cat.description, 'current_menu': 2, 'page_title': cat})
+    return render(request, 'main/category.html', {'posts': posts, 'category': cat.category, 'desc': cat.description, 'category_image': cat.image.url, 'current_menu': 2, 'page_title': cat})
 
 
 def search_by_author(request, username):

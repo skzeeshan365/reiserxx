@@ -1,13 +1,21 @@
 {% extends 'main/base.html' %}
-
+{% load static %}
+{% block meta_tags %}
+    <!-- META TAGS -->
+    <meta property="og:title" content="Category"/>
+    <meta property="og:description" content="ReiserX categories"/>
+    <meta property="og:image" content="{% static 'reiserx/img/logo.png' %}"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <!-- META TAGS -->
+{% endblock %}
 {% block content %}
     <div class="container">
         <!-- Begin Featured
         ================================================== -->
         <section class="featured-posts">
-            <div class="section-title">
-                <h2><span>Featured</span></h2>
-            </div>
+
             <div class="card-columns listfeaturedtag">
 
                 {% for object in category %}
