@@ -77,7 +77,7 @@
     </button>
     <div class="container">
         <!-- Begin Logo -->
-        <a class="navbar-brand" href="{% url 'home' %}"><h2>R</h2></a>
+        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'reiserx/img/logo.png' %}" alt="logo"></a>
         <!-- End Logo -->
         <div class=" collapse navbar-collapse" id="navbarsExampleDefault">
            <!-- Begin Menu -->
@@ -125,7 +125,7 @@
                 <!-- Begin Top Meta -->
                 <div class="profile-section">
   <div class="profile-icon">
-    <img class="rounded-circle" src="{{ post.image.url }}" alt="Profile Icon" width="35" height="35">
+    <img class="rounded-circle" src="{{ post.author.userprofile.image.url }}" alt="Profile Icon" width="35" height="35">
   </div>
   <div class="profile-details">
     <a class="link-dark" href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a>
