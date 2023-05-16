@@ -104,7 +104,6 @@ def post_preview(request):
     post = Post()
     if request.method == 'POST':
         data = dict(request.POST)
-        print(data)
 
         post.title = data['form-0-title'][0]
         post.content = data['form-0-content'][0]

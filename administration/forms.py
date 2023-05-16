@@ -103,9 +103,9 @@ class PostForm(forms.ModelForm):
         tags = self.cleaned_data.get('tags')
         if tags:
             if isinstance(tags, str):
-                tag_list = [tag.strip() for tag in tags.split(',')]
+                tag_list = [tag.strip().strip('.') for tag in tags.split(',')]
             else:
-                tag_list = [tag.strip() for tag in tags]
+                tag_list = [tag.strip().strip('.') for tag in tags]
             return tag_list
         return []
 
