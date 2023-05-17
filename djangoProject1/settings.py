@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '54.238.76.143', 'localhost', 'reiserx.com', '192.168.0.102']
+ALLOWED_HOSTS = ['127.0.0.1', '54.238.76.143', 'localhost', 'reiserx.com']
 
 # Application definition
 
@@ -159,16 +159,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '{asctime} {levelname} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
         'file': {
             'class': 'logging.FileHandler',
             'filename': 'django.log',
+            'formatter': 'standard',
         },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'WARNING',
+            'level': 'ERROR',
         },
         'django.request': {
             'handlers': ['file'],
@@ -176,6 +183,7 @@ LOGGING = {
         },
     },
 }
+
 
 WHITENOISE_USE_FINDERS = True
 

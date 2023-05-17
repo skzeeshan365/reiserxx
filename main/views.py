@@ -5,8 +5,11 @@ from datetime import datetime, timedelta
 import requests
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from google.cloud import translate
 from google.oauth2 import service_account
 
@@ -22,8 +25,26 @@ from .models import Tag
 
 def home(request):
     posts = Post.objects.filter(draft=False).order_by('-timestamp')[:4]
-    all_posts = Post.objects.filter(draft=False)
+    all_posts = Post.objects.filter(draft=False).order_by('-timestamp')[:5]
     return render(request, 'main/main.html', {'posts': posts, 'all_posts': all_posts, 'current_menu': 1, 'page_title': "ReiserX"})
+
+
+def load_more_posts(request):
+    page = int(request.GET.get('page', 1))
+    posts_per_page = 5
+
+    posts_query = Post.objects.filter(draft=False).order_by('-timestamp')
+    paginator = Paginator(posts_query, posts_per_page)
+
+    try:
+        loaded_posts = paginator.page(page)
+    except Exception:
+        return JsonResponse({'rendered_posts': '', 'has_next_page': False})
+
+    rendered_posts = render_to_string('main/partials/postlist.html', {'all_posts': loaded_posts})
+
+    has_next_page = loaded_posts.has_next()
+    return JsonResponse({'rendered_posts': rendered_posts, 'has_next_page': has_next_page})
 
 
 def open_post(request, user, post_slug):
