@@ -273,10 +273,6 @@
                     width: 100%;
                 }
             </style>
-
-            <div id="load-more-posts">
-                <button id="load-more-button" class="btn btn-primary">Load More</button>
-            </div>
         </section>
         <!-- End List Posts -->
 
@@ -341,6 +337,7 @@
         var loadMoreUrl = "{% url 'load_more' %}";
         var placeholders = [];
         var placeholderCount = 0;
+        var has_next = true;
 
         const placeholderElements = document.getElementsByClassName('placeholder-post');
         placeholderCount = placeholderElements.length;
@@ -385,6 +382,9 @@
                     currentPage++;
                     if (!response.has_next_page) {
                         $('#load-more-button').hide();
+                        has_next = false;
+                    } else {
+                        has_next = true;
                     }
                 },
                 error: function () {
@@ -393,9 +393,20 @@
             });
         }
 
-        $(document).on('click', '#load-more-button', function () {
-            loadMorePosts();
-        });
+        function handleScroll() {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollBottom = scrollTop + windowHeight;
+
+    if (scrollBottom >= documentHeight && has_next) {
+      loadMorePosts();
+    }
+  }
+
+  $(window).on('scroll', function () {
+    handleScroll();
+  });
 
     </script>
 
