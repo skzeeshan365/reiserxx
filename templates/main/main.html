@@ -273,6 +273,7 @@
                     width: 100%;
                 }
             </style>
+        <div id="sentinel"></div>
         </section>
         <!-- End List Posts -->
 
@@ -351,11 +352,8 @@
             const postList = document.getElementById('post-list');
 
             // Add placeholders to the post list
-            for (let i = 0; i < 5; i++) {
-                const placeholderIndex = i % placeholderCount;
-                const placeholderElement = placeholders[placeholderIndex].cloneNode(true);
-                postList.appendChild(placeholderElement);
-            }
+            const placeholderElement = placeholders[0].cloneNode(true);
+            postList.appendChild(placeholderElement);
         }
 
 
@@ -404,19 +402,21 @@
   }
 }
 
-function handleScroll() {
-  const windowHeight = window.innerHeight;
-  const documentHeight = document.documentElement.scrollHeight;
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  const scrollBottom = scrollTop + windowHeight;
-
-  if (scrollBottom >= documentHeight && has_next) {
-    loadMorePosts();
-  }
+function handleScroll(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && has_next) {
+      loadMorePosts();
+    }
+  });
 }
 
-window.addEventListener('scroll', handleScroll);
-window.addEventListener('touchmove', handleScroll);
+const sentinel = document.getElementById('sentinel');
+const observer = new IntersectionObserver(handleScroll, {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.1, // Adjust this threshold as needed
+});
+observer.observe(sentinel);
 
     </script>
 
