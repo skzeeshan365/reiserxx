@@ -11,309 +11,393 @@
     <!-- META TAGS -->
 {% endblock %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css"/>
 
     <style>
-    .cc-window {
-  max-width: 600px;
-  margin: 0 auto;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(162, 162, 162, 0.5);
-  font-family: Arial, sans-serif;
-  background-color: #fff;
-}
+        .cc-window {
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(162, 162, 162, 0.5);
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+        }
 
-.cc-message {
-  color: #333;
-  font-size: 16px;
-  line-height: 1.5;
-  text-align: left;
-}
+        .cc-message {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+        }
 
-.cc-link {
-  color: #349d00 !important;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-}
+        .cc-link {
+            color: #349d00 !important;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
 
-.cc-link:hover {
-  color: #d5d5d5; !important;
-  text-decoration: none;
-}
+        .cc-link:hover {
+            color: #d5d5d5;
+        !important;
+            text-decoration: none;
+        }
 
-.cc-compliance {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 20px;
-}
+        .cc-compliance {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
 
-.cc-compliance a {
-  color: #333;
-  font-size: 16px;
-  font-weight: bold;
-  display: block;
-}
+        .cc-compliance a {
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+        }
 
-.cc-compliance a:hover {
-  color: #ffffff;
-}
+        .cc-compliance a:hover {
+            color: #ffffff;
+        }
 
-.cc-compliance .cc-btn.cc-allow {
-  background-color: #349d00;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  text-decoration: none;
-}
+        .cc-compliance .cc-btn.cc-allow {
+            background-color: #349d00;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
 
-.cc-compliance .cc-btn.cc-allow:hover {
-  background-color: #195400;
-  color: #fff;
-}
+        .cc-compliance .cc-btn.cc-allow:hover {
+            background-color: #195400;
+            color: #fff;
+        }
 
-.cc-compliance .cc-btn.cc-deny {
-  background-color: #ffcece;
-  color: #ffffff; !important;
-  font-size: 16px;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  text-decoration: none;
-}
+        .cc-compliance .cc-btn.cc-deny {
+            background-color: #ffcece;
+            color: #ffffff;
+        !important;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
 
-.cc-compliance .cc-btn.cc-deny:hover {
-  background-color: #ff3030;
-  color: #fff;
-    text-decoration: none;
-}
+        .cc-compliance .cc-btn.cc-deny:hover {
+            background-color: #ff3030;
+            color: #fff;
+            text-decoration: none;
+        }
 
     </style>
 
     <div class="container">
-<!-- Begin Site Title
-================================================== -->
-    <div class="mainheading">
-        <h1 class="sitetitle">ReiserX</h1>
-        <p class="lead">
-            Discover the wonders of science and beyond with us
-        </p>
-    </div>
-    <!-- End Site Title
-    ================================================== -->
-
-    <!-- Begin Featured
-    ================================================== -->
-    <!-- Begin Featured -->
-<section class="featured-posts">
-  <div class="section-title">
-    <h2><span>Featured</span></h2>
-  </div>
-  <div class="card-columns listfeaturedtag">
-    {% for post in posts %}
-    <!-- begin post -->
-    <div class="card border-0">
-      <div class="row">
-      <script>
-    var is_mobile = window.matchMedia("(max-width: 767px)").matches;
-</script>
-        <div class="col-md-5 col-sm-12 wrapthumbnail">
-          <a href="{% url 'open' post.get_author_name post.slug %}">
-            <div class="thumbnail" style="background-image:url({{ post.image.url }}?f_auto,q_auto);">
-                <h2 class="card-title">{{ post.title }}</h2>
-            </div>
-          </a>
+        <!-- Begin Site Title
+        ================================================== -->
+        <div class="mainheading">
+            <h1 class="sitetitle">ReiserX</h1>
+            <p class="lead">
+                Discover the wonders of science and beyond with us
+            </p>
         </div>
-        <div class="col-md-7 col-sm-12">
-            <h2 class="card-title hidden-desktop"><a href="{% url 'open' post.get_author_name post.slug %}">{{ post.title }}</a></h2>
-          <div class="carding">
-            <h4 class="card-text">{{ post.description|truncatechars:200 }}</h4>
-            <div class="metafooter">
-              <div class="wrapfooter">
+        <!-- End Site Title
+        ================================================== -->
+
+        <!-- Begin Featured
+        ================================================== -->
+        <!-- Begin Featured -->
+        <section class="featured-posts">
+            <div class="section-title">
+                <h2><span>Featured</span></h2>
+            </div>
+            <div class="card-columns listfeaturedtag">
+                {% for post in posts %}
+                    <!-- begin post -->
+                    <div class="card border-0">
+                        <div class="row">
+                            <script>
+                                var is_mobile = window.matchMedia("(max-width: 767px)").matches;
+                            </script>
+                            <div class="col-md-5 col-sm-12 wrapthumbnail">
+                                <a href="{% url 'open' post.get_author_name post.slug %}">
+                                    <div class="thumbnail"
+                                         style="background-image:url({{ post.image.url }}?f_auto,q_auto);">
+                                        <h2 class="card-title">{{ post.title }}</h2>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-7 col-sm-12">
+                                <h2 class="card-title hidden-desktop"><a
+                                        href="{% url 'open' post.get_author_name post.slug %}">{{ post.title }}</a></h2>
+                                <div class="carding">
+                                    <h4 class="card-text">{{ post.description|truncatechars:200 }}</h4>
+                                    <div class="metafooter">
+                                        <div class="wrapfooter">
                 <span class="author-meta">
-                  <span class="post-name"><a href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a></span><br/>
-                  <span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span class="post-read">{{ post.get_reading_time }} min read</span>
+                  <span class="post-name"><a
+                          href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a></span><br/>
+                  <span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span
+                        class="post-read">{{ post.get_reading_time }} min read</span>
                 </span>
-              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-  <style>
-  .carding {
-    padding-top: 5px;
-    padding-bottom: unset;
-  }
-
-  @media (min-width: 768px) {
-  /* CSS styles for desktop devices */
-  .card-columns.listfeaturedtag .card .thumbnail .card-title {
-    display: none; /* Hide the title */
-  }
-      .card-columns.listfeaturedtag .card .card-title.hidden-desktop {
-    display: block; /* Hide the title */
-  }
-}
-
-  @media (max-width: 768px) {
-      .card-columns.listfeaturedtag .card .card-title.hidden-desktop {
-    display: none; /* Show the title */
-  }
-   .card-columns.listfeaturedtag .card .wrapthumbnail {
-    position: relative;
-    height: 175px; /* Adjust the desired height */
-    overflow: hidden;
-  }
-
-  .card-columns.listfeaturedtag .card .thumbnail {
-    position: relative;
-    height: 100%;
-    width: auto;
-  }
-
-  .card-columns.listfeaturedtag .card .thumbnail::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    opacity: 0.7;
-    z-index: 1;
-  }
-
-  .card-columns.listfeaturedtag .card .card-title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px;
-    margin: 0;
-    width: 100%;
-  }
-}
-</style>
-
-</section>
-
-
-
-    <!-- End Featured
-    ================================================== -->
-
-    <!-- Begin List Posts -->
-<section class="recent-posts">
-  <div class="section-title">
-    <h2><span>All POSTS</span></h2>
-  </div>
-  <div class="row listrecent" id="post-list">
-    {% for post in all_posts %}
-    <!-- begin post -->
-    <div class="col-md-4">
-      <div class="card border-0">
-        <a href="{% url 'open' post.get_author_name post.slug %}">
-          <div style="height: 185px; width: auto; overflow: hidden;">
-            <img style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: auto; width: 100%;" src="{{ post.image.url }}?f_auto,q_auto" alt="{{ post.title }}">
-          </div>
-        </a>
-        <div class="card-block">
-          <h2 class="card-title"><a href="{% url 'open' post.get_author_name post.slug %}">{{ post.title }}</a></h2>
-          <h4 class="card-text">{{ post.description }}</h4>
-          <div class="metafooter">
-            <div class="wrapfooter">
-              <span class="author-meta">
-                <span class="post-name"><a href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a></span><br/>
-                <span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span class="post-read">{{ post.get_reading_time }} min read</span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end post -->
-    {% endfor %}
-  </div>
-<div id="load-more-posts"></div>
-  <style>
-
-    .card-block {
-      padding-top: 10px;
-      padding-left: 1px;
-      padding-right: unset;
-      padding-bottom: 8px;
-    }
-  </style>
-</section>
-<!-- End List Posts -->
-
-<!-- /.container -->
-    </div>
-<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
-<script>
-  window.cookieconsent.initialise({
-  "palette": {
-    "popup": {
-      "background": "#ffffff"
-    },
-    "button": {
-      "background": "#349d00"
-    }
-  },
-  "position": "bottom-left",
-  "type": "opt-in",
-  "content": {
-    "message": "This website uses cookies to ensure you get the best experience.",
-    "deny": "Deny",
-    "allow": "Accept",
-    "href": "{% url 'about' %}"
-  }
-});
-  var screenWidth = window.innerWidth;
-</script>
-
-    <!-- JavaScript code -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    var currentPage = 2;
-    var loadMoreUrl = "{% url 'load_more' %}";
-
-    function loadMorePosts() {
-        $.ajax({
-            url: loadMoreUrl,
-            data: { page: currentPage },
-            dataType: 'json',
-            success: function(response) {
-                var renderedPosts = response.rendered_posts;
-                $('#post-list').append(renderedPosts);
-                currentPage++;
-                if (!response.has_next_page) {
-                    $(window).off('scroll');
+            <style>
+                .carding {
+                    padding-top: 5px;
+                    padding-bottom: unset;
                 }
+
+                @media (min-width: 768px) {
+                    /* CSS styles for desktop devices */
+                    .card-columns.listfeaturedtag .card .thumbnail .card-title {
+                        display: none; /* Hide the title */
+                    }
+
+                    .card-columns.listfeaturedtag .card .card-title.hidden-desktop {
+                        display: block; /* Hide the title */
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .card-columns.listfeaturedtag .card .card-title.hidden-desktop {
+                        display: none; /* Show the title */
+                    }
+
+                    .card-columns.listfeaturedtag .card .wrapthumbnail {
+                        position: relative;
+                        height: 175px; /* Adjust the desired height */
+                        overflow: hidden;
+                    }
+
+                    .card-columns.listfeaturedtag .card .thumbnail {
+                        position: relative;
+                        height: 100%;
+                        width: auto;
+                    }
+
+                    .card-columns.listfeaturedtag .card .thumbnail::before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0.7);
+                        opacity: 0.7;
+                        z-index: 1;
+                    }
+
+                    .card-columns.listfeaturedtag .card .card-title {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        z-index: 2;
+                        color: #fff;
+                        font-size: 20px;
+                        font-weight: bold;
+                        text-align: center;
+                        padding: 10px;
+                        margin: 0;
+                        width: 100%;
+                    }
+                }
+            </style>
+
+        </section>
+
+
+        <!-- End Featured
+        ================================================== -->
+
+        <!-- Begin List Posts -->
+        <section class="recent-posts">
+            <div class="section-title">
+                <h2><span>All POSTS</span></h2>
+            </div>
+            <div class="row listrecent" id="post-list">
+                {% for post in all_posts %}
+                    <!-- begin post -->
+                    <div class="col-md-4">
+                        <div class="card border-0">
+                            <a href="{% url 'open' post.get_author_name post.slug %}">
+                                <div style="height: 185px; width: auto; overflow: hidden;">
+                                    <img style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: auto; width: 100%;"
+                                         src="{{ post.image.url }}?f_auto,q_auto" alt="{{ post.title }}">
+                                </div>
+                            </a>
+                            <div class="card-block">
+                                <h2 class="card-title"><a
+                                        href="{% url 'open' post.get_author_name post.slug %}">{{ post.title }}</a></h2>
+                                <h4 class="card-text">{{ post.description }}</h4>
+                                <div class="metafooter">
+                                    <div class="wrapfooter">
+              <span class="author-meta">
+                <span class="post-name"><a
+                        href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a></span><br/>
+                <span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span
+                      class="post-read">{{ post.get_reading_time }} min read</span>
+              </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end post -->
+                {% endfor %}
+            </div>
+            <style>
+
+                .card-block {
+                    padding-top: 10px;
+                    padding-left: 1px;
+                    padding-right: unset;
+                    padding-bottom: 8px;
+                }
+
+                .card-img-top.placeholder {
+                    background-color: #9d9d9d;
+                    height: 185px;
+                    width: 100%;
+                }
+            </style>
+
+            <div id="load-more-posts">
+                <button id="load-more-button" class="btn btn-primary">Load More</button>
+            </div>
+        </section>
+        <!-- End List Posts -->
+
+        <!-- Placeholder post -->
+        <div id="placeholder-template" style="display: none;">
+            <div class="col-md-4 placeholder-post">
+                <div class="card border-0">
+                    <div class="card-img-top placeholder"></div>
+                    <div class="card-block">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6 placeholder-lg" style="height: 30px; margin-top: 8px"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"
+                                  style="height: 20px; margin-bottom: 8px; margin-top: 8px"></span>
+                            <span class="placeholder col-4" style="height: 20px; margin-bottom: 8px"></span>
+                            <span class="placeholder col-4" style="height: 20px; margin-bottom: 8px"></span>
+                            <span class="placeholder col-6" style="height: 20px; margin-bottom: 8px"></span>
+                            <span class="placeholder col-8" style="height: 20px;"></span>
+                        </p>
+                        <div class="metafooter">
+                            <div class="wrapfooter placeholder-glow">
+                                <span class="placeholder col-4" style="height: 15px"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Placeholder post -->
+
+
+        <!-- /.container -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+    <script>
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#ffffff"
+                },
+                "button": {
+                    "background": "#349d00"
+                }
+            },
+            "position": "bottom-left",
+            "type": "opt-in",
+            "content": {
+                "message": "This website uses cookies to ensure you get the best experience.",
+                "deny": "Deny",
+                "allow": "Accept",
+                "href": "{% url 'about' %}"
             }
         });
-    }
+        var screenWidth = window.innerWidth;
+    </script>
 
-    $(window).scroll(function() {
-        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-            loadMorePosts();
+    <!-- JavaScript code -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var currentPage = 2;
+        var loadMoreUrl = "{% url 'load_more' %}";
+        var placeholders = [];
+        var placeholderCount = 0;
+
+        const placeholderElements = document.getElementsByClassName('placeholder-post');
+        placeholderCount = placeholderElements.length;
+
+        for (let i = 0; i < placeholderCount; i++) {
+            const placeholderClone = placeholderElements[i].cloneNode(true);
+            placeholders.push(placeholderClone);
         }
-    });
 
-    // Initial loading of posts
-    loadMorePosts();
-</script>
+        function showPlaceholders() {
+            const postList = document.getElementById('post-list');
+
+            // Add placeholders to the post list
+            for (let i = 0; i < 5; i++) {
+                const placeholderIndex = i % placeholderCount;
+                const placeholderElement = placeholders[placeholderIndex].cloneNode(true);
+                postList.appendChild(placeholderElement);
+            }
+        }
+
+
+        function hidePlaceholders() {
+            const placeholders = document.getElementsByClassName('placeholder-post');
+
+            // Remove the placeholders from the post list
+            while (placeholders.length > 0) {
+                placeholders[0].parentNode.removeChild(placeholders[0]);
+            }
+        }
+
+        function loadMorePosts() {
+            showPlaceholders();
+
+            $.ajax({
+                url: loadMoreUrl,
+                data: {page: currentPage},
+                dataType: 'json',
+                success: function (response) {
+                    var renderedPosts = response.rendered_posts;
+                    hidePlaceholders();
+                    $('#post-list').append(renderedPosts);
+                    currentPage++;
+                    if (!response.has_next_page) {
+                        $('#load-more-button').hide();
+                    }
+                },
+                error: function () {
+                    hidePlaceholders();
+                }
+            });
+        }
+
+        $(document).on('click', '#load-more-button', function () {
+            loadMorePosts();
+        });
+
+    </script>
+
 
 {% endblock %}
