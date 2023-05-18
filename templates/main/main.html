@@ -404,7 +404,7 @@
   }
 }
 
-function handleTouchEnd() {
+function handleScroll() {
   const windowHeight = window.innerHeight;
   const documentHeight = document.documentElement.scrollHeight;
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -415,13 +415,8 @@ function handleTouchEnd() {
   }
 }
 
-$(window).on('scroll', function () {
-  handleScroll();
-});
-
-$(window).on('touchend', function () {
-  handleTouchEnd();
-});
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('touchmove', handleScroll);
 
     </script>
 
