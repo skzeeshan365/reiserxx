@@ -16,6 +16,9 @@ def compress(image):
     # Open image using PIL
     img = Image.open(image)
 
+    # Convert image to RGB color mode
+    img = img.convert('RGB')
+
     # Set quality to 80%
     img.save(image, 'JPEG', quality=70)
 
