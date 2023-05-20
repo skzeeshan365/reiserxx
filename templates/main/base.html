@@ -185,6 +185,22 @@ window.onscroll = function() {
   }
   prevScrollpos = currentScrollPos;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+      var searchIcon = document.getElementById('searchIcon');
+      var searchOverlay = document.getElementById('searchOverlay');
+
+      searchIcon.addEventListener('click', function() {
+        searchOverlay.classList.toggle('active');
+        document.body.classList.toggle('overlay-active');
+      });
+    });
+
+    function closeSearchOverlay() {
+      var searchOverlay = document.getElementById('searchOverlay');
+      searchOverlay.classList.remove('active');
+      document.body.classList.remove('overlay-active');
+    }
 </script>
 </body>
 </html>
