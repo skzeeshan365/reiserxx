@@ -67,7 +67,7 @@
                         </svg>
                     </button>
                 </form>
-                <form class="d-none d-lg-flex align-items-center" method="get" action="{% url 'search' %}">
+                <form class="d-none d-lg-flex align-items-center" method="get" action="{% url 'search' %}" style="margin: unset; padding: unset">
                     <input class="form-control me-2 search-input" name="search" type="text" placeholder="Search">
                 </form>
             </div>
@@ -79,44 +79,43 @@
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="container">
         <div class=" collapse navbar-collapse" id="navbarsExampleDefault">
             <!-- Begin Menu -->
             <ul class="navbar-nav ml-auto">
                 <!-- home -->
                 {% if current_menu == 1 %}
                     <li class="nav-item active">
-                        <a class="nav-link"  style="margin-top: unset; padding-top: unset; margin-bottom: 15px; padding-bottom: unset" href="{% url 'home' %}">HOME</a>
+                        <a class="nav-link" href="{% url 'home' %}">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="margin-top: unset; padding-top: unset" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="margin-top: unset; padding-top: unset" href="{% url 'about' %}">ABOUT</a>
+                        <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
                     </li>
                     <!-- home -->
                 {% elif current_menu == 2 %}
                     <!-- category -->
                     <li class="nav-item">
-                        <a class="nav-link" style="margin-top: unset; padding-top: unset" href="{% url 'home' %}">HOME</a>
+                        <a class="nav-link" href="{% url 'home' %}">HOME</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" style="margin-top: unset; padding-top: unset" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="margin-top: unset; padding-top: unset" href="{% url 'about' %}">ABOUT</a>
+                        <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
                     </li>
                     <!-- category -->
                 {% elif current_menu == 3 %}
                     <!-- about -->
                     <li class="nav-item">
-                        <a class="nav-link" style="margin-top: unset; padding-top: unset" href="{% url 'home' %}">HOME</a>
+                        <a class="nav-link" href="{% url 'home' %}">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="margin-top: unset; padding-top: unset" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="margin-top: unset; padding-top: unset" href="{% url 'about' %}">ABOUT</a>
+                        <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
                     </li>
                     <!-- about -->
 
@@ -124,7 +123,7 @@
             </ul>
             <!-- End Menu -->
         </div>
-    </div>
+
     </div>
 </nav>
 

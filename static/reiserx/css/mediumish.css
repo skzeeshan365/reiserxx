@@ -452,10 +452,6 @@ ul.tags li a:hover {
     border-radius: 5px;
     padding: 5px 10px;
 	background-color: #f1f1f1;
-	align-items: center;
-		font-size: 16px;
-
-    /* Add more styles as needed */
 }
 
 .search-input-large {
@@ -494,7 +490,6 @@ ul.tags li a:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
 }
 
 .overlay-active {
@@ -503,8 +498,4 @@ ul.tags li a:hover {
 
 .active {
   display: block;
-}
-
-.navbar {
-  height: 55px; /* Adjust the height value as needed */
 }
