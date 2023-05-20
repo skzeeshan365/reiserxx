@@ -156,33 +156,34 @@ VERIFALIA_PASSWORD = os.getenv('VERIFALIA_PASSWORD')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format': '{asctime} {levelname} {message}',
-            'style': '{',
+if not DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'standard': {
+                'format': '{asctime} {levelname} {message}',
+                'style': '{',
+            },
         },
-    },
-    'handlers': {
-        'file': {
-            'class': 'logging.FileHandler',
-            'filename': 'django.log',
-            'formatter': 'standard',
+        'handlers': {
+            'file': {
+                'class': 'logging.FileHandler',
+                'filename': 'django.log',
+                'formatter': 'standard',
+            },
         },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'ERROR',
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'ERROR',
+            },
+            'django.request': {
+                'handlers': ['file'],
+                'level': 'ERROR',
+            },
         },
-        'django.request': {
-            'handlers': ['file'],
-            'level': 'ERROR',
-        },
-    },
-}
+    }
 
 
 WHITENOISE_USE_FINDERS = True

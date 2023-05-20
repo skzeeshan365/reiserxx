@@ -9,7 +9,6 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
-from django.utils.html import strip_tags
 from google.cloud import translate
 from google.oauth2 import service_account
 

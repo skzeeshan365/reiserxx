@@ -30,7 +30,7 @@
     <title>{{ post.title }}</title>
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{% static '/reiserx/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'reiserx/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i"
@@ -40,6 +40,9 @@
     <link href="{% static '/reiserx/css/mediumish.css' %}" rel="stylesheet">
     <link href="{% static '/reiserx/css/custom.css' %}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{% static 'tinymce/js/tinymce/css/prism.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha512-...YOUR-INTEGRITY-HERE..." crossorigin="anonymous"/>
+
 
     <!-- META TAGS -->
     <meta property="og:title" content="{{ post.title }}"/>
@@ -52,36 +55,58 @@
 
     <style>
 
-.profile-section {
-  display: flex;
-  align-items: center;
-}
+        .profile-section {
+            display: flex;
+            align-items: center;
+        }
 
-.profile-icon {
-  margin-right: 10px;
-}
-.profile-details {
-  line-height: 1.2;
-  font-family: Arial, sans-serif;
-}
+        .profile-icon {
+            margin-right: 10px;
+        }
+
+        .profile-details {
+            line-height: 1.2;
+            font-family: Arial, sans-serif;
+        }
     </style>
 </head>
 <body>
 
 <!-- Begin Nav
 ================================================== -->
-<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation">
+    <div class="container-fluid">
         <!-- Begin Logo -->
-        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'reiserx/img/logo.png' %}" alt="logo"></a>
-        <!-- End Logo -->
+        <div class="d-flex align-items-lg-start">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'reiserx/img/logo.png' %}" alt="logo">
+            </a>
+            <!-- End Logo -->
+
+            <!-- Begin Search -->
+            <div class="d-flex">
+                <form class="d-flex d-lg-none ml-auto">
+                    <button id="searchIcon" class="btn btn-link" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false"
+                            aria-label="Toggle Search">
+                        <svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25">
+                            <path d="M20.067 18.933l-4.157-4.157a6 6 0 1 0-.884.884l4.157 4.157a.624.624 0 1 0 .884-.884zM6.5 11c0-2.62 2.13-4.75 4.75-4.75S16 8.38 16 11s-2.13 4.75-4.75 4.75S6.5 13.62 6.5 11z"></path>
+                        </svg>
+                    </button>
+                </form>
+                <form class="d-none d-lg-flex align-items-center" method="get" action="{% url 'search' %}">
+                    <input class="form-control me-2 search-input" name="search" type="text" placeholder="Search">
+                </form>
+            </div>
+            <!-- End Search -->
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="container">
         <div class=" collapse navbar-collapse" id="navbarsExampleDefault">
-           <!-- Begin Menu -->
+            <!-- Begin Menu -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'home' %}">HOME</a>
@@ -94,16 +119,16 @@
                 </li>
             </ul>
             <!-- End Menu -->
-            <!-- Begin Search -->
-            <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search' %}">
-                <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search">
-                <span class="search-icon"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path
-                        d="M20.067 18.933l-4.157-4.157a6 6 0 1 0-.884.884l4.157 4.157a.624.624 0 1 0 .884-.884zM6.5 11c0-2.62 2.13-4.75 4.75-4.75S16 8.38 16 11s-2.13 4.75-4.75 4.75S6.5 13.62 6.5 11z"></path></svg></span>
-            </form>
-            <!-- End Search -->
+        </div>
         </div>
     </div>
 </nav>
+
+<div id="searchOverlay" class="search-overlay">
+    <form method="get" action="{% url 'search' %}" class="search-form">
+        <input class="form-control search-input-large" name="search" type="text" placeholder="Search">
+    </form>
+</div>
 <!-- End Nav
 ================================================== -->
 
@@ -120,35 +145,39 @@
         <!-- Begin Post -->
         <div class="col-md-8 col-md-offset-2 col-xs-12">
             <div class="mainheading">
-            <br>
+                <br>
                 <h1 class="posttitle">{{ post.title }}</h1>
-            <br>
+                <br>
                 <!-- Begin Top Meta -->
                 <div class="profile-section">
-  <div class="profile-icon">
-    <img class="rounded-circle" src="{{ post.author.userprofile.image.url }}" alt="Profile Icon" width="35" height="35">
-  </div>
-  <div class="profile-details">
-    <a class="link-dark" href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a>
-      <br>
-      <span class="post-date">{{ post.get_date }}</span>
-      <span class="dot"></span>
-      <span class="post-read">{{ post.get_reading_time }} min read</span>
-  </div>
+                    <div class="profile-icon">
+                        <img class="rounded-circle" src="{{ post.author.userprofile.image.url }}" alt="Profile Icon"
+                             width="35" height="35">
+                    </div>
+                    <div class="profile-details">
+                        <a class="link-dark"
+                           href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a>
+                        <br>
+                        <span class="post-date">{{ post.get_date }}</span>
+                        <span class="dot"></span>
+                        <span class="post-read">{{ post.get_reading_time }} min read</span>
+                    </div>
                     <div class="ml-auto">
-    <a href="#modalScrollableCenter" data-bs-toggle="modal">
-					<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#888" class="bi bi-translate" viewBox="0 0 16 16">
-                        <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"></path>
-                        <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z"></path>
-                    </svg>
+                        <a href="#modalScrollableCenter" data-bs-toggle="modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#888"
+                                 class="bi bi-translate" viewBox="0 0 16 16">
+                                <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"></path>
+                                <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z"></path>
+                            </svg>
                         </a>
-  </div>
-</div>
+                    </div>
+                </div>
 
                 <!-- End Top Menta -->
             </div>
             <!-- Begin Featured Image -->
-            <img class="featured-image img-fluid" src="{{ post.image.url }}?f_auto,q_auto" alt="{{ post.title }}" loading="lazy">
+            <img class="featured-image img-fluid" src="{{ post.image.url }}?f_auto,q_auto" alt="{{ post.title }}"
+                 loading="lazy">
             <!-- End Featured Image -->
 
             <!-- Begin Post Content -->
@@ -177,37 +206,39 @@
 <!-- Begin Related
 ================================================== -->
 
-    <div class="container">
-        <div class="row listrecent listrelated">
+<div class="container">
+    <div class="row listrecent listrelated">
 
-            {% for post in related %}
-                <!-- begin post -->
-                <div class="col-md-4">
-                    <div class="card card-flat">
-                        <a href="{% url 'open' post.get_author_name post.slug %}">
-                            <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="{{ post.title }}">
-                        </a>
-                        <div class="card-block">
-                            <h5 class="card-title"><a
-                                    href="{% url 'open' post.get_author_name post.slug %} " style="color: black; font-weight: bold">{{ post.title }}</a>
-                            </h5>
-                            <h4 class="card-text">{{ post.description }}</h4>
-                            <div class="metafooter">
-                                <div class="wrapfooter"><span class="author-meta"><span class="post-name"><a href="{% url 'search_by_author' post.author.username %}">{{ post.get_author_name }}</a></span><br/>
+        {% for post in related %}
+            <!-- begin post -->
+            <div class="col-md-4">
+                <div class="card card-flat">
+                    <a href="{% url 'open' post.get_author_name post.slug %}">
+                        <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="{{ post.title }}">
+                    </a>
+                    <div class="card-block">
+                        <h5 class="card-title"><a
+                                href="{% url 'open' post.get_author_name post.slug %} "
+                                style="color: black; font-weight: bold">{{ post.title }}</a>
+                        </h5>
+                        <h4 class="card-text">{{ post.description }}</h4>
+                        <div class="metafooter">
+                            <div class="wrapfooter"><span class="author-meta"><span class="post-name"><a
+                                    href="{% url 'search_by_author' post.author.username %}">{{ post.get_author_name }}</a></span><br/>
 								<span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span
-                                            class="post-read">{{ post.get_reading_time }} min read</span>
+                                        class="post-read">{{ post.get_reading_time }} min read</span>
 								</span>
 
-                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- end post -->
-            {% endfor %}
-        </div>
+
+            </div>
+            <!-- end post -->
+        {% endfor %}
     </div>
+</div>
 <br>
 
 <div class="container" id="comments-section">
@@ -244,16 +275,17 @@
 ================================================== -->
 
 {% if not subscribed %}
-<!-- Begin AlertBar
-================================================== -->
-<div class="alertbar">
-    <div class="container text-center">
-        <img src="{% static 'reiserx/img/logo.png' %}" width="35" height="35" alt="logo"> &nbsp; Never miss a <b>story</b> from us, get weekly
-        updates in your inbox. <a href="{% url 'subscribe' %}" class="btn subscribe">Get Updates</a>
+    <!-- Begin AlertBar
+    ================================================== -->
+    <div class="alertbar">
+        <div class="container text-center">
+            <img src="{% static 'reiserx/img/logo.png' %}" width="35" height="35" alt="logo"> &nbsp; Never miss a <b>story</b>
+            from us, get weekly
+            updates in your inbox. <a href="{% url 'subscribe' %}" class="btn subscribe">Get Updates</a>
+        </div>
     </div>
-</div>
-<!-- End AlertBar
-================================================== -->
+    <!-- End AlertBar
+    ================================================== -->
 {% endif %}
 
 <!-- Begin Footer
@@ -272,25 +304,27 @@
 
 <!-- Scrollable Modal HTML -->
 <div id="modalScrollableCenter" class="modal fade" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Select a language</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Search languages" aria-label="Search languages" id="search-input">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select a language</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search languages" aria-label="Search languages"
+                           id="search-input">
+                </div>
+                <ul class="list-group list-group-flush" id="language-list"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="language-select-button">OK, Got it!</button>
+            </div>
         </div>
-        <ul class="list-group list-group-flush" id="language-list"></ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="language-select-button">OK, Got it!</button>
-      </div>
     </div>
-  </div>
 </div>
+
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -306,111 +340,103 @@
 <script src="{% static 'tinymce/js/tinymce/js/prism.js' %}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render={{ SITE_KEY }}"></script>
 <script>
-    var prevScrollpos = window.pageYOffset;
-window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos > currentScrollPos) {
-    document.querySelector(".navbar.fixed-top").classList.remove("hidden");
-  } else {
-    document.querySelector(".navbar.fixed-top").classList.add("hidden");
-  }
-  prevScrollpos = currentScrollPos;
-}
 
-async function displayLanguageList() {
-    // Load the reCAPTCHA v3 API and verify the user
-    const token = await grecaptcha.execute('{{ SITE_KEY }}', {action: 'submit'});
-    const response = await fetch('/lang/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: JSON.stringify({token: token})
-    });
-    const result = await response.json();
-    if (!result.success) {
-        // Handle the reCAPTCHA verification failure
-        alert(result.message);
-        $('#modalScrollableCenter').modal('hide');
-        return;
-    } else {
-        // Construct the language list items and add them to the DOM
-        const languageListContainer = document.getElementById('language-list');
-        languageListContainer.innerHTML = ''; // clear existing items
-        const post = {
-            author: '{{ post.author }}',
-            slug: '{{ post.slug }}'
-        };
-        for (let i = 0; i < result.languages.length; i++) {
-            const listItem = document.createElement('li');
-            listItem.classList.add('list-group-item');
-            listItem.textContent = result.languages[i].name;
-            listItem.setAttribute('data-url', `/translate/${post.author}/${post.slug}/${result.languages[i].code}`);
-            listItem.addEventListener('click', () => {
-                const url = listItem.getAttribute('data-url');
-                window.open(url, '_blank');
-            });
-            languageListContainer.appendChild(listItem);
+    async function displayLanguageList() {
+        // Load the reCAPTCHA v3 API and verify the user
+        const token = await grecaptcha.execute('{{ SITE_KEY }}', {action: 'submit'});
+        const response = await fetch('/lang/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({token: token})
+        });
+        const result = await response.json();
+        if (!result.success) {
+            // Handle the reCAPTCHA verification failure
+            alert(result.message);
+            $('#modalScrollableCenter').modal('hide');
+            return;
+        } else {
+            // Construct the language list items and add them to the DOM
+            const languageListContainer = document.getElementById('language-list');
+            languageListContainer.innerHTML = ''; // clear existing items
+            const post = {
+                author: '{{ post.author }}',
+                slug: '{{ post.slug }}'
+            };
+            for (let i = 0; i < result.languages.length; i++) {
+                const listItem = document.createElement('li');
+                listItem.classList.add('list-group-item');
+                listItem.textContent = result.languages[i].name;
+                listItem.setAttribute('data-url', `/translate/${post.author}/${post.slug}/${result.languages[i].code}`);
+                listItem.addEventListener('click', () => {
+                    const url = listItem.getAttribute('data-url');
+                    window.open(url, '_blank');
+                });
+                languageListContainer.appendChild(listItem);
+            }
         }
-    }
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
                 }
             }
+            return cookieValue;
         }
-        return cookieValue;
+
+        // Add search functionality
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            const languageListContainer = document.getElementById('language-list');
+            const languageList = languageListContainer.children;
+            for (let i = 0; i < languageList.length; i++) {
+                const listItem = languageList[i];
+                const languageName = listItem.textContent.toLowerCase(); // Fix: Use listItem.textContent instead of languageList[i].name
+                if (languageName.includes(query)) {
+                    listItem.classList.remove('d-none');
+                } else {
+                    listItem.classList.add('d-none');
+                }
+            }
+        });
     }
 
-    // Add search functionality
-    const searchInput = document.getElementById('search-input');
-    searchInput.addEventListener('input', () => {
-        const query = searchInput.value.toLowerCase();
-        const languageListContainer = document.getElementById('language-list');
-        const languageList = languageListContainer.children;
-        for (let i = 0; i < languageList.length; i++) {
-            const listItem = languageList[i];
-            const languageName = listItem.textContent.toLowerCase(); // Fix: Use listItem.textContent instead of languageList[i].name
-            if (languageName.includes(query)) {
-                listItem.classList.remove('d-none');
-            } else {
-                listItem.classList.add('d-none');
-            }
+    // Call displayLanguageList() function when modal is shown
+    $('#modalScrollableCenter').on('shown.bs.modal', function () {
+        displayLanguageList();
+    });
+
+    // Handle language selection
+    const languageSelectButton = document.getElementById('language-select-button');
+    const languageListContainer = document.getElementById('language-list');
+    languageListContainer.addEventListener('click', (event) => {
+        if (event.target.nodeName === 'LI') {
+            const selectedLanguage = event.target.textContent;
+            console.log(`Selected language: ${selectedLanguage}`);
         }
     });
-}
-  // Call displayLanguageList() function when modal is shown
-  $('#modalScrollableCenter').on('shown.bs.modal', function () {
-    displayLanguageList();
-  });
 
-  // Handle language selection
-  const languageSelectButton = document.getElementById('language-select-button');
-  const languageListContainer = document.getElementById('language-list');
-  languageListContainer.addEventListener('click', (event) => {
-    if (event.target.nodeName === 'LI') {
-      const selectedLanguage = event.target.textContent;
-      console.log(`Selected language: ${selectedLanguage}`);
-    }
-  });
+    // Call the init function when the page has finished loading
+    window.addEventListener('load', () => {
+        // Init function
+        function init() {
+            console.log('Page loaded');
+        }
 
-  // Call the init function when the page has finished loading
-  window.addEventListener('load', () => {
-    // Init function
-    function init() {
-      console.log('Page loaded');
-    }
-    init();
-  });
+        init();
+    });
 </script>
 </body>
 </html>

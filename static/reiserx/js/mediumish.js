@@ -1,11 +1,26 @@
-$(function(){
-  var topOfOthDiv = $(".hideshare").offset().top;
-  $(window).scroll(function() {
-      if($(window).scrollTop() > topOfOthDiv) { //scrolled past the other div?
-          $(".share").hide(); //reached the desired point -- show div
-      }
-      else{
-        $(".share").show();
-      }
-  });
-});
+var prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            document.querySelector(".navbar.fixed-top").classList.remove("hidden");
+        } else {
+            document.querySelector(".navbar.fixed-top").classList.add("hidden");
+        }
+        prevScrollpos = currentScrollPos;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var searchIcon = document.getElementById('searchIcon');
+      var searchOverlay = document.getElementById('searchOverlay');
+
+      searchIcon.addEventListener('click', function() {
+        searchOverlay.classList.toggle('active');
+        document.body.classList.toggle('overlay-active');
+      });
+    });
+
+    function closeSearchOverlay() {
+      var searchOverlay = document.getElementById('searchOverlay');
+      searchOverlay.classList.remove('active');
+      document.body.classList.remove('overlay-active');
+    }
