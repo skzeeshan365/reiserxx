@@ -16,15 +16,9 @@ def compress(image):
     # Open image using PIL
     img = Image.open(image)
 
-    # Convert image to RGB color mode
-    img = img.convert('RGB')
-
-    # Set quality to 80%
-    img.save(image, 'JPEG', quality=70)
-
     # Read the compressed image into memory
     in_memory = io.BytesIO()
-    img.save(in_memory, format='JPEG')
+    img.save(in_memory, format='WEBP', quality=70)
     in_memory.seek(0)
 
     return in_memory
