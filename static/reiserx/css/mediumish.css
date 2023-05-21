@@ -25,7 +25,6 @@ section {
 }
 .section-title h2 {
 	border-bottom:1px solid rgba(0,0,0,.15);
-	margin-bottom:25px;
 	font-weight:700;
 	font-size:1.4rem;
 	margin-bottom:27px;
@@ -53,31 +52,39 @@ section {
 	margin-bottom:20px;
 }
 .listfeaturedtag .wrapthumbnail {
-	height:258px;
+	height:100px;
 	flex:0 0 auto;
 }
 .listfeaturedtag .card {
 	border:1px solid rgba(0,0,0,.1);
 	border-radius:2px;
-	height:260px;
+	height:auto;
 	padding-left:0;
-	margin-bottom:15px;
+    padding-right: 0;
 }
 .listfeaturedtag .thumbnail {
 	background-size:cover;
-	height:100%;
 	display:block;
-	background-position:38% 22% !important;
-	background-origin:border-box!important;
 	border-top-left-radius:2px;
+	height: 100px;
+	width: 100px;
+	overflow: hidden;
+	align-items: center;
 }
 .listfeaturedtag .card-block {
-	padding-left:0;
+	padding-left: unset;
+	padding-right: unset;
+	padding-top: 8px;
 }
 .listfeaturedtag h2.card-title,.listrecent h2.card-title {
 	font-size:1.3rem;
 	font-weight:700;
 	line-height: 1.25;
+	overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+           line-clamp: 2;
+   -webkit-box-orient: vertical;
 }
 .listfeaturedtag h2.card-title a,.listrecent h2.card-title a {
 	color:rgba(0,0,0,.8);
@@ -92,12 +99,35 @@ section {
 	line-height:1.4;
 	font-weight:400;
 }
+
+.listfeaturedtag p.card-text,.listrecent p.card-text {
+	color: rgb(51, 51, 51);
+	font-size:0.95rem;
+	line-height:1.3;
+	font-weight:400;
+	overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+           line-clamp: 2;
+   -webkit-box-orient: vertical;
+	text-decoration: none;
+}
+
+.listfeaturedtag p.card-text a,.listrecent p.card-text a {
+	color: rgb(51, 51, 51);
+}
+
+.listfeaturedtag p.card-text a:hover,.listrecent p.card-text a:hover {
+	color: rgb(51, 51, 51);
+	text-decoration: none;
+}
+
 .listfeaturedtag .wrapfooter {
-	position:absolute;
-	bottom:20px;
-	font-size:12px;
+	position:relative;
+	font-size:14px;
 	display:block;
 	width:85%;
+	margin-top: 8px;
 }
 .listrecent .wrapfooter {
 	font-size:12px;
@@ -284,10 +314,6 @@ blockquote {
 	}
 	.listfeaturedtag .wrapfooter {
 		position:relative;
-		margin-top:30px;
-	}
-	.listfeaturedtag .card-block {
-		padding:20px;
 	}
 }
 @media (max-width:1024px) {

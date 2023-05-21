@@ -1,22 +1,45 @@
-
-    {% for post in all_posts %}
+{% for post in all_posts %}
     <!-- begin post -->
-    <div class="col-md-4">
+    <div class="col-md-6 col-lg-6 m-0">
       <div class="card border-0">
-        <a href="{% url 'open' post.get_author_name post.slug %}">
-          <div style="height: 185px; width: auto; overflow: hidden;">
-            <img style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: auto; width: 100%;" src="{{ post.image.url }}?f_auto,q_auto" alt="{{ post.title }}">
-          </div>
-        </a>
         <div class="card-block">
-          <h2 class="card-title"><a href="{% url 'open' post.get_author_name post.slug %}">{{ post.title }}</a></h2>
-          <h4 class="card-text">{{ post.description }}</h4>
-          <div class="metafooter">
-            <div class="wrapfooter">
-              <span class="author-meta">
-                <span class="post-name"><a href="{% url 'search_by_author' post.get_author_name %}">{{ post.get_author_name }}</a></span><br/>
-                <span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span class="post-read">{{ post.get_reading_time }} min read</span>
-              </span>
+          <div class="row" style="align-items: center">
+            <div class="col-8">
+                <div class="metafooter">
+                <div class="wrapfooter">
+                  <span class="author-meta">
+                        <img class="rounded-circle" src="{{ post.author.userprofile.image.url }}" alt="Profile Icon"
+                             width="24" height="24">
+                    <span class="post-name">
+                      <a href="{% url 'search_by_author' post.get_author_name %}" aria-label="{{ post.get_author_name }}">{{ post.get_author_name }}</a>
+                    </span>
+                      <span class="dot"></span>
+                    <span class="post-date">{{ post.get_date }}</span>
+                  </span>
+                </div>
+              </div>
+              <h2 class="card-title">
+                <a href="{% url 'open' post.get_author_name post.slug %}" aria-label="{{ post.title }}">{{ post.title }}</a>
+              </h2>
+              <p class="card-text">
+                  <a href="{% url 'open' post.get_author_name post.slug %}">{{ post.description|truncatechars:100 }}</a>
+              </p>
+              <div class="metafooter">
+                <div class="wrapfooter">
+                  <span class="author-meta">
+                    <span class="post-date">{{ post.category.category }}</span>
+                    <span class="dot"></span>
+                    <span class="post-read">{{ post.get_reading_time }} min read</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+              <div class="col-4">
+              <div class="thumbnail-wrapper">
+                <a href="{% url 'open' post.get_author_name post.slug %}">
+                  <div class="thumbnail" style="background-image: url({{ post.image.url }}?f_auto,q_auto);" aria-label="{{ post.title }}"></div>
+                </a>
+              </div>
             </div>
           </div>
         </div>

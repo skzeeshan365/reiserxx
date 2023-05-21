@@ -22,9 +22,9 @@
                     <!-- begin post -->
                     <div class="card">
                         <div class="row">
-                            <div class="col-md-5 wrapthumbnail">
+                            <div class="col-md-5 wrapthumbnail" style="height: 258px;">
                                 <a href="{% url 'search_by_category' object.slug %}">
-                                    <div class="thumbnail" style="background-image:url({{ object.image.url }});">
+                                    <div class="thumbnail" style="background-image:url({{ object.image.url }}); width: unset; height: 258px">
                                     </div>
                                 </a>
                             </div>

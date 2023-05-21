@@ -217,7 +217,7 @@
             <div class="col-md-4">
                 <div class="card card-flat">
                     <a href="{% url 'open' post.get_author_name post.slug %}">
-                        <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="{{ post.title }}">
+                        <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="{{ post.title }}" style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: 185px; width: 100%;">
                     </a>
                     <div class="card-block">
                         <h5 class="card-title"><a
