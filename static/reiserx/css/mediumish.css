@@ -315,16 +315,71 @@ blockquote {
 	.listfeaturedtag .wrapfooter {
 		position:relative;
 	}
+
+	.listfeaturedtag h2.card-title,.listrecent h2.card-title {
+	font-size:1.05rem;
+	font-weight:700;
+	line-height: 1.15;
+}
+	.listfeaturedtag p.card-text,.listrecent p.card-text {
+	font-size:0.9rem;
+	line-height:1.2;
+	font-weight:400;
+}
+	.listfeaturedtag .wrapthumbnail {
+	height:85px;
+}
+.listfeaturedtag .thumbnail {
+	height: 85px;
+	width: 85px;
+}
 }
 @media (max-width:1024px) {
 	.post-top-meta .col-md-10 {
 		text-align:center;
 	}
+
+	.listfeaturedtag h2.card-title,.listrecent h2.card-title {
+	font-size:1.1rem;
+	font-weight:700;
+	line-height: 1.15;
+}
+	.listfeaturedtag p.card-text,.listrecent p.card-text {
+	font-size:0.95rem;
+	line-height:1.3;
+	font-weight:400;
+}
+	.listfeaturedtag .wrapthumbnail {
+	height:90px;
+}
+.listfeaturedtag .thumbnail {
+	height: 90px;
+	width: 90px;
+}
 }
 @media (max-width:767px) {
 	.post-top-meta.authorpage {
 		text-align:center;
 	}
+
+	.listfeaturedtag h2.card-title,.listrecent h2.card-title {
+	font-size:1.0rem;
+	font-weight:700;
+	line-height: 1.15;
+}
+
+	.listfeaturedtag p.card-text,.listrecent p.card-text {
+	font-size:0.85rem;
+	line-height:1.2;
+	font-weight:400;
+}
+	.listfeaturedtag .wrapthumbnail {
+	height:75px;
+}
+.listfeaturedtag .thumbnail {
+	height: 75px;
+	width: 75px;
+}
 }
 .share,.share a {
 	color:rgba(0,0,0,.44);
