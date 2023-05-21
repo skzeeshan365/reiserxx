@@ -1,0 +1,190 @@
+
+    .comment-section {
+        background-color: #f5f5f5;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .comment-section h2 {
+        margin-top: 0;
+    }
+
+    .comment-section form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .comment-section label {
+        margin-bottom: 10px;
+    }
+
+    .comment-section input,
+    .comment-section textarea {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        margin-bottom: 20px;
+    }
+
+    .comment-section button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    .comment-section button:hover {
+        background-color: #3e8e41;
+    }
+
+    .media.content-section {
+        margin-bottom: 20px;
+        position: relative;
+        margin-top: 20px;
+    }
+
+    .media.content-section::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #ddd;
+    }
+
+    .media.content-section:last-of-type::after {
+        content: none; /* remove divider after last comment */
+    }
+
+    .media.content-section .media-body {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .media.content-section h5 {
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: normal; /* remove bold from name */
+        font-size: 0.8em; /* make name smaller */
+    }
+
+    .media.content-section small {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.8em;
+        color: #999;
+        align-self: flex-end;
+        font-style: italic; /* add italic style to timestamp */
+    }
+
+    .media.content-section p {
+        font-size: 1em;
+        line-height: 1.5;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    .navbar.fixed-top {
+  transition: top 0.3s;
+}
+
+.navbar.hidden {
+  top: -100px !important;
+}
+
+.card {
+  box-shadow: none !important;
+}
+                .card-block {
+  padding-top: 15px;
+                    padding-left: 1px;
+                    padding-right: unset;
+                    padding-bottom: 8px;
+}
+
+                .card {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .img-thumb {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .list-group-item {
+    border-top: 1px solid #dee2e6;
+}
+
+.list-group-item:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+.grecaptcha-badge {
+  display: none;
+}
+.bi-translate:hover path {
+  fill: #349d00; /* change the fill color on hover */
+}
+
+.bi-translate:hover {
+  transform: scale(1.1); /* scale the icon on hover */
+}
+
+.post-top-meta {
+    line-height: 1;
+}
+
+.post-top-meta a,
+.post-top-meta .author-description,
+.post-top-meta .post-date,
+.post-top-meta .post-read {
+    margin-bottom: 0;
+}
+
+.post-top-meta .author-thumb {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    max-width: 100%;
+}
+
+@media (max-width: 767px) {
+    .post-top-meta .author-thumb {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.post-top-meta .link-dark {
+    font-size: 14px;
+    color: #343a40;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    margin-bottom: 3px;
+}
+
+.post-top-meta .post-date,
+.post-top-meta .post-read {
+    font-size: 12px;
+    color: #868e96;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-left: 5px;
+}
+
+.post-top-meta .dot {
+    font-size: 10px;
+    color: #868e96;
+    margin: 0 5px;
+}
