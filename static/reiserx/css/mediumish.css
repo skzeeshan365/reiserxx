@@ -170,7 +170,7 @@ span.post-name,span.post-date,span.author-meta {
 	display:inline-block;
 }
 span.post-date,span.post-read {
-	color:rgba(0,0,0,.44);
+	color: rgb(51, 51, 51);
 }
 span.post-read-more {
 	align-items:center;

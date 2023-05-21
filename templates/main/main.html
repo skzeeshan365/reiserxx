@@ -140,7 +140,7 @@
                                 <div class="col-4">
                                     <div class="thumbnail-wrapper">
                                         <a href="{% url 'open' post.get_author_name post.slug %}">
-                                            <div class="thumbnail" style="background-image: url({{ post.image.url }}?f_auto,q_auto);" aria-label="{{ post.title }}"></div>
+                                            <div class="thumbnail" style="background-image: url('{{ post.image.url }}?f_auto,q_auto');" role="img" aria-label="{{ post.title }}"></div>
                                         </a>
                                     </div>
                                 </div>
@@ -199,7 +199,7 @@
                                 <div class="col-4">
                                     <div class="thumbnail-wrapper">
                                         <a href="{% url 'open' post.get_author_name post.slug %}">
-                                            <div class="thumbnail" style="background-image: url({{ post.image.url }}?f_auto,q_auto);" aria-label="{{ post.title }}"></div>
+                                            <div class="thumbnail" style="background-image: url('{{ post.image.url }}?f_auto,q_auto');" role="img" aria-label="{{ post.title }}"></div>
                                         </a>
                                     </div>
                                 </div>
