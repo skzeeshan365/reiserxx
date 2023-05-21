@@ -19,4 +19,4 @@ urlpatterns = [
     path('translate/<str:user>/<slug:post_slug>/<str:code>/', views.translate_post, name='translate'),
     re_path(r'^(?P<user>[^/]+)/(?P<post_slug>[^/]+)/$', views.open_post, name='open'),
     re_path(r'^(?P<username>[a-zA-Z0-9]{3,})/$', views.search_by_author, name='search_by_author')
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
