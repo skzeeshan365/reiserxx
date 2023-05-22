@@ -5,7 +5,6 @@ import random
 import re
 import uuid
 
-from bs4 import BeautifulSoup
 from django.contrib.auth.models import User, AbstractUser
 from django.core.validators import MaxLengthValidator
 from django.db import IntegrityError

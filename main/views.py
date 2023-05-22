@@ -1,11 +1,9 @@
 import json
 import os
 import random
-import uuid
 from datetime import datetime, timedelta
 
 import requests
-from django import template
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -20,6 +18,7 @@ from .forms import CommentForm, ContactForm, SubscriberForm
 from .models import Category, Subscriber
 from .models import Post, Contact
 from .models import Tag
+
 
 # Create your views here.
 
