@@ -1,8 +1,11 @@
 import json
 import os
+import random
+import uuid
 from datetime import datetime, timedelta
 
 import requests
+from django import template
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -18,18 +21,19 @@ from .models import Category, Subscriber
 from .models import Post, Contact
 from .models import Tag
 
-
 # Create your views here.
 
 
 def home(request):
     posts = Post.objects.filter(draft=False).order_by('-timestamp')[:4]
     all_posts = Post.objects.filter(draft=False).order_by('-timestamp')[:5]
-    return render(request, 'main/main.html', {'posts': posts, 'all_posts': all_posts, 'current_menu': 1, 'page_title': "ReiserX"})
+
+    return render(request, 'main/main.html',
+                  {'posts': posts, 'all_posts': all_posts, 'current_menu': 1, 'page_title': "ReiserX"})
 
 
 def load_more_posts(request):
-    page = int(request.GET.get('page', 1))
+    page = int(request.GET.get('page', 2))
     posts_per_page = 5
 
     posts_query = Post.objects.filter(draft=False).order_by('-timestamp')
@@ -40,14 +44,28 @@ def load_more_posts(request):
     except Exception:
         return JsonResponse({'rendered_posts': '', 'has_next_page': False})
 
-    rendered_posts = render_to_string('main/partials/postlist.html', {'all_posts': loaded_posts})
+    # Calculate the number of ads to insert
+    num_ads = len(loaded_posts) // 5
+
+    # Generate a list of unique random indices to insert ads
+    ad_indices = random.sample(range(1, len(loaded_posts) + num_ads), num_ads)
+
+    # Create a list to store posts and ad placeholders
+    combined_list = []
+    for index, post in enumerate(loaded_posts):
+        combined_list.append(post)
+        if index + 1 in ad_indices:
+            ad_placeholder = Post(is_ad=True)  # Create an ad placeholder object
+            combined_list.append(ad_placeholder)
+
+    rendered_posts = render_to_string('main/partials/postlist.html', {'all_posts': combined_list})
 
     has_next_page = loaded_posts.has_next()
     return JsonResponse({'rendered_posts': rendered_posts, 'has_next_page': has_next_page})
 
 
-def open_post(request, user, post_slug):
 
+def open_post(request, user, post_slug):
     post = Post.objects.get(slug=post_slug)
     tags = post.tags.all()
     related_posts = post.get_related_posts()
@@ -134,7 +152,8 @@ def search(request):
 def search_by_tag(request, tag_slug):
     tag = Tag.objects.get(slug=tag_slug)
     posts = tag.get_posts()
-    return render(request, 'main/search.html', {'query': tag, 'posts': posts, 'title': 'Results For', 'current_menu': 1, 'page_title': tag})
+    return render(request, 'main/search.html',
+                  {'query': tag, 'posts': posts, 'title': 'Results For', 'current_menu': 1, 'page_title': tag})
 
 
 def categories(request):
@@ -145,7 +164,9 @@ def categories(request):
 def search_by_category(request, category_slug):
     cat = Category.objects.get(slug=category_slug)
     posts = cat.get_posts()
-    return render(request, 'main/category.html', {'posts': posts, 'category': cat.category, 'desc': cat.description, 'category_image': cat.image.url, 'current_menu': 2, 'page_title': cat})
+    return render(request, 'main/category.html',
+                  {'posts': posts, 'category': cat.category, 'desc': cat.description, 'category_image': cat.image.url,
+                   'current_menu': 2, 'page_title': cat})
 
 
 def search_by_author(request, username):
@@ -165,7 +186,8 @@ From the latest in cutting-edge technology to the weirdest and most bizarre scie
 Did you know that there's a planet where it rains diamonds? Or that there's a massive black hole in the center of our galaxy that's millions of times larger than our sun? These are just a couple of the amazing facts you'll discover as you journey through the universe with ReiserX.
 
 So come join the fun and excitement of ReiserX, where the possibilities are endless and the adventure never ends. Get ready to blast off into a world of discovery and wonder, and who knows - maybe you'll even discover a new planet or two!"""
-    return render(request, 'main/about.html', {'content': content, 'title': "Blast off into the Exciting Universe of ReiserX!"})
+    return render(request, 'main/about.html',
+                  {'content': content, 'title': "Blast off into the Exciting Universe of ReiserX!"})
 
 
 def subscribe(request):

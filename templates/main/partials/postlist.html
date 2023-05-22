@@ -1,49 +1,63 @@
 {% for post in all_posts %}
+    {% if post.is_ad is True %}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-g4-1w+2l-mi+1cu"
+     data-ad-client="ca-pub-1588658066763563"
+     data-ad-slot="5361957873"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    {% elif post.is_ad is not True%}
     <!-- begin post -->
-    <div class="col-md-6 col-lg-6 m-0">
-      <div class="card border-0">
-        <div class="card-block">
-          <div class="row" style="align-items: center">
-            <div class="col-8">
-                <div class="metafooter">
-                <div class="wrapfooter">
-                  <span class="author-meta">
-                        <img class="rounded-circle" src="{{ post.author.userprofile.image.url }}" alt="Profile Icon"
-                             width="24" height="24">
-                    <span class="post-name">
-                      <a href="{% url 'search_by_author' post.get_author_name %}" aria-label="{{ post.get_author_name }}">{{ post.get_author_name }}</a>
-                    </span>
-                      <span class="dot"></span>
-                    <span class="post-date">{{ post.get_date }}</span>
-                  </span>
+                <div class="col-md-12 col-xl-12 col-xs-12 col-sm-8 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+                    <div class="card border-0">
+                        <div class="card-block">
+                            <div class="row" style="align-items: center">
+                                <div class="col-10">
+                                    <div class="metafooter">
+                                        <div class="wrapfooter">
+                                            <span class="author-meta">
+                                                <img class="rounded-circle" src="{{ post.author.userprofile.image.url }}" alt="Profile Icon" width="24" height="24">
+                                                <span class="post-name">
+                                                    <a href="{% url 'search_by_author' post.get_author_name %}" aria-label="{{ post.get_author_name }}">{{ post.get_author_name }}</a>
+                                                </span>
+                                                <span class="dot">
+                                                </span>
+                                                <span class="post-date">{{ post.get_date }}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <h2 class="card-title">
+                                        <a href="{% url 'open' post.get_author_name post.slug %}" aria-label="{{ post.title }}">{{ post.title }}</a>
+                                    </h2>
+                                    <p class="card-text">
+                                        <a href="{% url 'open' post.get_author_name post.slug %}">{{ post.description|truncatechars:100 }}</a>
+                                    </p>
+                                    <div class="metafooter">
+                                        <div class="wrapfooter">
+                                            <span class="author-meta">
+                                                <span class="post-date">{{ post.category.category }}</span>
+                                                <span class="dot"></span>
+                                                <span class="post-read">{{ post.get_reading_time }} min read</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="thumbnail-wrapper">
+                                        <a href="{% url 'open' post.get_author_name post.slug %}">
+                                            <div class="thumbnail" style="background-image: url('{{ post.image.url }}?f_auto,q_auto');" role="img" aria-label="{{ post.title }}"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <h2 class="card-title">
-                <a href="{% url 'open' post.get_author_name post.slug %}" aria-label="{{ post.title }}">{{ post.title }}</a>
-              </h2>
-              <p class="card-text">
-                  <a href="{% url 'open' post.get_author_name post.slug %}">{{ post.description|truncatechars:100 }}</a>
-              </p>
-              <div class="metafooter">
-                <div class="wrapfooter">
-                  <span class="author-meta">
-                    <span class="post-date">{{ post.category.category }}</span>
-                    <span class="dot"></span>
-                    <span class="post-read">{{ post.get_reading_time }} min read</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-              <div class="col-4">
-              <div class="thumbnail-wrapper">
-                <a href="{% url 'open' post.get_author_name post.slug %}">
-                  <div class="thumbnail" style="background-image: url({{ post.image.url }}?f_auto,q_auto);" aria-label="{{ post.title }}"></div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end post -->
+                <!-- end post -->
+    {% endif %}
     {% endfor %}

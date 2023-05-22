@@ -67,6 +67,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE, default=None)
     tags = models.ManyToManyField(Tag, related_name='posts')
     draft = models.BooleanField(default=False)
+    is_ad = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.pk:

@@ -352,6 +352,10 @@ blockquote {
 		text-align:center;
 	}
 
+	.listfeaturedtag {
+		padding: 20px;
+	}
+
 	.listfeaturedtag h2.card-title,.listrecent h2.card-title {
 	font-size:1.0rem;
 	font-weight:700;
