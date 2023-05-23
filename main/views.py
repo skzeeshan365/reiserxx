@@ -64,32 +64,36 @@ def load_more_posts(request):
 
 
 def open_post(request, user, post_slug):
-    post = Post.objects.get(slug=post_slug)
-    tags = post.tags.all()
-    related_posts = post.get_related_posts()
-    comments = post.get_comments()
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.post = post
-            new_comment.save()
-            return redirect('open', user=user, post_slug=post.slug)
-    else:
-        form = CommentForm()
 
-    subscribed = False
-    if request.session.get('subscriber_id'):
-        subscribed = True
-    contents = {'post': post,
-                'related': related_posts,
-                'tagss': tags,
-                'form': form,
-                'comments': comments,
-                'subscribed': subscribed,
-                'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY}
+    try:
+        post = Post.objects.get(slug=post_slug)
+        tags = post.tags.all()
+        related_posts = post.get_related_posts()
+        comments = post.get_comments()
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                new_comment = form.save(commit=False)
+                new_comment.post = post
+                new_comment.save()
+                return redirect('open', user=user, post_slug=post.slug)
+        else:
+            form = CommentForm()
 
-    return render(request, 'main/post.html', contents)
+        subscribed = False
+        if request.session.get('subscriber_id'):
+            subscribed = True
+        contents = {'post': post,
+                    'related': related_posts,
+                    'tagss': tags,
+                    'form': form,
+                    'comments': comments,
+                    'subscribed': subscribed,
+                    'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY}
+
+        return render(request, 'main/post.html', contents)
+    except Post.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Requested resource does not exist'})
 
 
 def contact(request):
@@ -173,8 +177,7 @@ def search_by_author(request, username):
         posts = Post.get_posts_by_user(user)
         context = {'posts': posts, 'user': user, 'current_menu': 1, 'page_title': username}
         return render(request, 'main/author.html', context)
-    except User.DoesNotExist as e:
-        print(e)
+    except User.DoesNotExist:
         context = {'message': 'User does not exist.'}
         return render(request, 'main/author_404.html', context)
 
