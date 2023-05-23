@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import JsonResponse, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from google.cloud import translate
 from google.oauth2 import service_account
@@ -168,10 +168,16 @@ def search_by_category(request, category_slug):
 
 
 def search_by_author(request, username):
-    user = User.objects.get(username=username)
-    posts = Post.get_posts_by_user(user)
-    context = {'posts': posts, 'user': user, 'current_menu': 1, 'page_title': username}
-    return render(request, 'main/author.html', context)
+    try:
+        user = User.objects.get(username=username)
+        posts = Post.get_posts_by_user(user)
+        context = {'posts': posts, 'user': user, 'current_menu': 1, 'page_title': username}
+        return render(request, 'main/author.html', context)
+    except User.DoesNotExist as e:
+        print(e)
+        context = {'message': 'User does not exist.'}
+        return render(request, 'main/author_404.html', context)
+
 
 
 def about(request):
