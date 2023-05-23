@@ -131,7 +131,6 @@ class Post(models.Model):
 
     def get_content(self):
         content = self.content
-
         # Calculate the word count
         word_count = len(re.findall(r'\w+', content))
 
@@ -139,9 +138,9 @@ class Post(models.Model):
         ad_count = min(word_count // 200, 5)  # Insert one ad per 1000 words, up to a maximum of 5 ads
 
         # Insert the AdSense ad code randomly
-        ad_code = '''<div class="adsense-ad">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
-            crossorigin="anonymous"></script>
+        ad_code = '''
+        <div class="adsense-ad">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563" crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
                  style="display:block; text-align:center;"
                  data-ad-layout="in-article"
@@ -149,25 +148,20 @@ class Post(models.Model):
                  data-ad-client="ca-pub-1588658066763563"
                  data-ad-slot="4101024703"></ins>
             <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
-        </div>'''
+        </div>
+        '''
 
         # Split the content into paragraphs
         paragraphs = re.split(r'(</?p>)', content)
 
-        # Remove empty strings and paragraph tags from the paragraphs list
-        paragraphs = [p for p in paragraphs if p.strip() and not re.match(r'</?p>', p)]
-
-        # Generate random indices to insert ads
+        # Insert the ad code at random positions within paragraphs
         ad_positions = random.sample(range(len(paragraphs)), ad_count)
-        ad_positions.sort(reverse=True)  # Sort in reverse order to preserve indices after inserting ads
-
-        # Insert the ad code at the random positions
         for position in ad_positions:
             # Check if the paragraph is a heading
             if not re.match(r'<h\d>', paragraphs[position]):
-                paragraphs.insert(position, ad_code)
+                paragraphs[position] = paragraphs[position].rstrip() + ad_code + paragraphs[position + 1].lstrip()
 
         # Join the modified paragraphs back into a single string
         content = ''.join(paragraphs)
