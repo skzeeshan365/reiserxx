@@ -16,6 +16,14 @@
          data-ad-slot="5361957873"></ins>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
+
+        // Check if the ad element exists
+        var adElement = document.querySelector('.adsbygoogle');
+        if (!adElement || !adElement.offsetHeight) {
+            // Remove the ad container if the ad is not available
+            var adsContainer = document.querySelector('.ads-container');
+            adsContainer.style.display = 'none';
+        }
     </script>
 </div>
     {% elif post.is_ad is not True%}
