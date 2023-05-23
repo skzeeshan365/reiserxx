@@ -97,11 +97,21 @@
 .center-horizontal {
     display: flex;
     justify-content: center;
+    overflow-x: hidden;
 }
+.container.listfeaturedtag {
+        margin: 0;
+        padding: 0;
+    }
+
+    .card.border-0 {
+        margin: 0;
+        padding: 0;
+    }
     </style>
 
-    <div class="row center-horizontal">
-        <div class="col-md-7 col-sm-6 col-xs-7 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+    <div class="row center-horizontal m-0">
+        <div class="col-md-6 col-sm-5 col-xs-6 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
             <div class="container listfeaturedtag">
                 <div class="section-title">
                     <h2><span>Featured</span></h2>
@@ -109,11 +119,11 @@
                 <div class="row">
             {% for post in posts %}
                 <!-- begin post -->
-                <div class="col-md-12 col-xl-12 col-xs-12 col-sm-8 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+                <div class="col-sm-8 col-md-10 col-lg-12 col-xl-12">
                     <div class="card border-0">
                         <div class="card-block">
-                            <div class="row" style="align-items: center">
-                                <div class="col-10">
+                            <div class="row">
+                                <div class="col-9">
                                     <div class="metafooter">
                                         <div class="wrapfooter">
                                             <span class="author-meta">
@@ -172,7 +182,7 @@
                     <div class="card border-0">
                         <div class="card-block">
                             <div class="row" style="align-items: center">
-                                <div class="col-10">
+                                <div class="col-9">
                                     <div class="metafooter">
                                         <div class="wrapfooter">
                                             <span class="author-meta">
@@ -228,11 +238,11 @@
 
         <!-- Placeholder post -->
         <div id="placeholder-template" style="display: none;">
-            <div class="col-md-12 col-xl-12 col-xs-12 col-sm-8 placeholder-post">
+            <div class="col-md-10 col-xl-12 col-xs-10 col-sm-8 placeholder-post">
                 <div class="card border-0">
                     <div class="card-block">
                         <div class="row" style="align-items: center">
-                            <div class="col-10">
+                            <div class="col-9">
                                 <h5 class="card-title placeholder-glow">
                                     <span class="placeholder col-6 placeholder-lg" style="height: 25px; margin-top: 8px"></span>
                                 </h5>

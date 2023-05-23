@@ -47,6 +47,10 @@ section {
 		padding-right:.7rem;
 		padding-left:.7rem;
 	}
+
+	.card-block {
+		width: 680px;
+	}
 }
 .card-columns .card {
 	margin-bottom:20px;
@@ -351,11 +355,6 @@ blockquote {
 	.post-top-meta.authorpage {
 		text-align:center;
 	}
-
-	.listfeaturedtag {
-		padding: 20px;
-	}
-
 	.listfeaturedtag h2.card-title,.listrecent h2.card-title {
 	font-size:1.0rem;
 	font-weight:700;
