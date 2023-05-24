@@ -129,8 +129,12 @@ class Post(models.Model):
         reading_time = math.ceil(word_count / words_per_minute)
         return reading_time
 
+    def get_content_preview(self):
+        return self.content
+
     def get_content(self):
         content = self.content
+
         # Calculate the word count
         word_count = len(re.findall(r'\w+', content))
 
@@ -153,18 +157,20 @@ class Post(models.Model):
         </div>
         '''
 
-        # Split the content into paragraphs
-        paragraphs = re.split(r'(</?p>)', content)
+        # Split the content into paragraphs and preserve the surrounding tags
+        paragraphs = re.split(r'(</?(?:p|div|h\d|img).*?>)', content)
 
-        # Insert the ad code at random positions within paragraphs
+        # Generate random indices to insert ads
         ad_positions = random.sample(range(len(paragraphs)), ad_count)
+        ad_positions.sort(reverse=True)  # Sort in reverse order to preserve indices after inserting ads
+
+        # Insert the ad code at the random positions
         for position in ad_positions:
-            # Check if the paragraph is a heading
-            if not re.match(r'<h\d>', paragraphs[position]):
-                paragraphs[position] = paragraphs[position].rstrip() + ad_code + paragraphs[position + 1].lstrip()
+            paragraphs.insert(position + 1, ad_code)
 
         # Join the modified paragraphs back into a single string
         content = ''.join(paragraphs)
+
         return content
 
     def get_comments(self):
