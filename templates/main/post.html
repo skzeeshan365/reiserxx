@@ -24,7 +24,7 @@
           rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{% static '/reiserx/css/fonting.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static '/reiserx/css/mediumish.css' %}" rel="stylesheet">
+    <link href="{% static '/reiserx/css/mediumish-'|add:ASSET_VERSION|add:'.css' %}" rel="stylesheet">
     <link href="{% static '/reiserx/css/custom.css' %}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{% static 'tinymce/js/tinymce/css/prism.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
