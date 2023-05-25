@@ -28,6 +28,7 @@ urlpatterns = [
     path('android-icon-96x96.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/android-icon-96x96.png', permanent=True)),
     path('android-icon-144x144.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/android-icon-144x144.png', permanent=True)),
     path('android-icon-192x192.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/android-icon-192x192.png', permanent=True)),
+    path('android-icon-192x192.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/browserconfig.xml', permanent=True)),
     # Favicons
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
