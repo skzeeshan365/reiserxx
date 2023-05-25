@@ -1,5 +1,6 @@
 from django.conf.urls.static import static
 from django.urls import path, re_path
+from django.views.generic import RedirectView
 
 from djangoProject1 import settings
 from . import views
@@ -18,5 +19,15 @@ urlpatterns = [
     path('category/<slug:category_slug>/', views.search_by_category, name='search_by_category'),
     path('translate/<str:user>/<slug:post_slug>/<str:code>/', views.translate_post, name='translate'),
     re_path(r'^(?P<user>[^/]+)/(?P<post_slug>[^/]+)/$', views.open_post, name='open'),
-    re_path(r'^(?P<username>[a-zA-Z0-9]{3,})/$', views.search_by_author, name='search_by_author')
+    re_path(r'^(?P<username>[a-zA-Z0-9]{3,})/$', views.search_by_author, name='search_by_author'),
+
+    # Favicons
+    path('android-icon-36x36.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/android-icon-36x36.png', permanent=True)),
+    path('android-icon-48x48.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/android-icon-48x48.png', permanent=True)),
+    path('android-icon-72x72.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/android-icon-72x72.png', permanent=True)),
+    path('android-icon-96x96.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/android-icon-96x96.png', permanent=True)),
+    path('android-icon-144x144.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/android-icon-144x144.png', permanent=True)),
+    path('android-icon-192x192.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/android-icon-192x192.png', permanent=True)),
+    # Favicons
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
