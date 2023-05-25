@@ -5,6 +5,7 @@ import random
 import re
 import uuid
 
+from bs4 import BeautifulSoup
 from django.contrib.auth.models import User, AbstractUser
 from django.core.validators import MaxLengthValidator
 from django.db import IntegrityError
@@ -124,9 +125,18 @@ class Post(models.Model):
     def get_tags(self):
         return self.tags.values_list('tag', flat=True)
 
-    def get_reading_time(self, words_per_minute=200):
-        word_count = len(self.content.split())
+    def get_reading_time(self, words_per_minute=265):
+        soup = BeautifulSoup(self.content, 'html.parser')
+
+        # Extract the plain text from the HTML
+        readable_text = soup.get_text(separator=' ')
+
+        # Calculate the word count from the readable text
+        word_count = len(readable_text.split())
+
+        # Calculate the reading time in minutes
         reading_time = math.ceil(word_count / words_per_minute)
+
         return reading_time
 
     def get_content_preview(self):
