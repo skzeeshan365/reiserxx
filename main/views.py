@@ -334,3 +334,7 @@ def translate_post(request, user, post_slug, code):
                 'subscribed': subscribed}
 
     return render(request, 'main/post.html', contents)
+
+
+def policy(request):
+    return render(request, 'main/privacy_policy.html')

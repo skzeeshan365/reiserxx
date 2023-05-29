@@ -250,12 +250,7 @@ span.post-name a,span.post-read-more a:hover {
 .link-dark {
 	color:rgba(0,0,0,.8);
 }
-.article-post {
-	font-family:Merriweather;
-	font-size:1.2rem;
-	line-height:1.8;
-	color:rgba(0,0,0,.8);
-}
+
 blockquote {
 	border-left:4px solid #00ab6b;
 	padding:0 20px;
