@@ -14,7 +14,7 @@ API_SECRET = os.getenv('API_SECRET')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '13.233.151.164', 'localhost', 'reiserx.com']
 
@@ -60,7 +60,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 ROOT_URLCONF = 'djangoProject1.urls'
 
-ASSET_VERSION = 'v1'
+ASSET_VERSION = 'v2'
 
 TEMPLATES = [
     {

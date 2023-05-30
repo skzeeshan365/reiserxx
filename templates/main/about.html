@@ -5,10 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="{{ post.title }}">
+    <meta name="description" content="About">
     <meta name="author" content="ReiserX">
     <title>About</title>
-
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'reiserx/img/favicons/apple-icon-57x57.png' %}">
@@ -39,7 +38,7 @@
     <meta name="theme-color" content="#ffffff">
     <!-- Favicon -->
 
-    <title>{{ post.title }}</title>
+    <title>About</title>
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static '/reiserx/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -57,7 +56,7 @@
     <meta property="og:description" content="Discover the wonders of cosmos"/>
     <meta property="og:image" content="{% static 'reiserx/img/logo.png' %}"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="article">
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
     <!-- META TAGS -->
 </head>
@@ -85,7 +84,7 @@
                     </button>
                 </form>
                 <form class="d-none d-lg-flex align-items-center" method="get" action="{% url 'search' %}">
-                    <input class="form-control me-2 search-input" name="search" type="text" placeholder="Search">
+                    <input class="form-control me-2 search-input" name="q" type="text" placeholder="Search">
                 </form>
             </div>
             <!-- End Search -->
@@ -116,7 +115,7 @@
 
 <div id="searchOverlay" class="search-overlay">
     <form method="get" action="{% url 'search' %}" class="search-form">
-        <input class="form-control search-input-large" name="search" type="text" placeholder="Search">
+        <input class="form-control search-input-large" name="q" type="text" placeholder="Search">
     </form>
 </div>
 <!-- End Nav

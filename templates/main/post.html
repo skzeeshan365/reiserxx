@@ -108,7 +108,7 @@
                     </button>
                 </form>
                 <form class="d-none d-lg-flex align-items-center" method="get" action="{% url 'search' %}">
-                    <input class="form-control me-2 search-input" name="search" type="text" placeholder="Search">
+                    <input class="form-control me-2 search-input" name="q" type="text" placeholder="Search">
                 </form>
             </div>
             <!-- End Search -->
@@ -139,7 +139,7 @@
 
 <div id="searchOverlay" class="search-overlay">
     <form method="get" action="{% url 'search' %}" class="search-form">
-        <input class="form-control search-input-large" name="search" type="text" placeholder="Search">
+        <input class="form-control search-input-large" name="q" type="text" placeholder="Search">
     </form>
 </div>
 <!-- End Nav
@@ -256,7 +256,7 @@
 
 <div class="container" id="comments-section">
     <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+        <div class="col-md-8 col-sm-8 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
             {% for comment in comments %}
                 <div class="media content-section">
                     <div class="media-body">

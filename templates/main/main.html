@@ -94,175 +94,131 @@
             color: #fff;
             text-decoration: none;
         }
-.center-horizontal {
-    display: flex;
-    justify-content: center;
-    overflow-x: hidden;
-}
-.container.listfeaturedtag {
-        margin: 0;
-        padding: 0;
-    }
 
-    .card.border-0 {
-        margin: 0;
-        padding: 0;
-    }
+        .center-horizontal {
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .container.listfeaturedtag {
+            margin: 0;
+            padding: 0;
+        }
+
+        .card.border-0 {
+            margin: 0;
+            padding: 0;
+        }
     </style>
 
     <div class="row center-horizontal m-0">
-        <div class="col-md-6 col-sm-5 col-xs-6 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
-            <div class="container listfeaturedtag">
+        <div class="col-xs-2 col-sm-4 col-md-6 col-lg-6 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+            <div class="container-fluid listfeaturedtag">
+                <!-- Begin List Posts -->
                 <div class="section-title">
-                    <h2><span>Featured</span></h2>
+                    <h2><span>For you</span></h2>
                 </div>
-                <div class="row">
-            {% for post in posts %}
-                <!-- begin post -->
-                <div class="col-sm-8 col-md-12 col-lg-12 col-xl-12">
-                    <div class="card border-0">
-                        <div class="card-block">
-                            <div class="row" style="align-items: center">
-                                <div class="col-9">
-                                    <div class="metafooter">
-                                        <div class="wrapfooter">
-                                            <span class="author-meta">
-                                                <img class="rounded-circle" src="{{ post.author.userprofile.image.url }}" alt="Profile Icon" width="24" height="24">
-                                                <span class="post-name">
-                                                    <a href="{% url 'search_by_author' post.get_author_name %}" aria-label="{{ post.get_author_name }}">{{ post.get_author_name }}</a>
-                                                </span>
-                                                <span class="dot">
-                                                </span>
-                                                <span class="post-date">{{ post.get_date }}</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <h2 class="card-title">
-                                        <a href="{% url 'open' post.get_author_name post.slug %}" aria-label="{{ post.title }}">{{ post.title }}</a>
-                                    </h2>
-                                    <p class="card-text">
-                                        <a href="{% url 'open' post.get_author_name post.slug %}">{{ post.description }}</a>
-                                    </p>
-                                    <div class="metafooter">
-                                        <div class="wrapfooter">
-                                            <span class="author-meta">
-                                                <span class="post-date">{{ post.category.category }}</span>
-                                                <span class="dot"></span>
-                                                <span class="post-read">{{ post.get_reading_time }} min read</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="thumbnail-wrapper">
-                                        <a href="{% url 'open' post.get_author_name post.slug %}">
-                                            <div class="thumbnail" style="background-image: url('{{ post.image.url }}?f_auto,q_auto');" role="img" aria-label="{{ post.title }}"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end post -->
-            {% endfor %}
-        </div>
-
-        <!-- End Featured
-        ================================================== -->
-
-        <!-- Begin List Posts -->
-        <div class="section-title">
-            <h2><span>All POSTS</span></h2>
-        </div>
-        <div class="row" id="post-list">
-            {% for post in all_posts %}
+                <div class="row" id="post-list">
+                    {% for post in all_posts %}
                         <!-- begin post -->
-                <div class="col-md-12 col-xl-12 col-xs-12 col-sm-8 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
-                    <div class="card border-0">
-                        <div class="card-block">
-                            <div class="row" style="align-items: center">
-                                <div class="col-9">
-                                    <div class="metafooter">
-                                        <div class="wrapfooter">
+                        <div class="col-xs-8 col-sm-10 col-md-12 col-lg-12 col-xl-12">
+                            <div class="card border-0">
+                                <div class="card-block">
+                                    <div class="row" style="align-items: center">
+                                        <div class="col-10">
+                                            <div class="metafooter">
+                                                <div class="wrapfooter">
                                             <span class="author-meta">
-                                                <img class="rounded-circle" src="{{ post.author.userprofile.image.url }}" alt="Profile Icon" width="24" height="24">
+                                                <img class="rounded-circle"
+                                                     src="{{ post.author.userprofile.image.url }}" alt="Profile Icon"
+                                                     width="24" height="24">
                                                 <span class="post-name">
-                                                    <a href="{% url 'search_by_author' post.get_author_name %}" aria-label="{{ post.get_author_name }}">{{ post.get_author_name }}</a>
+                                                    <a href="{% url 'search_by_author' post.get_author_name %}"
+                                                       aria-label="{{ post.get_author_name }}">{{ post.get_author_name }}</a>
                                                 </span>
                                                 <span class="dot">
                                                 </span>
                                                 <span class="post-date">{{ post.get_date }}</span>
                                             </span>
-                                        </div>
-                                    </div>
-                                    <h2 class="card-title">
-                                        <a href="{% url 'open' post.get_author_name post.slug %}" aria-label="{{ post.title }}">{{ post.title }}</a>
-                                    </h2>
-                                    <p class="card-text">
-                                        <a href="{% url 'open' post.get_author_name post.slug %}">{{ post.description }}</a>
-                                    </p>
-                                    <div class="metafooter">
-                                        <div class="wrapfooter">
+                                                </div>
+                                            </div>
+                                            <h2 class="card-title">
+                                                <a href="{% url 'open' post.get_author_name post.slug %}"
+                                                   aria-label="{{ post.title }}">{{ post.title }}</a>
+                                            </h2>
+                                            <p class="card-text">
+                                                <a href="{% url 'open' post.get_author_name post.slug %}">{{ post.description }}</a>
+                                            </p>
+                                            <div class="metafooter">
+                                                <div class="wrapfooter">
                                             <span class="author-meta">
                                                 <span class="post-date">{{ post.category.category }}</span>
                                                 <span class="dot"></span>
                                                 <span class="post-read">{{ post.get_reading_time }} min read</span>
                                             </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="thumbnail-wrapper">
-                                        <a href="{% url 'open' post.get_author_name post.slug %}">
-                                            <div class="thumbnail" style="background-image: url('{{ post.image.url }}?f_auto,q_auto');" role="img" aria-label="{{ post.title }}"></div>
-                                        </a>
+                                        <div class="col-2">
+                                            <div class="thumbnail-wrapper">
+                                                <a href="{% url 'open' post.get_author_name post.slug %}">
+                                                    <div class="thumbnail"
+                                                         style="background-image: url('{{ post.image.url }}?f_auto,q_auto');"
+                                                         role="img" aria-label="{{ post.title }}"></div>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <!-- end post -->
+                    {% endfor %}
                 </div>
-                <!-- end post -->
-            {% endfor %}
-        </div>
-        <style>
-            .card-img-top.placeholder {
-                background-color: #9d9d9d;
-                height: 100px;
-                width: 100%;
-            }
-        </style>
-        <div id="sentinel"></div>
-        <!-- End List Posts -->
+                <style>
+                    .card-img-top.placeholder {
+                        background-color: #9d9d9d;
+                        height: 100px;
+                        width: 100%;
+                    }
+                </style>
+                <div id="sentinel"></div>
+                <!-- End List Posts -->
 
-        <!-- Placeholder post -->
-        <div id="placeholder-template" style="display: none;">
-            <div class="col-md-10 col-xl-12 col-xs-10 col-sm-8 placeholder-post">
-                <div class="card border-0">
-                    <div class="card-block">
-                        <div class="row" style="align-items: center">
-                            <div class="col-9">
-                                <h5 class="card-title placeholder-glow">
-                                    <span class="placeholder col-6 placeholder-lg" style="height: 25px; margin-top: 8px"></span>
-                                </h5>
-                                <p class="card-text placeholder-glow">
+                <!-- Placeholder post -->
+                <div id="placeholder-template" style="display: none;">
+                    <div class="col-md-10 col-xl-12 col-xs-10 col-sm-8 placeholder-post">
+                        <div class="card border-0">
+                            <div class="card-block">
+                                <div class="row" style="align-items: center">
+                                    <div class="col-10">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6 placeholder-lg"
+                                                  style="height: 25px; margin-top: 8px"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
                             <span class="placeholder col-7"
                                   style="height: 20px; margin-bottom: 8px; margin-top: 8px"></span>
-                                    <span class="placeholder col-4" style="height: 20px; margin-bottom: 8px"></span>
-                                    <span class="placeholder col-4" style="height: 20px; margin-bottom: 8px"></span>
-                                    <span class="placeholder col-6" style="height: 20px; margin-bottom: 8px"></span>
-                                    <span class="placeholder col-8" style="height: 20px;"></span>
-                                </p>
-                                <div class="metafooter">
-                                    <div class="wrapfooter placeholder-glow">
-                                        <span class="placeholder col-4" style="height: 15px"></span>
+                                            <span class="placeholder col-4"
+                                                  style="height: 20px; margin-bottom: 8px"></span>
+                                            <span class="placeholder col-4"
+                                                  style="height: 20px; margin-bottom: 8px"></span>
+                                            <span class="placeholder col-6"
+                                                  style="height: 20px; margin-bottom: 8px"></span>
+                                            <span class="placeholder col-8" style="height: 20px;"></span>
+                                        </p>
+                                        <div class="metafooter">
+                                            <div class="wrapfooter placeholder-glow">
+                                                <span class="placeholder col-4" style="height: 15px"></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="thumbnail">
-                                    <div class="card-img-top placeholder"></div>
+                                    <div class="col-2">
+                                        <div class="thumbnail">
+                                            <div class="card-img-top placeholder"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -270,12 +226,21 @@
                 </div>
             </div>
         </div>
-        <!-- Placeholder post -->
+        <div class="col-md-2 col-sm-2 col-xs-2 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s"
+             style="margin: 50px">
+            <!-- Begin Tags -->
+            <div class="after-post-tags" style="width: 150%;">
+                <h6><span>Recommended topics</span></h6>
+                <ul class="tags">
+                    {% for tag in tags %}
+                        <li><a href="{% url 'search_by_tag' tag.slug %}">{{ tag }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
-
-        <!-- /.container -->
+            <!-- End Tags -->
         </div>
     </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
@@ -339,10 +304,10 @@
 
         function loadMorePosts() {
             if (isLoading) {
-            return; // Return if a request is already in progress
-        }
+                return; // Return if a request is already in progress
+            }
 
-        isLoading = true; // Set loading state to true
+            isLoading = true; // Set loading state to true
 
             showPlaceholders();
 

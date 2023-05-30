@@ -82,7 +82,7 @@
                     </button>
                 </form>
                 <form class="d-none d-lg-flex align-items-center" method="get" action="{% url 'search' %}" style="margin: unset; padding: unset">
-                    <input class="form-control me-2 search-input" name="search" type="text" placeholder="Search">
+                    <input class="form-control me-2 search-input" name="q" type="text" placeholder="Search">
                 </form>
             </div>
             <!-- End Search -->
@@ -143,7 +143,7 @@
 
 <div id="searchOverlay" class="search-overlay">
     <form method="get" action="{% url 'search' %}" class="search-form">
-        <input class="form-control search-input-large" name="search" type="text" placeholder="Search">
+        <input class="form-control search-input-large" name="q" type="text" placeholder="Search">
     </form>
 </div>
 <!-- End Nav

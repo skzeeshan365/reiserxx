@@ -25,8 +25,8 @@ section {
 }
 .section-title h2 {
 	border-bottom:1px solid rgba(0,0,0,.15);
-	font-weight:700;
-	font-size:1.4rem;
+	font-weight:400;
+	font-size:1.0rem;
 	margin-bottom:27px;
 }
 .section-title span {
@@ -46,10 +46,6 @@ section {
 	.navbar-toggleable-md .navbar-nav .nav-link {
 		padding-right:.7rem;
 		padding-left:.7rem;
-	}
-
-	.card-block {
-		width: 680px;
 	}
 }
 .card-columns .card {
@@ -77,7 +73,6 @@ section {
 }
 .listfeaturedtag .card-block {
 	padding-left: unset;
-	padding-right: unset;
 	padding-top: 8px;
 }
 .listfeaturedtag h2.card-title,.listrecent h2.card-title {
@@ -347,6 +342,18 @@ blockquote {
 }
 }
 @media (max-width:767px) {
+
+	body {
+		padding-right: 20px;
+	}
+
+	ul.tags li a {
+	padding-right: 12px;
+	padding-left: 12px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
 	.post-top-meta.authorpage {
 		text-align:center;
 	}
@@ -390,17 +397,20 @@ ul.tags {
 }
 ul.tags li {
 	display:inline-block;
-	font-size:1.05rem;
-	margin-top: 12px;
-	margin-left: 6px;
-	margin-right: 6px;
-	margin-bottom: 12px;
+	font-size:1.0rem;
+	margin-top: 10px;
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-bottom: 10px;
 }
 ul.tags li a {
-	background: rgba(87, 87, 87, 0.05);
-	color: rgba(0, 0, 0, 0.6);
+	background: rgba(242, 242, 242, 1);
+	color: rgba(41, 41, 41, 1);
 	border-radius:50px;
-	padding: 6px 12px;
+	padding-right: 12px;
+	padding-left: 12px;
+	padding-top: 6px;
+	padding-bottom: 8px;
 }
 ul.tags li a:hover {
 	background: rgba(2, 1, 1, 0.07);

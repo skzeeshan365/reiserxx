@@ -7,7 +7,7 @@ import requests
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Count
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
@@ -25,17 +25,6 @@ from .models import Tag
 
 
 def home(request):
-    posts = (
-        Post.objects.filter(draft=False)
-            .order_by('-timestamp')
-            .select_related('author', 'category')  # Assuming 'author' and 'category' are related fields
-            .prefetch_related(
-            Prefetch('category', queryset=Category.objects.filter()),
-            # Assuming 'categories' is a ManyToMany field
-        )
-            .only('slug', 'title', 'description', 'timestamp', 'author__id', 'category', 'image')
-        [:4]
-    )
     all_posts = (
         Post.objects.filter(draft=False)
             .order_by('-timestamp')
@@ -48,8 +37,9 @@ def home(request):
         [:5]
     )
 
+    tags = Tag.objects.annotate(num_posts=Count('posts')).order_by('-num_posts')[:5]
     return render(request, 'main/main.html',
-                  {'posts': posts, 'all_posts': all_posts, 'current_menu': 1, 'page_title': "ReiserX"})
+                  {'all_posts': all_posts, 'current_menu': 1, 'page_title': "ReiserX", 'tags': tags})
 
 
 def load_more_posts(request):
@@ -161,7 +151,7 @@ def contact(request):
 
 
 def search(request):
-    query = request.GET.get('search')
+    query = request.GET.get('q')
 
     if query:
         results = Post.search_by_title(query=query)  # Assuming title field is to be searched
