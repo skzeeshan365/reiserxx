@@ -241,7 +241,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
-    <script async>
+    <script>
         window.cookieconsent.initialise({
             "palette": {
                 "popup": {
@@ -265,7 +265,7 @@
 
     <!-- JavaScript code -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script async>
+    <script>
         var currentPage = 1;
         var loadMoreUrl = "{% url 'load_more' %}";
         var placeholders = [];
@@ -363,7 +363,7 @@
 
     </script>
 
-    <script async>
+    <script>
     function renderTags(tags) {
     const tagList = document.getElementById('tag-list');
 tagList.innerHTML = ''; // Clear existing tags
