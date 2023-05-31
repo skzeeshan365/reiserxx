@@ -167,6 +167,13 @@
                     .placeholder-color {
                         color: rgb(215, 215, 215);
                     }
+
+                    .tag-placeholder {
+                        height: 35px;
+                        border-radius: 50px;
+                        margin-top: 4px;
+                        margin-bottom: 2px;
+                    }
                 </style>
                 <div id="sentinel"></div>
                 <!-- End List Posts -->
@@ -216,10 +223,15 @@
             <!-- Begin Tags -->
             <div class="after-post-tags" style="width: 150%;">
                 <h6><span>Recommended topics</span></h6>
-                <ul class="tags">
-                    {% for tag in tags %}
-                        <li><a href="{% url 'search_by_tag' tag.slug %}">{{ tag }}</a></li>
-                    {% endfor %}
+                <ul class="tags" id="tag-list">
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder tag-placeholder" style="width: 110px;"></span></li>
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder tag-placeholder" style="width: 70px;"></span></li>
+
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder tag-placeholder" style="width: 80px;"></span></li>
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder tag-placeholder" style="width: 90px;"></span></li>
+
+                    <li class="placeholder-glow placeholder-color"><span class="placeholder tag-placeholder" style="width: 120px;"></span></li>
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder tag-placeholder" style="width: 140px;"></span></li>
                 </ul>
             </div>
             <!-- End Tags -->
@@ -254,7 +266,7 @@
     <!-- JavaScript code -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        var currentPage = 2;
+        var currentPage = 1;
         var loadMoreUrl = "{% url 'load_more' %}";
         var placeholders = [];
         var placeholderCount = 0;
@@ -350,6 +362,45 @@
         loadMorePosts();
 
     </script>
+
+    <script>
+    function renderTags(tags) {
+    const tagList = document.getElementById('tag-list');
+tagList.innerHTML = ''; // Clear existing tags
+
+    tags.forEach(tag => {
+        const tagLink = document.createElement('a');
+        tagLink.href = getTagURL(tag.slug);
+        tagLink.textContent = tag.name;
+        tagLink.classList.add('tag-link');
+
+        const listItem = document.createElement('li');
+        listItem.appendChild(tagLink);
+
+        tagList.appendChild(listItem);
+    });
+}
+
+// Function to generate the tag URL
+function getTagURL(slug) {
+    return "/search-by-tag/" + slug;
+}
+
+// AJAX request to fetch the tags
+$.ajax({
+    url: "{% url 'load_tags' %}",
+    dataType: 'json',
+    success: function(response) {
+        const tags = response.tags;
+        renderTags(tags)
+    },
+    error: function() {
+        console.log("Failed to load tags.");
+    }
+});
+
+
+</script>
 
 
 {% endblock %}

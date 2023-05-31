@@ -25,9 +25,15 @@ from .models import Tag
 
 
 def home(request):
-    tags = Tag.objects.annotate(num_posts=Count('posts')).order_by('-num_posts')[:5]
     return render(request, 'main/main.html',
-                  {'current_menu': 1, 'page_title': "ReiserX", 'tags': tags})
+                  {'current_menu': 1, 'page_title': "ReiserX"})
+
+
+def load_tags(request):
+    tags = Tag.objects.annotate(num_posts=Count('posts')).order_by('-num_posts')[:5]
+    tag_list = [{'name': tag.tag, 'slug': tag.slug} for tag in tags]
+    print(tag_list)
+    return JsonResponse({'tags': tag_list})
 
 
 def load_more_posts(request):
