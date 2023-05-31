@@ -7,7 +7,7 @@ import requests
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.db.models import Prefetch, Count
+from django.db.models import Count
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
@@ -25,14 +25,12 @@ from .models import Tag
 
 
 def home(request):
-    return render(request, 'main/main.html',
-                  {'current_menu': 1, 'page_title': "ReiserX"})
+    return render(request, 'main/main.html', {'current_menu': 1, 'page_title': "ReiserX"})
 
 
 def load_tags(request):
     tags = Tag.objects.annotate(num_posts=Count('posts')).order_by('-num_posts')[:5]
     tag_list = [{'name': tag.tag, 'slug': tag.slug} for tag in tags]
-    print(tag_list)
     return JsonResponse({'tags': tag_list})
 
 
