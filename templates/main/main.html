@@ -119,67 +119,53 @@
                     <h2><span>For you</span></h2>
                 </div>
                 <div class="row" id="post-list">
-                    {% for post in all_posts %}
-                        <!-- begin post -->
-                        <div class="col-xs-8 col-sm-10 col-md-12 col-lg-12 col-xl-12">
-                            <div class="card border-0">
-                                <div class="card-block">
-                                    <div class="row" style="align-items: center">
-                                        <div class="col-10">
-                                            <div class="metafooter">
-                                                <div class="wrapfooter">
-                                            <span class="author-meta">
-                                                <img class="rounded-circle"
-                                                     src="{{ post.author.userprofile.image.url }}" alt="Profile Icon"
-                                                     width="24" height="24">
-                                                <span class="post-name">
-                                                    <a href="{% url 'search_by_author' post.get_author_name %}"
-                                                       aria-label="{{ post.get_author_name }}">{{ post.get_author_name }}</a>
-                                                </span>
-                                                <span class="dot">
-                                                </span>
-                                                <span class="post-date">{{ post.get_date }}</span>
-                                            </span>
-                                                </div>
-                                            </div>
-                                            <h2 class="card-title">
-                                                <a href="{% url 'open' post.get_author_name post.slug %}"
-                                                   aria-label="{{ post.title }}">{{ post.title }}</a>
-                                            </h2>
-                                            <p class="card-text">
-                                                <a href="{% url 'open' post.get_author_name post.slug %}">{{ post.description }}</a>
-                                            </p>
-                                            <div class="metafooter">
-                                                <div class="wrapfooter">
-                                            <span class="author-meta">
-                                                <span class="post-date">{{ post.category.category }}</span>
-                                                <span class="dot"></span>
-                                                <span class="post-read">{{ post.get_reading_time }} min read</span>
-                                            </span>
-                                                </div>
+
+                    {% for _ in "xxxxx"|slice:":4" %}
+                    <!-- Placeholder post -->
+                    <div class="col-md-10 col-xl-12 col-xs-10 col-sm-8 placeholder-post">
+                        <div class="card border-0">
+                            <div class="card-block">
+                                <div class="row" style="align-items: center">
+                                    <div class="col-10">
+                                        <h5 class="card-title placeholder-glow placeholder-color">
+                                            <span class="placeholder col-6 placeholder-lg"
+                                                  style="height: 25px; margin-top: 8px"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-7 placeholder-color" style="height: 20px; margin-bottom: 8px; margin-top: 8px"></span>
+                                            <span class="placeholder col-4 placeholder-color"
+                                                  style="height: 20px; margin-bottom: 8px"></span>
+                                            <span class="placeholder col-4 placeholder-color"
+                                                  style="height: 20px; margin-bottom: 8px"></span>
+                                            <span class="placeholder col-6 placeholder-color" style="height: 20px; margin-bottom: 8px"></span>
+                                        </p>
+                                        <div class="metafooter">
+                                            <div class="wrapfooter placeholder-glow">
+                                                <span class="placeholder col-4 placeholder-color" style="height: 15px"></span>
                                             </div>
                                         </div>
-                                        <div class="col-2">
-                                            <div class="thumbnail-wrapper">
-                                                <a href="{% url 'open' post.get_author_name post.slug %}">
-                                                    <div class="thumbnail"
-                                                         style="background-image: url('{{ post.image.url }}?f_auto,q_auto');"
-                                                         role="img" aria-label="{{ post.title }}"></div>
-                                                </a>
-                                            </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="thumbnail">
+                                            <div class="card-img-top placeholder placeholder-glow"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- end post -->
+                    </div>
+                <!-- End placeholders -->
                     {% endfor %}
                 </div>
                 <style>
                     .card-img-top.placeholder {
-                        background-color: #9d9d9d;
+                        color: rgb(215, 215, 215);
                         height: 100px;
                         width: 100%;
+                    }
+
+                    .placeholder-color {
+                        color: rgb(215, 215, 215);
                     }
                 </style>
                 <div id="sentinel"></div>
@@ -205,7 +191,6 @@
                                                   style="height: 20px; margin-bottom: 8px"></span>
                                             <span class="placeholder col-6"
                                                   style="height: 20px; margin-bottom: 8px"></span>
-                                            <span class="placeholder col-8" style="height: 20px;"></span>
                                         </p>
                                         <div class="metafooter">
                                             <div class="wrapfooter placeholder-glow">
@@ -223,6 +208,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- End placeholders -->
             </div>
         </div>
         <div class="col-md-2 col-sm-2 col-xs-2 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s"
@@ -360,6 +346,8 @@
             threshold: 0.1, // Adjust this threshold as needed
         });
         observer.observe(sentinel);
+
+        loadMorePosts();
 
     </script>
 

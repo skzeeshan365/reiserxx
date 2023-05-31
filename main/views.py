@@ -25,21 +25,9 @@ from .models import Tag
 
 
 def home(request):
-    all_posts = (
-        Post.objects.filter(draft=False)
-            .order_by('-timestamp')
-            .select_related('author', 'category')  # Assuming 'author' and 'category' are related fields
-            .prefetch_related(
-            Prefetch('category', queryset=Category.objects.filter()),
-            # Assuming 'categories' is a ManyToMany field
-        )
-            .only('slug', 'title', 'description', 'timestamp', 'author__id', 'category', 'image')
-        [:5]
-    )
-
     tags = Tag.objects.annotate(num_posts=Count('posts')).order_by('-num_posts')[:5]
     return render(request, 'main/main.html',
-                  {'all_posts': all_posts, 'current_menu': 1, 'page_title': "ReiserX", 'tags': tags})
+                  {'current_menu': 1, 'page_title': "ReiserX", 'tags': tags})
 
 
 def load_more_posts(request):
