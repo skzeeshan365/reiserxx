@@ -38,7 +38,7 @@
                                             <div class="metafooter">
                                                 <div class="wrapfooter">
                                                     <span class="author-meta">
-                                                        <span class="post-date">{{ post.category.category }}</span>
+                                                        <span class="post-date"><a style="font-weight: 500; color: unset; text-decoration: none;" href="{% url 'search_by_category' post.category.slug %}">{{ post.category.category }}</a></span>
                                                         <span class="dot"></span>
                                                         <span class="post-read">{{ post.get_reading_time }} min read</span>
                                                     </span>
