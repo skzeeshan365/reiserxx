@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8"/>
-    <title>404 Page not found</title>
+    <title>Page not found</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta https-equiv="X-UA-Compatible" content="ie=edge"/>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap" rel="stylesheet">
@@ -19,8 +19,8 @@
 	border-radius:5px;
 	font-size:0.85rem;
 	font-weight:600;
-                                    height: 45px;
 	text-transform:uppercase;
+                                    padding: 10px;
 }
                                 .btn.subscribe:hover {
                                     text-decoration: none;
@@ -130,9 +130,6 @@ h3 {
     -webkit-box-shadow: none;
     box-shadow: none;
     border-color: #000; }
-
-.btn, .form-control {
-  height: 55px; }
 
 form.border-right {
   padding-right: 6rem !important; }
@@ -461,7 +458,7 @@ label.error {
                             <h2>Oops! You're lost.</h2>
                             <p>the page you seek is nowhere to be found. Join the adventure back to the homepage by clicking below.
                             </p>
-                            <button href="{% url 'home' %}" class="btn subscribe">HOME PAGE</button>
+                            <a href="https://reiserx.com/" class="btn subscribe">HOME PAGE</a>
                         </div>
                     </div>
                 </div>
