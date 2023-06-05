@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.http import JsonResponse, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from google.cloud import translate
 from google.oauth2 import service_account
@@ -25,7 +25,7 @@ from .models import Tag
 
 
 def home(request):
-    return render(request, 'main/main.html', {'current_menu': 1, 'page_title': "ReiserX"})
+    return render(request, 'main/Primary/main.html', {'current_menu': 1, 'page_title': "ReiserX"})
 
 
 def load_tags(request):
@@ -93,7 +93,7 @@ def open_post(request, user, post_slug):
                     'subscribed': subscribed,
                     'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY}
 
-        return render(request, 'main/post.html', contents)
+        return render(request, 'main/Primary/post.html', contents)
     except Post.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'Requested resource does not exist'})
 
@@ -136,7 +136,7 @@ def contact(request):
     title = "Let's talk about everything."
     message = "Whether you have feedback, questions, or just want to say hello, we're here to listen and engage in " \
               "conversation. "
-    return render(request, 'main/contact.html', {'form': form,
+    return render(request, 'main/About/contact.html', {'form': form,
                                                  'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
                                                  'title': title,
                                                  'message': message})
@@ -148,27 +148,27 @@ def search(request):
     if query:
         results = Post.search_by_title(query=query)  # Assuming title field is to be searched
         context = {'query': query, 'posts': results, 'title': 'Results For', 'current_menu': 1, 'page_title': query}
-        return render(request, 'main/search.html', context)
+        return render(request, 'main/Primary/search.html', context)
     else:
         return redirect('home')
 
 
 def search_by_tag(request, tag_slug):
-    tag = Tag.objects.get(slug=tag_slug)
+    tag = get_object_or_404(Tag, slug=tag_slug)
     posts = tag.get_posts()
-    return render(request, 'main/search.html',
+    return render(request, 'main/Primary/search.html',
                   {'query': tag, 'posts': posts, 'title': 'Results For', 'current_menu': 1, 'page_title': tag})
 
 
 def categories(request):
     category = Category.objects.all()
-    return render(request, 'main/categories.html', {'category': category, 'current_menu': 2, 'page_title': 'Category'})
+    return render(request, 'main/Category/categories.html', {'category': category, 'current_menu': 2, 'page_title': 'Category'})
 
 
 def search_by_category(request, category_slug):
-    cat = Category.objects.get(slug=category_slug)
+    cat = get_object_or_404(Category, slug=category_slug)
     posts = cat.get_posts()
-    return render(request, 'main/category.html',
+    return render(request, 'main/Category/category.html',
                   {'posts': posts, 'category': cat.category, 'desc': cat.description, 'category_image': cat.image.url,
                    'current_menu': 2, 'page_title': cat})
 
@@ -178,14 +178,14 @@ def search_by_author(request, username):
         user = User.objects.get(username=username)
         posts = Post.get_posts_by_user(user)
         context = {'posts': posts, 'user': user, 'current_menu': 1, 'page_title': username}
-        return render(request, 'main/author.html', context)
+        return render(request, 'main/Author/author.html', context)
     except User.DoesNotExist:
         context = {'message': 'User does not exist.'}
-        return render(request, 'main/author_404.html', context)
+        return render(request, 'main/Author/author_404.html', context)
 
 
 def about(request):
-    return render(request, 'main/about.html',
+    return render(request, 'main/About/about.html',
                   {'title': "Blast off into the Exciting Universe of ReiserX!"})
 
 
@@ -230,7 +230,7 @@ def subscribe(request):
     title = "Let's talk about nothing, it's a short conversation."
     message = "Ready to join the exclusive club? Subscribe now for access to the latest and greatest content, " \
               "exciting updates, and more virtual high-fives than you can handle! 😉👊 "
-    return render(request, 'main/subscribe.html', {'form': form,
+    return render(request, 'main/Subscribe/subscribe.html', {'form': form,
                                                    'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
                                                    'title': title,
                                                    'message': message})
@@ -241,7 +241,7 @@ def verify_email(request, subscriber_id):
     subscriber.verified = True
     subscriber.save()
     messages.success(request, 'Your subscription has been verified. Thank you!')
-    return render(request, 'main/email_verification.html',
+    return render(request, 'main/Subscribe/email_verification.html',
                   {'message': "Congratulations, your email has passed the vibe check!",
                    'title': 'Email verified'
                    })
@@ -315,8 +315,8 @@ def translate_post(request, user, post_slug, code):
                 'comments': comments,
                 'subscribed': subscribed}
 
-    return render(request, 'main/post.html', contents)
+    return render(request, 'main/Primary/post.html', contents)
 
 
 def policy(request):
-    return render(request, 'main/privacy_policy.html')
+    return render(request, 'main/About/privacy_policy.html')
