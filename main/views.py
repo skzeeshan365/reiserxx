@@ -323,4 +323,4 @@ def policy(request):
 
 
 def handler404(request, exception):
-    return render(request, 'main/primary/main_404.html', status=404)
+    return render(request, 'main/error_pages/main_404.html', status=404)
