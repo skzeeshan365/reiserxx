@@ -21,6 +21,7 @@
             font-weight: 600;
             text-transform: uppercase;
             padding: 10px;
+            font-family: unset;
         }
 
         .btn.subscribe:hover {
@@ -40,7 +41,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: "Nunito Sans";
             font-size: 1em;
         }
 
@@ -58,10 +58,18 @@
             font-size: 7.5em;
             margin: 15px 0px;
             font-weight: bold;
+            font-family: "Nunito Sans", serif;
         }
 
         h2 {
             font-weight: bold;
+            font-size: 3.5rem;
+            font-family: "Nunito Sans", serif;
+        }
+
+        p {
+            font-size: 1rem;
+            font-family: "Nunito Sans", serif;
         }
 
         @media screen and (max-width: 768px) {
@@ -88,111 +96,22 @@
                 align-items: center;
 
             }
-
-            html, body {
-                height: 90%;
-            }
-        }
-
-        body {
-            font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-            background-color: #fff;
-            color: #000;
-        }
-
-        h1, h2, h3, h4, h5, h6,
-        .h1, .h2, .h3, .h4, .h5, .h6 {
-            font-family: "Poppins", sans-serif;
         }
 
         a {
             -webkit-transition: .3s all ease;
             -o-transition: .3s all ease;
             transition: .3s all ease;
+            font-family: unset;
         }
 
         a, a:hover {
             text-decoration: none !important;
         }
 
-        .content {
-            padding: 7rem 0;
-        }
-
-        h2 {
-            font-size: 3.5rem;
-            font-weight: 700;
-        }
-
-        h3 {
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .form-control {
-            border: none;
-            border-bottom: 1px solid #d9d9d9;
-            padding-left: 0;
-            padding-right: 0;
-            border-radius: 0;
-        }
-
-        .form-control:active, .form-control:focus {
-            outline: none;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-            border-color: #000;
-        }
-
-        form.border-right {
-            padding-right: 6rem !important;
-        }
-
-        @media (max-width: 991.98px) {
-            form.border-right {
-                padding-right: 0 !important;
-                border-right: none !important;
-            }
-        }
-
-        label.error {
-            font-size: 12px;
-            color: red;
-        }
-
-        #message {
-            resize: vertical;
-        }
-
-        #form-message-warning, #form-message-success {
-            display: none;
-        }
-
-        #form-message-warning {
-            color: #B90B0B;
-        }
-
-        #form-message-success {
-            color: #55A44E;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .submitting {
-            float: left;
-            width: 100%;
-            padding: 10px 0;
-            display: none;
-            font-weight: bold;
-            font-size: 12px;
-            color: #000;
-        }
-
     </style>
 </head>
 <body>
-<main>
-    <div class="content">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12">
@@ -492,7 +411,7 @@
                         <div class="col-lg-6">
                             <h1>404</h1>
                             <h2>Oops! You're lost.</h2>
-                            <p>the page you seek is nowhere to be found. Join the adventure back to the homepage by
+                            <p>The page you're looking for does not exist. Please Join the adventure back to the homepage by
                                 clicking below.
                             </p>
                             <a href="https://reiserx.com/" class="btn subscribe">HOME PAGE</a>
@@ -501,8 +420,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 
