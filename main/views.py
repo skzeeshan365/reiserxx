@@ -320,3 +320,7 @@ def translate_post(request, user, post_slug, code):
 
 def policy(request):
     return render(request, 'main/About/privacy_policy.html')
+
+
+def handler404(request, exception):
+    return render(request, 'main/primary/main_404.html', status=404)
