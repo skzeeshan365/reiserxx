@@ -3,14 +3,13 @@ import os
 
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.models import auth, User
+from django.contrib.auth.models import auth
 from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from djangoProject1 import settings
 from main.models import Post, Category, Tag
-from . import autoGenerate
 from .forms import PostForm, CategoryForm, PostFormEdit
 
 
@@ -120,10 +119,3 @@ def post_preview(request):
         post.author = request.user
 
     return render(request, 'Administration/post.html', {'post': post})
-
-
-def test(request):
-    author = User.objects.get(pk=5)
-    cat = Category.objects.get(pk=13)
-    input_data = 'Write an article on interesting discoveries in antarctica'
-    autoGenerate.save_post_with_generated_data(author=author, category=cat, input_data=input_data)
