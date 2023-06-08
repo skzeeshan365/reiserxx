@@ -136,7 +136,7 @@ class PostForm(forms.ModelForm):
             if tags:
                 tag_list = self.clean_tags()
                 for tag in tag_list:
-                    tag_obj, created = Tag.objects.get_or_create(tag=tag)
+                    tag_obj, created = Tag.objects.get_or_create(tag=tag.lower())
                     post.tags.add(tag_obj)
 
             image = self.cleaned_data.get('image')

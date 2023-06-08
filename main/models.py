@@ -49,7 +49,7 @@ class Tag(models.Model):
         return self.tag
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.tag)
+        self.slug = slugify(self.tag.lower())
         super().save(*args, **kwargs)
 
     def get_posts(self):

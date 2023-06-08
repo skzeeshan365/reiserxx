@@ -17,7 +17,10 @@ class TagSitemap(Sitemap):
         return Tag.objects.order_by('-id')
 
     def location(self, obj):
-        return reverse('search_by_tag', args=[obj.slug])
+        if obj.slug:
+            return reverse('search_by_tag', args=[obj.slug])
+        else:
+            return None
 
 
 class PostSitemap(Sitemap):

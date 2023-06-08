@@ -1,4 +1,5 @@
 import io
+from unittest.mock import patch
 
 from PIL import Image
 from django.contrib.auth.models import User
@@ -6,6 +7,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, Client
 from django.urls import reverse
 
+from administration.autoGenerate import save_post_with_generated_data
 from administration.forms import PostForm, PostFormEdit
 from main.models import Post, Tag, Category
 
@@ -412,3 +414,53 @@ class PostEditViewTestCase(TestCase):
 
         self.post.image.delete()
         self.post.delete()
+
+
+class PostSaveTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.category = Category.objects.create(category='Test')
+        self.image = SimpleUploadedFile(name='test.jpg', content=create_image().read(), content_type='image/jpeg')
+
+        # Create a post form
+        self.post_data = {
+            'content': 'Generated Content',
+            'description': 'Generated Description',
+            'title': 'Generated Title',
+            'category': self.category.pk,
+            'tags': 'test, post'
+        }
+
+    def test_valid_post_form(self):
+        data = self.post_data.copy()
+        data['image'] = self.image
+        form = PostForm(data=data, files=data)
+        self.assertTrue(form.is_valid())
+
+    def test_save_post_with_generated_data(self):
+        data = self.post_data.copy()
+        data['image'] = self.image
+        form = PostForm(data=data, files=data)
+
+        # Validate the form
+        self.assertTrue(form.is_valid(), form.errors.as_data())
+
+        # Save the post
+        post = form.save(commit=False)
+        post.author = self.user
+        post.save()
+        form.save_m2m()
+
+        # Verify that the post is created with the generated data
+        self.assertEqual(post.content, "Generated Content")
+        self.assertEqual(post.description, "Generated Description")
+        self.assertEqual(post.title, "Generated Title")
+        self.assertIsNotNone(post.image)
+        self.assertEqual(post.category, self.category)
+        self.assertEqual(post.author, self.user)
+
+        # Clean up the test objects
+        post.image.delete()
+        post.delete()
+        self.user.delete()
+        self.category.delete()

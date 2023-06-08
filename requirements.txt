@@ -1,7 +1,7 @@
-cloudinary==1.32.0
-Django==4.2.1
+cloudinary==1.33.0
+Django==4.2.2
 Pillow==9.5.0
 python-dotenv==1.0.0
-Requests==2.30.0
+Requests==2.31.0
 sendgrid==6.10.0
 google~=3.0.0
