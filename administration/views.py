@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from djangoProject1 import settings
 from main.models import Post, Category, Tag
+from . import autoGenerate
 from .forms import PostForm, CategoryForm, PostFormEdit
 
 

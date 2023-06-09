@@ -145,43 +145,29 @@ class Post(models.Model):
     def get_content(self):
         content = self.content
 
-        # Calculate the word count
-        word_count = len(re.findall(r'\w+', content))
+        soup = BeautifulSoup(content, 'html.parser')
 
-        # Determine the number of ads based on word count
-        ad_count = min(word_count // 200, 5)  # Insert one ad per 1000 words, up to a maximum of 5 ads
+        # Find all image tags
+        for img in soup.find_all('img'):
+            alt_text = img.get('alt')
+            if alt_text:
+                # Create a new paragraph tag with the caption
+                caption_tag = soup.new_tag('p')
+                caption_tag.string = alt_text
 
-        # Insert the AdSense ad code randomly
-        ad_code = '''
-        <div class="adsense-ad">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563" crossorigin="anonymous"></script>
-            <ins class="adsbygoogle"
-                 style="display:block; text-align:center;"
-                 data-ad-layout="in-article"
-                 data-ad-format="fluid"
-                 data-ad-client="ca-pub-1588658066763563"
-                 data-ad-slot="4101024703"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-        '''
+                # Add a CSS class to the caption tag
+                caption_tag['class'] = 'image-caption'
 
-        # Split the content into paragraphs and preserve the surrounding tags
-        paragraphs = re.split(r'(</?(?:p|div|h\d|img).*?>)', content)
+                # Add a CSS style to align the caption to the center and override the margin
+                caption_tag['style'] = 'text-align: center; margin-top: 5px;'
 
-        # Generate random indices to insert ads
-        ad_positions = random.sample(range(len(paragraphs)), ad_count)
-        ad_positions.sort(reverse=True)  # Sort in reverse order to preserve indices after inserting ads
+                # Wrap the image tag with a div to apply the margin to the div instead of the paragraph tag
+                img.wrap(soup.new_tag('div', style='margin: unset;'))
 
-        # Insert the ad code at the random positions
-        for position in ad_positions:
-            paragraphs.insert(position + 1, ad_code)
+                # Append the caption tag after the image tag
+                img.insert_after(caption_tag)
 
-        # Join the modified paragraphs back into a single string
-        content = ''.join(paragraphs)
-
-        return content
+        return str(soup)
 
     def get_comments(self):
         return self.comments.filter(post=self.pk)

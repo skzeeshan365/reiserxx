@@ -34,6 +34,12 @@ def load_tags(request):
     return JsonResponse({'tags': tag_list})
 
 
+def load_categories(request):
+    category = Category.objects.annotate(num_posts=Count('posts')).order_by('-num_posts')[:5]
+    category_list = [{'name': category.category, 'slug': category.slug} for category in category]
+    return JsonResponse({'categories': category_list})
+
+
 def load_more_posts(request):
     page = int(request.GET.get('page', 2))
     posts_per_page = 5

@@ -1,5 +1,6 @@
 import base64
 import io
+import os
 from io import BytesIO
 
 import cloudinary
@@ -7,9 +8,16 @@ from PIL import Image
 from bs4 import BeautifulSoup
 from cloudinary.uploader import upload
 from django import forms
+from django.contrib.auth.models import User
+from dotenv import load_dotenv
 from tinymce.widgets import TinyMCE
 
+from djangoProject1 import settings
 from main.models import Post, Tag, Category
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 
 def compress(image):
@@ -37,6 +45,12 @@ def process_content(content):
                 img_file = BytesIO()
                 img_file.write(base64.b64decode(img_data))
                 img_file.seek(0)
+
+                cloudinary.config(
+                    cloud_name=settings.CLOUD_NAME,
+                    api_key=settings.API_KEY,
+                    api_secret=settings.API_SECRET
+                )
 
                 # Upload the image to Cloudinary
                 result = cloudinary.uploader.upload(compress(img_file), folder='content')
@@ -230,3 +244,21 @@ class PostFormEdit(forms.ModelForm):
             post.content = process_content(post.content)
             post.save()
         return post
+
+
+class PostPublishAPIView(APIView):
+    def post(self, request):
+        load_dotenv('.env')
+
+        if request.headers.get("Authorization") == os.getenv('POST_API'):
+            form = PostForm(request.data, request.FILES)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.author = User.objects.get(pk=5)  # Set the author of the post
+                post.save()
+                form.save()
+                return Response({'message': 'Post published successfully.'}, status=status.HTTP_201_CREATED)
+            else:
+                return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response('Permission denied', status=status.HTTP_403_FORBIDDEN)

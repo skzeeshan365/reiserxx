@@ -250,6 +250,29 @@
             </div>
             <!-- End Tags -->
             <hr>
+
+            <!-- Begin Tags -->
+            <div class="after-post-tags" style="width: 150%;">
+                <h6><span>Top categories</span></h6>
+                <ul class="tags" id="category-list" style="margin: unset">
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder tag-placeholder"
+                                                                             style="width: 110px;"></span></li>
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder tag-placeholder"
+                                                                             style="width: 70px;"></span></li>
+
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder tag-placeholder"
+                                                                             style="width: 80px;"></span></li>
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder tag-placeholder"
+                                                                             style="width: 90px;"></span></li>
+
+                    <li class="placeholder-glow placeholder-color"><span class="placeholder tag-placeholder"
+                                                                         style="width: 120px;"></span></li>
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder tag-placeholder"
+                                                                             style="width: 140px;"></span></li>
+                </ul>
+            </div>
+            <!-- End Tags -->
+            <hr>
             <!-- Begin updates -->
             <div class="after-post-tags" style="width: 150%; margin-top: 20px; align-items: center">
                 <h6><span>Get updates</span></h6>
@@ -470,6 +493,74 @@
                 tagContainer.style.display = 'none'; // Hide the tag container
             }
         });
+    </script>
+
+    <script>
+    function renderCategories(categories) {
+    const categoryList = document.getElementById('category-list');
+    categoryList.innerHTML = ''; // Clear existing categories
+
+    categories.forEach(category => {
+        const categoryLink = document.createElement('a');
+        categoryLink.href = getCategoryURL(category.slug);
+        categoryLink.textContent = category.name;
+        categoryLink.classList.add('category-link');
+
+        const listItem = document.createElement('li');
+        listItem.appendChild(categoryLink);
+
+        categoryList.appendChild(listItem);
+    });
+}
+
+// Function to generate the category URL
+function getCategoryURL(slug) {
+    return "/category/" + slug;
+}
+
+// Check if the screen size is desktop
+if (isDesktopScreen()) {
+    // AJAX request to fetch the categories
+    $.ajax({
+        url: "{% url 'load_categories' %}",
+        dataType: 'json',
+        success: function (response) {
+            const categories = response.categories;
+            renderCategories(categories);
+        },
+        error: function () {
+            console.log("Failed to load categories.");
+        }
+    });
+} else {
+    // Hide the category container for smaller screens
+    const categoryContainer = document.getElementById('category-container');
+    categoryContainer.style.display = 'none';
+}
+
+// Event listener to recheck screen size on window resize
+window.addEventListener('resize', function () {
+    if (isDesktopScreen()) {
+        const categoryContainer = document.getElementById('category-container');
+        categoryContainer.style.display = ''; // Show the category container
+        // Execute the AJAX request to fetch and render the categories
+        $.ajax({
+            url: "{% url 'load_categories' %}",
+            dataType: 'json',
+            success: function (response) {
+                const categories = response.categories;
+                renderCategories(categories);
+            },
+            error: function () {
+                console.log("Failed to load categories.");
+            }
+        });
+    } else {
+        const categoryContainer = document.getElementById('category-container');
+        categoryContainer.style.display = 'none'; // Hide the category container
+    }
+});
+
     </script>
 
 
