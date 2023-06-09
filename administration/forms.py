@@ -10,14 +10,13 @@ from cloudinary.uploader import upload
 from django import forms
 from django.contrib.auth.models import User
 from dotenv import load_dotenv
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from tinymce.widgets import TinyMCE
 
 from djangoProject1 import settings
 from main.models import Post, Tag, Category
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 
 
 def compress(image):
