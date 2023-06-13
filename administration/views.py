@@ -119,3 +119,8 @@ def post_preview(request):
         post.author = request.user
 
     return render(request, 'Administration/post.html', {'post': post})
+
+
+def tag_list(request):
+    tags = Tag.objects.all()
+    return render(request, 'Administration/tag_list.html', {'items': tags})
