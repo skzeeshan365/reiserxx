@@ -51,7 +51,7 @@ class Tag(models.Model):
         super().save(*args, **kwargs)
 
     def get_posts(self):
-        return Post.objects.filter(tags__tag=self.tag, draft=False).exclude(pk=self.pk)[:3]
+        return Post.objects.filter(tags__tag=self.tag, draft=False).exclude(pk=self.pk)
 
 
 class Post(models.Model):
