@@ -52,5 +52,4 @@ class StaticViewSitemap(Sitemap):
 
 sitemaps = {
     'static': StaticViewSitemap,  # Add the new sitemap class here
-    'tags': TagSitemap,
 }
