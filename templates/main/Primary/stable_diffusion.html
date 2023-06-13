@@ -182,6 +182,11 @@
                           // Show the outputImageContainer
                           $('#outputImageContainer').show();
                           $('#contactForm')[0].reset();
+                          grecaptcha.ready(function() {
+        grecaptcha.execute('{{ SITE_KEY }}', {action: 'model/generation/image/'}).then(function(token) {
+            document.getElementById('id_recaptcha_response').value = token;
+        });
+    });
                       } else {
                           $('#form-messages').html('<div class="alert alert-danger" role="alert">' + response.message + '</div>');
                       }
