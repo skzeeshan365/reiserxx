@@ -49,12 +49,3 @@ class StaticViewSitemap(Sitemap):
 sitemaps = {
     'static': StaticViewSitemap,  # Add the new sitemap class here
 }
-
-urlpatterns = [
-    # Other URL patterns
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-    path('sitemap-categories.xml', sitemap, {'sitemaps': {'categories': CategorySitemap}}, name='category_sitemap'),
-    path('sitemap-tags.xml', sitemap, {'sitemaps': {'tags': TagSitemap}}, name='tag_sitemap'),
-    path('sitemap-posts.xml', sitemap, {'sitemaps': {'posts': PostSitemap}}, name='post_sitemap'),
-    # Add more URL patterns for additional sitemaps if needed
-]
