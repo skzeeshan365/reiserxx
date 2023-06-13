@@ -7,6 +7,8 @@ from .models import Category, Post, Tag
 
 
 class CategorySitemap(Sitemap):
+    priority = 0.8
+
     def items(self):
         return Category.objects.order_by('-id')
 
@@ -15,6 +17,8 @@ class CategorySitemap(Sitemap):
 
 
 class TagSitemap(Sitemap):
+    priority = 0.3
+
     def items(self):
         return Tag.objects.order_by('-id')
 
@@ -48,4 +52,5 @@ class StaticViewSitemap(Sitemap):
 
 sitemaps = {
     'static': StaticViewSitemap,  # Add the new sitemap class here
+    'tags': TagSitemap,
 }
