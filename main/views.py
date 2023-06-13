@@ -332,7 +332,7 @@ def policy(request):
 
 def generate_image(input_data):
     API_URL = "https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4"
-    headers = {"Authorization": "Bearer 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"}
+    headers = {"Authorization": "Bearer "+settings.INFERENCE_API}
     # Send a request to the Hugging Face API to generate the image
     response = requests.post(API_URL, headers=headers, json={"inputs": input_data})
     response.raise_for_status()
