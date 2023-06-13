@@ -10,6 +10,9 @@ urlpatterns = [
     path('loadmore/', views.load_more_posts, name='load_more'),
     path('loadtags/', views.load_tags, name='load_tags'),
     path('loadcategories/', views.load_categories, name='load_categories'),
+
+    path('model/generation/image/', views.stable_diffusion, name='stable_diffusion'),
+
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
     path('subscribe/', views.subscribe, name='subscribe'),
@@ -33,5 +36,7 @@ urlpatterns = [
     path('android-icon-192x192.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/android-icon-192x192.png', permanent=True)),
     path('android-icon-192x192.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/browserconfig.xml', permanent=True)),
     # Favicons
+
+
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

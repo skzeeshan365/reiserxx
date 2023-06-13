@@ -112,3 +112,10 @@ class SubscriberForm(forms.ModelForm):
             sg.send(mail)
         except Exception as e:
             pass
+
+
+class StableDiffusionForm(forms.Form):
+    input_text = forms.CharField(max_length=1500, widget=forms.Textarea(
+        attrs={'placeholder': 'Enter prompt', 'class': 'form-control', 'id': 'input_text', 'rows': 7}), label=False,
+                              validators=[MaxLengthValidator(2000)])
+    recaptcha_response = forms.CharField(widget=forms.HiddenInput())

@@ -104,6 +104,7 @@ class PostForm(forms.ModelForm):
     image = forms.ImageField(required=True, label=False)
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}), required=True, label=False)
     draft = forms.BooleanField(label='Save as draft', required=False)
+    compress_images = forms.BooleanField(label='Compress images', initial=True)
 
     class Meta:
         model = Post
@@ -155,10 +156,16 @@ class PostForm(forms.ModelForm):
             image = self.cleaned_data.get('image')
             if image:
                 # Compress the image
-                compressed_image = compress(image)
+                if self.cleaned_data['compress_images']:
+                    compressed_image = compress(image)
 
-                # Assign the compressed image as the value for post.image
-                post.image.save(image.name, compressed_image, save=True)
+                    # Assign the compressed image as the value for post.image
+                    post.image.save(image.name, compressed_image, save=True)
+                else:
+                    compressed_image = self.cleaned_data.get('image')
+
+                    # Assign the compressed image as the value for post.image
+                    post.image.save(image.name, compressed_image, save=True)
 
             post.content = process_content(post.content)
 

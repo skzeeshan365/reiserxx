@@ -20,13 +20,16 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 
 import administration.views
-from main.sitemap import sitemaps
+from main.sitemap import sitemaps, CategorySitemap, TagSitemap, PostSitemap
 
 urlpatterns = [
     path('administration/', admin.site.urls),
     path('admin/', include('administration.urls')),
     path('froala_editor/', include('froala_editor.urls')),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('sitemap-categories.xml/', sitemap, {'sitemaps': {'categories': CategorySitemap}}, name='category_sitemap'),
+    path('sitemap-tags.xml/', sitemap, {'sitemaps': {'tags': TagSitemap}}, name='tag_sitemap'),
+    path('sitemap-posts.xml/', sitemap, {'sitemaps': {'posts': PostSitemap}}, name='post_sitemap'),
     path('robots.txt/', administration.views.robots_txt, name='robots_txt'),
     path('', include('main.urls')),
 ]

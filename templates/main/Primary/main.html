@@ -111,7 +111,6 @@
             padding: 0;
         }
     </style>
-
     <div class="row center-horizontal m-0">
         <div class="col-xs-2 col-sm-4 col-md-6 col-lg-6 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
             <div class="container-fluid listfeaturedtag">
@@ -175,12 +174,75 @@
                     .tag-placeholder {
                         height: 35px;
                         border-radius: 50px;
-                        margin-top: 4px;
+                        margin-top: 2px;
                         margin-bottom: 2px;
                     }
 
                     hr {
                         background-color: #c0c0c0;
+                    }
+
+                    ul.models {
+	list-style:none;
+	padding-left:0;
+	margin:0 0 3rem 0;
+}
+ul.models li {
+	display:inline-block;
+	font-size:1.0rem;
+	margin-top: 12px;
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-bottom: 12px;
+}
+ul.models li a {
+	background: #1C9963;
+	color: rgb(255, 255, 255);
+	border-radius:8px;
+	padding-right: 12px;
+	padding-left: 12px;
+	padding-top: 2px;
+	padding-bottom: 6px;
+}
+ul.models li a:hover {
+	background: #69b694;
+	text-decoration:none;
+}
+.model-placeholder {
+                        height: 30px;
+                        border-radius: 8px;
+                        margin-top: 12px;
+                        margin-bottom: 12px;
+                    }
+
+ul.models-desc {
+	list-style:none;
+	padding-left:0;
+	margin:0 0 3rem 0;
+}
+ul.models-desc li {
+	display:inline-block;
+	font-size:1.0rem;
+	margin-left: 8px;
+	margin-right: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+}
+ul.models-desc li a {
+	color: rgb(176, 176, 176);
+	border-radius:8px;
+}
+ul.models-desc li a:hover {
+    color: #00ab6b;
+	text-decoration:none;
+}
+.models-desc-placeholder {
+                        height: 30px;
+                        border-radius: 8px;
+                        margin-top: 12px;
+                        margin-bottom: 12px;
                     }
                 </style>
                 <div id="sentinel"></div>
@@ -227,7 +289,23 @@
             </div>
         </div>
         <div class="col-md-2 col-sm-2 col-xs-2 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s"
-             style="margin: 50px" id="tag-container">
+             style="margin: 50px; position: sticky" id="tag-container">
+
+            <!-- Begin AI -->
+            <div class="after-post-models" style="width: 150%;">
+                <h6><span>ReiserX AI</span></h6>
+                <ul class="models" id="model-list" style="margin: unset">
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder model-placeholder"
+                                                                             style="width: 150px;"></span></li>
+                </ul>
+                <ul class="models-desc" id="model-desc-list" style="margin: unset">
+                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder models-desc-placeholder"
+                                                                             style="width: 200px;"></span></li>
+                </ul>
+            </div>
+            <!-- End AI -->
+            <hr>
+
             <!-- Begin Tags -->
             <div class="after-post-tags" style="width: 150%;">
                 <h6><span>Recommended topics</span></h6>
@@ -424,6 +502,47 @@
     </script>
 
     <script>
+
+    const models = [
+        { name: "Image generation", link: "model/generation/image/" },
+    ];
+
+    const models_desc = [
+        { name: "Introducing ReiserX AI Image generation: Unleashing the Power of Image Generation", link: "http://127.0.0.1:8000/reiserx/introducing-reiserx-ai-image-generation-unleashing-the-power-of-image-generation/" },
+    ];
+
+    function renderModels(models) {
+        const modelList = document.getElementById('model-list');
+        modelList.innerHTML = ''; // Clear existing models
+
+        models.forEach(model => {
+            const modelLink = document.createElement('a');
+            modelLink.classList.add('model-link');
+            modelLink.href = model.link;
+            modelLink.textContent = model.name;
+
+            const listItem = document.createElement('li');
+            listItem.appendChild(modelLink);
+
+            modelList.appendChild(listItem);
+        });
+
+        const model_desc_List = document.getElementById('model-desc-list');
+        model_desc_List.innerHTML = ''; // Clear existing models
+
+        models_desc.forEach(model => {
+            const model_desc_Link = document.createElement('a');
+            model_desc_Link.classList.add('model-desc-link');
+            model_desc_Link.href = model.link;
+            model_desc_Link.textContent = model.name;
+
+            const listItem = document.createElement('li');
+            listItem.appendChild(model_desc_Link);
+
+            model_desc_List.appendChild(listItem);
+        });
+    }
+
         function renderTags(tags) {
             const tagList = document.getElementById('tag-list');
             tagList.innerHTML = ''; // Clear existing tags
@@ -460,11 +579,13 @@
                 success: function (response) {
                     const tags = response.tags;
                     renderTags(tags);
+                    renderModels(models);
                 },
                 error: function () {
                     console.log("Failed to load tags.");
                 }
             });
+
         } else {
             // Hide the tag container for smaller screens
             const tagContainer = document.getElementById('tag-container');
@@ -534,14 +655,14 @@ if (isDesktopScreen()) {
     });
 } else {
     // Hide the category container for smaller screens
-    const categoryContainer = document.getElementById('category-container');
+    const categoryContainer = document.getElementById('tag-container');
     categoryContainer.style.display = 'none';
 }
 
 // Event listener to recheck screen size on window resize
 window.addEventListener('resize', function () {
     if (isDesktopScreen()) {
-        const categoryContainer = document.getElementById('category-container');
+        const categoryContainer = document.getElementById('tag-container');
         categoryContainer.style.display = ''; // Show the category container
         // Execute the AJAX request to fetch and render the categories
         $.ajax({
@@ -556,7 +677,7 @@ window.addEventListener('resize', function () {
             }
         });
     } else {
-        const categoryContainer = document.getElementById('category-container');
+        const categoryContainer = document.getElementById('tag-container');
         categoryContainer.style.display = 'none'; // Hide the category container
     }
 });

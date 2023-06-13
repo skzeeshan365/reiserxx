@@ -98,7 +98,7 @@
                 <!-- home -->
                 {% if current_menu == 1 %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'home' %}">HOME</a>
+                        <a class="nav-link" href="{% url 'stable_diffusion' %}">AI</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
@@ -110,7 +110,7 @@
                 {% elif current_menu == 2 %}
                     <!-- category -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">HOME</a>
+                        <a class="nav-link" href="{% url 'stable_diffusion' %}">AI</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
@@ -122,7 +122,7 @@
                 {% elif current_menu == 3 %}
                     <!-- about -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">HOME</a>
+                        <a class="nav-link" href="{% url 'stable_diffusion' %}">AI</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
@@ -167,6 +167,9 @@
     ================================================== -->
 </div>
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
 <script async src="{% static '/reiserx/js/bootstrap.min.js' %}"></script>
 <style>
     .navbar.fixed-top {

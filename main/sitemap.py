@@ -1,4 +1,6 @@
 from django.contrib.sitemaps import Sitemap
+from django.contrib.sitemaps.views import sitemap
+from django.urls import path
 from django.urls import reverse
 
 from .models import Category, Post, Tag
@@ -45,8 +47,14 @@ class StaticViewSitemap(Sitemap):
 
 
 sitemaps = {
-    'categories': CategorySitemap,
-    'tags': TagSitemap,
-    'posts': PostSitemap,
     'static': StaticViewSitemap,  # Add the new sitemap class here
 }
+
+urlpatterns = [
+    # Other URL patterns
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('sitemap-categories.xml', sitemap, {'sitemaps': {'categories': CategorySitemap}}, name='category_sitemap'),
+    path('sitemap-tags.xml', sitemap, {'sitemaps': {'tags': TagSitemap}}, name='tag_sitemap'),
+    path('sitemap-posts.xml', sitemap, {'sitemaps': {'posts': PostSitemap}}, name='post_sitemap'),
+    # Add more URL patterns for additional sitemaps if needed
+]

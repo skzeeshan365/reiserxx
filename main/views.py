@@ -3,7 +3,9 @@ import os
 import random
 from datetime import datetime, timedelta
 
+import cloudinary
 import requests
+from cloudinary.uploader import upload
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -15,7 +17,7 @@ from google.cloud import translate
 from google.oauth2 import service_account
 
 from djangoProject1 import settings
-from .forms import CommentForm, ContactForm, SubscriberForm
+from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm
 from .models import Category, Subscriber
 from .models import Post, Contact
 from .models import Tag
@@ -69,39 +71,38 @@ def load_more_posts(request):
     rendered_posts = render_to_string('main/partials/postlist.html', {'all_posts': combined_list})
 
     has_next_page = loaded_posts.has_next()
+
+    print(has_next_page, len(rendered_posts))
     return JsonResponse({'rendered_posts': rendered_posts, 'has_next_page': has_next_page})
 
 
 def open_post(request, user, post_slug):
-    try:
-        post = Post.objects.get(slug=post_slug)
-        tags = post.tags.all()
-        related_posts = post.get_related_posts()
-        comments = post.get_comments()
-        if request.method == 'POST':
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                new_comment = form.save(commit=False)
-                new_comment.post = post
-                new_comment.save()
-                return redirect('open', user=user, post_slug=post.slug)
-        else:
-            form = CommentForm()
+    post = get_object_or_404(Post, slug=post_slug)
+    tags = post.tags.all()
+    related_posts = post.get_related_posts()
+    comments = post.get_comments()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+            return redirect('open', user=user, post_slug=post.slug)
+    else:
+        form = CommentForm()
 
-        subscribed = False
-        if request.session.get('subscriber_id'):
-            subscribed = True
-        contents = {'post': post,
-                    'related': related_posts,
-                    'tagss': tags,
-                    'form': form,
-                    'comments': comments,
-                    'subscribed': subscribed,
-                    'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY}
+    subscribed = False
+    if request.session.get('subscriber_id'):
+        subscribed = True
+    contents = {'post': post,
+                'related': related_posts,
+                'tagss': tags,
+                'form': form,
+                'comments': comments,
+                'subscribed': subscribed,
+                'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY}
 
-        return render(request, 'main/Primary/post.html', contents)
-    except Post.DoesNotExist:
-        return JsonResponse({'status': 'error', 'message': 'Requested resource does not exist'})
+    return render(request, 'main/Primary/post.html', contents)
 
 
 def contact(request):
@@ -143,9 +144,9 @@ def contact(request):
     message = "Whether you have feedback, questions, or just want to say hello, we're here to listen and engage in " \
               "conversation. "
     return render(request, 'main/About/contact.html', {'form': form,
-                                                 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
-                                                 'title': title,
-                                                 'message': message})
+                                                       'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
+                                                       'title': title,
+                                                       'message': message})
 
 
 def search(request):
@@ -168,7 +169,8 @@ def search_by_tag(request, tag_slug):
 
 def categories(request):
     category = Category.objects.all()
-    return render(request, 'main/Category/categories.html', {'category': category, 'current_menu': 2, 'page_title': 'Category'})
+    return render(request, 'main/Category/categories.html',
+                  {'category': category, 'current_menu': 2, 'page_title': 'Category'})
 
 
 def search_by_category(request, category_slug):
@@ -237,9 +239,9 @@ def subscribe(request):
     message = "Ready to join the exclusive club? Subscribe now for access to the latest and greatest content, " \
               "exciting updates, and more virtual high-fives than you can handle! 😉👊 "
     return render(request, 'main/Subscribe/subscribe.html', {'form': form,
-                                                   'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
-                                                   'title': title,
-                                                   'message': message})
+                                                             'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
+                                                             'title': title,
+                                                             'message': message})
 
 
 def verify_email(request, subscriber_id):
@@ -326,3 +328,62 @@ def translate_post(request, user, post_slug, code):
 
 def policy(request):
     return render(request, 'main/About/privacy_policy.html')
+
+
+def generate_image(input_data):
+    API_URL = "https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4"
+    headers = {"Authorization": "Bearer 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"}
+    # Send a request to the Hugging Face API to generate the image
+    response = requests.post(API_URL, headers=headers, json={"inputs": input_data})
+    response.raise_for_status()
+    image_bytes = response.content
+
+    cloudinary.config(
+        cloud_name=settings.CLOUD_NAME,
+        api_key=settings.API_KEY,
+        api_secret=settings.API_SECRET
+    )
+
+    # Upload the image to Cloudinary
+    result = cloudinary.uploader.upload(image_bytes, folder='stable_diffusion')
+    return result['secure_url']
+
+
+def stable_diffusion(request):
+    if request.method == 'POST':
+        form = StableDiffusionForm(request.POST)
+        if form.is_valid():
+            token = form.cleaned_data.get('recaptcha_response')
+
+            # Validate reCAPTCHA token
+            recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
+            recaptcha_secret_key = settings.RECAPTCHA_PRIVATE_KEY
+            data = {'secret': recaptcha_secret_key, 'response': token}
+            response = requests.post(url=recaptcha_url, data=data)
+            if response.ok:
+                result = response.json()
+                if result.get('success') and result.get('score', 0) >= 0.8:
+                    # Accept form submission
+                    input_text = form.cleaned_data['input_text']
+                    try:
+                        image = generate_image(input_text)
+                        return JsonResponse(
+                            {'status': 'success', 'message': 'Image generated', 'image': image,
+                             'input_text': input_text})
+                    except Exception as e:
+                        return JsonResponse({'status': 'error', 'message': 'Service unavailable, please try again later'})
+
+                else:
+                    # Reject form submission
+                    return JsonResponse({'status': 'error', 'message': 'Invalid reCAPTCHA. Please try again.'})
+            else:
+                # reCAPTCHA API error
+                return JsonResponse({'status': 'error', 'message': 'reCAPTCHA API error. Please try again.'})
+        else:
+            message = json.loads(form.errors.as_json())
+            print(message)
+            return JsonResponse({'status': 'error', 'message': 'test'})
+    else:
+        form = StableDiffusionForm()
+        return render(request, 'main/Primary/stable_diffusion.html',
+                      {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
