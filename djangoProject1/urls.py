@@ -28,7 +28,7 @@ urlpatterns = [
     path('froala_editor/', include('froala_editor.urls')),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('sitemap-categories.xml/', sitemap, {'sitemaps': {'categories': CategorySitemap}}, name='category_sitemap'),
-    path('sitemap-tags.xml/', sitemap, {'sitemaps': {'tags': TagSitemap}}, name='tag_sitemap'),
+    path('sitemap-tag.xml/', sitemap, {'sitemaps': {'tags': TagSitemap}}, name='tag_sitemap'),
     path('sitemap-posts.xml/', sitemap, {'sitemaps': {'posts': PostSitemap}}, name='post_sitemap'),
     path('robots.txt/', administration.views.robots_txt, name='robots_txt'),
     path('', include('main.urls')),
