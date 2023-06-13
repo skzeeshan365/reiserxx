@@ -200,7 +200,7 @@ class Post(models.Model):
             contents=[self.title, self.content+""
                                                "Translated by AI"],
             target_language_code=code,
-            parent='projects/' + os.getenv('project_id')
+            parent='projects/' + credentials_info['project_id']
         )
 
         # Get the translated text from the response and display it

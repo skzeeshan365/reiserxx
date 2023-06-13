@@ -281,7 +281,7 @@ def lang(request):
             client = translate.TranslationServiceClient(credentials=credentials)
 
             # Call the API to retrieve the list of supported languages
-            response = client.get_supported_languages(parent='projects/' + os.getenv('project_id'),
+            response = client.get_supported_languages(parent='projects/' + credentials_info['project_id'],
                                                       display_language_code="en")
 
             # Create a list of dictionaries containing language code, name, and native name
