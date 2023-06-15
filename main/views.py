@@ -380,10 +380,17 @@ def stable_diffusion(request):
                 # reCAPTCHA API error
                 return JsonResponse({'status': 'error', 'message': 'reCAPTCHA API error. Please try again.'})
         else:
-            message = json.loads(form.errors.as_json())
-            print(message)
-            return JsonResponse({'status': 'error', 'message': 'test'})
+            return JsonResponse({'status': 'error', 'message': 'Invalid prompt'})
     else:
         form = StableDiffusionForm()
         return render(request, 'main/Primary/stable_diffusion.html',
                       {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
+
+
+def test(request):
+    API_URL = "http://reiserx.ddns.net/test/"
+    # Send a request to the Hugging Face API to generate the image
+    response = requests.get(API_URL)
+    print(response)
+    return JsonResponse({'status': 'success'})
+

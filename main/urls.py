@@ -12,6 +12,7 @@ urlpatterns = [
     path('loadcategories/', views.load_categories, name='load_categories'),
 
     path('model/generation/image/', views.stable_diffusion, name='stable_diffusion'),
+    path('model/test/', views.test, name='test'),
 
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
