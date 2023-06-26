@@ -25,10 +25,6 @@ class ChangeLogData(models.Model):
     logs = models.CharField(max_length=200)
 
 
-class DriverDownloadUrl(models.Model):
-    url = models.URLField()
-
-
 class Contact(models.Model):
     username = models.CharField(max_length=100)
     email = models.EmailField(max_length=70,blank=True)

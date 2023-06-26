@@ -31,6 +31,7 @@ urlpatterns = [
     path('sitemap-tags.xml/', sitemap, {'sitemaps': {'tags': TagSitemap}}, name='tag_sitemap'),
     path('sitemap-posts.xml/', sitemap, {'sitemaps': {'posts': PostSitemap}}, name='post_sitemap'),
     path('robots.txt/', administration.views.robots_txt, name='robots_txt'),
+    path('reiserx-system/', include('reiserx.urls')),
     path('', include('main.urls')),
 ]
 
