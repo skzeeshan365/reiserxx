@@ -1,4 +1,5 @@
 *.css linguist-detectable=true
+*.java linguist-detectable=false 
 *.python linguist-detectable=true 
 *.js linguist-detectable=true
 *.html linguist-detectable=true  
