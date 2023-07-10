@@ -16,7 +16,7 @@ from google.cloud import translate
 from google.oauth2 import service_account
 
 from djangoProject1 import settings
-from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm
+from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm, TagModelForm
 from .models import Category, Subscriber
 from .models import Post, Contact
 from .models import Tag
@@ -386,7 +386,7 @@ def stable_diffusion(request):
 
 def tag_generation(request):
     if request.method == 'POST':
-        form = StableDiffusionForm(request.POST)
+        form = TagModelForm(request.POST)
         if form.is_valid():
             token = form.cleaned_data.get('recaptcha_response')
 
@@ -417,6 +417,6 @@ def tag_generation(request):
         else:
             return JsonResponse({'status': 'error', 'message': 'Invalid prompt'})
     else:
-        form = StableDiffusionForm()
+        form = TagModelForm()
         return render(request, 'main/Primary/tag_generation.html',
                       {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
