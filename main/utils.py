@@ -2,8 +2,8 @@ import io
 import json
 
 import requests
-from PIL import Image
 import vocalhost
+from PIL import Image
 
 from djangoProject1 import settings
 

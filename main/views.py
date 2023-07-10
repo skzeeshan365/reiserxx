@@ -1,21 +1,17 @@
-import asyncio
 import json
-import os
 import random
 from datetime import datetime, timedelta
 
 import cloudinary
 import requests
-from asgiref.sync import async_to_sync, sync_to_async
 from cloudinary.uploader import upload
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django.http import JsonResponse, Http404, HttpResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
-from django.views.decorators.csrf import csrf_exempt
 from google.cloud import translate
 from google.oauth2 import service_account
 
@@ -24,8 +20,6 @@ from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm
 from .models import Category, Subscriber
 from .models import Post, Contact
 from .models import Tag
-
-
 # Create your views here.
 from .utils import generate_tags
 
