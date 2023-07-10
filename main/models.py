@@ -175,7 +175,7 @@ class Post(models.Model):
 
         # Insert the AdSense ad code randomly
         ad_code = '''
-        <div class="adsense-ad">
+        <div class="adsense-ad" style="margin-bottom: 8px">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
