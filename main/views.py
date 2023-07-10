@@ -27,6 +27,7 @@ from .models import Tag
 
 
 # Create your views here.
+from .utils import generate_tags
 
 
 def home(request):
@@ -387,4 +388,42 @@ def stable_diffusion(request):
     else:
         form = StableDiffusionForm()
         return render(request, 'main/Primary/stable_diffusion.html',
+                      {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
+
+
+def tag_generation(request):
+    if request.method == 'POST':
+        form = StableDiffusionForm(request.POST)
+        if form.is_valid():
+            token = form.cleaned_data.get('recaptcha_response')
+
+            # Validate reCAPTCHA token
+            recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
+            recaptcha_secret_key = settings.RECAPTCHA_PRIVATE_KEY
+            data = {'secret': recaptcha_secret_key, 'response': token}
+            response = requests.post(url=recaptcha_url, data=data)
+            if response.ok:
+                result = response.json()
+                if result.get('success') and result.get('score', 0) >= 0.8:
+                    # Accept form submission
+                    input_text = form.cleaned_data['input_text']
+                    try:
+                        tags = generate_tags(input_text)
+                        return JsonResponse(
+                            {'status': 'success', 'message': 'Tags generated', 'tags': tags,
+                             'input_text': input_text})
+                    except Exception as e:
+                        return JsonResponse({'status': 'error', 'message': 'Service unavailable, please try again later'})
+
+                else:
+                    # Reject form submission
+                    return JsonResponse({'status': 'error', 'message': 'Invalid reCAPTCHA. Please try again.'})
+            else:
+                # reCAPTCHA API error
+                return JsonResponse({'status': 'error', 'message': 'reCAPTCHA API error. Please try again.'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid prompt'})
+    else:
+        form = StableDiffusionForm()
+        return render(request, 'main/Primary/tag_generation.html',
                       {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })

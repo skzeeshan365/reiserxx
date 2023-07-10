@@ -119,3 +119,10 @@ class StableDiffusionForm(forms.Form):
         attrs={'placeholder': 'Enter prompt', 'class': 'form-control', 'id': 'input_text', 'rows': 7}), label=False,
                               validators=[MaxLengthValidator(2000)])
     recaptcha_response = forms.CharField(widget=forms.HiddenInput())
+
+
+class TagModelForm(forms.Form):
+    input_text = forms.CharField(max_length=4000, widget=forms.Textarea(
+        attrs={'placeholder': 'Enter prompt', 'class': 'form-control', 'id': 'input_text', 'rows': 7}), label=False,
+                              validators=[MaxLengthValidator(4000)])
+    recaptcha_response = forms.CharField(widget=forms.HiddenInput())

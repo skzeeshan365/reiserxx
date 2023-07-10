@@ -1,7 +1,9 @@
 import io
+import json
 
 import requests
 from PIL import Image
+import vocalhost
 
 from djangoProject1 import settings
 
@@ -63,3 +65,19 @@ def is_valid_email(email):
         return result['entries']['data'][0]['status'] == 'Success', None
     else:
         return None, f'Error: {response.status_code}'
+
+
+def generate_tags(input_data):
+    vocalhost.API_KEY = '82eb7b7b-07bb-4179-9736-b5970e559641'
+
+    data = {
+        'message': input_data,
+        'limit': 4
+    }
+    message = json.dumps(data)
+
+    response = vocalhost.Request.send(message=message, receiver_id='3')
+    response = json.loads(response.text)
+    tags = response.get('tags')
+    tags = ', '.join(tags).replace(',', ', ')
+    return tags
