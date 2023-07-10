@@ -70,7 +70,6 @@ def load_more_posts(request):
 
     has_next_page = loaded_posts.has_next()
 
-    print(has_next_page, len(rendered_posts))
     return JsonResponse({'rendered_posts': rendered_posts, 'has_next_page': has_next_page})
 
 

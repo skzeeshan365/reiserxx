@@ -89,6 +89,10 @@
         .language-python {
             font-size: 0.95rem;
         }
+        .menu {
+        padding: 8px;
+        font-size: 16px;
+    }
     </style>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
@@ -132,8 +136,14 @@
             <div class=" collapse navbar-collapse" id="navbarsExampleDefault">
                 <!-- Begin Menu -->
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'stable_diffusion' %}">AI</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            AI
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item menu" href="{% url 'stable_diffusion' %}">Image generation</a>
+                            <a class="dropdown-item menu" href="{% url 'tag_generation' %}">Tags generation</a>
+                        </div>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="https://vocalhost.reiserx.com/">VOCALHOST</a>
