@@ -87,7 +87,7 @@ def generate_tags(input_data):
 def summarize(input_data):
     data = {
         'message': input_data,
-        'limit': 1024
+        'limit': 528
     }
     message = json.dumps(data)
 
