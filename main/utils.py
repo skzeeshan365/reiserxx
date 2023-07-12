@@ -76,7 +76,7 @@ def generate_tags(input_data):
     }
     message = json.dumps(data)
 
-    response = vocalhost.Request.send(message=message, receiver_id='3')
+    response = vocalhost.Request.send(message=message, receiver_id='tags_1')
     response = json.loads(response.text)
     tags = response.get('tags')
     tags = ', '.join(tags).replace(',', ', ')
