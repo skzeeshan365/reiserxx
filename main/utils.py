@@ -67,9 +67,10 @@ def is_valid_email(email):
         return None, f'Error: {response.status_code}'
 
 
-def generate_tags(input_data):
-    vocalhost.API_KEY = '82eb7b7b-07bb-4179-9736-b5970e559641'
+vocalhost.API_KEY = '82eb7b7b-07bb-4179-9736-b5970e559641'
 
+
+def generate_tags(input_data):
     data = {
         'message': input_data,
         'limit': 4
@@ -81,3 +82,16 @@ def generate_tags(input_data):
     tags = response.get('tags')
     tags = ', '.join(tags).replace(',', ', ')
     return tags
+
+
+def summarize(input_data):
+    data = {
+        'message': input_data,
+        'limit': 1024
+    }
+    message = json.dumps(data)
+
+    response = vocalhost.Request.send(message=message, receiver_id='summary_1')
+    response = json.loads(response.text)
+    summary = response.get('summary')
+    return summary

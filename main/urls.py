@@ -13,6 +13,7 @@ urlpatterns = [
 
     path('model/generation/image/', views.stable_diffusion, name='stable_diffusion'),
     path('model/generation/tags/', views.tag_generation, name='tag_generation'),
+    path('model/summarization/summarize/', views.summarize_text, name='summary_generation'),
 
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
