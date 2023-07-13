@@ -42,7 +42,7 @@ class PostSitemap(Sitemap):
 
 class StaticViewSitemap(Sitemap):
     def items(self):
-        return ['home', 'contact', 'search', 'category', 'about', 'subscribe', 'policy', 'stable_diffusion']  # Add the names of your static views here
+        return ['home', 'contact', 'search', 'category', 'about', 'subscribe', 'policy', 'stable_diffusion', 'tag_generation', 'summary_generation']  # Add the names of your static views here
 
     def location(self, item):
         return reverse(item)
