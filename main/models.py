@@ -141,6 +141,14 @@ class Post(models.Model):
     def get_content_preview(self):
         return self.content
 
+    def get_content_text(self):
+        soup = BeautifulSoup(self.content, 'html.parser')
+        text = soup.get_text()
+
+        # Remove unnecessary whitespace and line breaks
+        text = ' '.join(text.split())
+        return str(text)
+
     def get_content(self):
         content = self.content
 

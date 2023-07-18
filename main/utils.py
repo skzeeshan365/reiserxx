@@ -91,7 +91,7 @@ def summarize(input_data):
     }
     message = json.dumps(data)
 
-    response = vocalhost.Request.send(message=message, receiver_id='summary_1')
+    response = vocalhost.Request.send(message=message, receiver_id='summary_1', timeout=120)
     response = json.loads(response.text)
     summary = response.get('summary')
     return summary

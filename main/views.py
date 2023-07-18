@@ -458,3 +458,39 @@ def summarize_text(request):
         form = TagModelForm()
         return render(request, 'main/Primary/summary_generation.html',
                       {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
+
+
+def summarize_text_api(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        if 'input_text' in data and 'recaptcha_response' in data:
+            input_text = data.get('input_text')
+            token = data.get('recaptcha_response')
+
+            # Validate reCAPTCHA token
+            recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
+            recaptcha_secret_key = settings.RECAPTCHA_PRIVATE_KEY
+            data = {'secret': recaptcha_secret_key, 'response': token}
+            response = requests.post(url=recaptcha_url, data=data)
+            if response.ok:
+                result = response.json()
+                if result.get('success') and result.get('score', 0) >= 0.7:
+                    # Accept form submission
+                    try:
+                        summary = summarize(input_text)
+                        return JsonResponse(
+                            {'status': 'success', 'message': 'Summary generated', 'summary': summary})
+                    except Exception as e:
+                        return JsonResponse(
+                            {'status': 'error', 'message': 'Service unavailable, please try again later'})
+
+                else:
+                    # Reject api call
+                    return JsonResponse({'status': 'error', 'message': 'Invalid reCAPTCHA. Please try again.'})
+            else:
+                # reCAPTCHA API error
+                return JsonResponse({'status': 'error', 'message': 'reCAPTCHA API error. Please try again.'})
+        JsonResponse({'status': 'error', 'message': 'reCAPTCHA API error. Please try again.'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request'})
