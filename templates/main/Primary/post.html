@@ -99,6 +99,20 @@
         -webkit-line-clamp: 2; /* Adjust the number of lines as needed */
         overflow: hidden;
     }
+
+        /* Hide the "Summary" button for mobile */
+@media (max-width: 767px) {
+    .summary_desktop {
+        display: none;
+    }
+}
+
+/* Hide the "report.png" image for desktop */
+@media (min-width: 768px) {
+    .summary_phone {
+        display: none;
+    }
+}
     </style>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
@@ -207,7 +221,11 @@
                         <span class="post-read">{{ post.get_reading_time }} min read</span>
                     </div>
                     <div class="ml-auto">
-                        <a data-toggle="modal" data-target="#summaryModalLong" style="font-size: 10px; background: unset; color: teal; margin-right: 8px;" href="#" class="btn subscribe" onclick="openModal()" onmouseover="this.style.backgroundColor='teal'; this.style.color='white';" onmouseout="this.style.backgroundColor='unset'; this.style.color='teal';">Summary</a>
+                        <a data-toggle="modal" data-target="#summaryModalLong" style="font-size: 10px; background: unset; color: teal; margin-right: 8px;" href="#" class="btn subscribe summary_desktop" onclick="openModal()" onmouseover="this.style.backgroundColor='teal'; this.style.color='white';" onmouseout="this.style.backgroundColor='unset'; this.style.color='teal';">Summary</a>
+
+                        <a href="#summaryModalLong" data-toggle="modal" style="margin-right: 5px;">
+                            <img onclick="openModal()" class="summary_phone" src="{% static 'reiserx/img/report.png' %}" width="22" height="22">
+                        </a>
 
                         <a href="#modalScrollableCenter" data-bs-toggle="modal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#888"
