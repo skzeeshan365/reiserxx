@@ -32,7 +32,7 @@ def setupguide(request):
 
 
 def contact(request):
-    return redirect('homereiserx_home')
+    return redirect('contact')
 
 
 def media(request, pk):
