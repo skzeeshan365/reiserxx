@@ -47,7 +47,3 @@ def changelogs(request):
 
 def portfolio(request):
     return render(request, "secondary/portfolio.html", {'file': static('portfolio.pdf'), 'message': "Download my portfolio, currently it's in pdf form!"})
-
-
-def cert(request):
-    return render(request, "secondary/portfolio.html", {'file': static('cert.pdf'), 'message': 'This file will be available till 20th April 2023'})

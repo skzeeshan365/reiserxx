@@ -22,6 +22,7 @@ from django.views.generic import RedirectView
 
 import administration.views
 from main.sitemap import sitemaps, CategorySitemap, TagSitemap, PostSitemap
+from reiserx.sitemap import sitemaps as sitemap_system
 
 urlpatterns = [
     path('administration/', admin.site.urls),
@@ -32,6 +33,7 @@ urlpatterns = [
     path('sitemap-categories.xml/', sitemap, {'sitemaps': {'categories': CategorySitemap}}, name='category_sitemap'),
     path('sitemap-tags.xml/', sitemap, {'sitemaps': {'tags': TagSitemap}}, name='tag_sitemap'),
     path('sitemap-posts.xml/', sitemap, {'sitemaps': {'posts': PostSitemap}}, name='post_sitemap'),
+    path('sitemap-reiserx-system.xml/', sitemap, {'sitemaps': sitemap_system}, name='system_sitemap'),
 
     # robots.txt
     path('robots.txt/', administration.views.robots_txt, name='robots_txt'),
