@@ -67,7 +67,7 @@ def is_valid_email(email):
         return None, f'Error: {response.status_code}'
 
 
-vocalhost.API_KEY = '82eb7b7b-07bb-4179-9736-b5970e559641'
+vocalhost.API_KEY = settings.VOCALHOST_API
 
 
 def generate_tags(input_data):

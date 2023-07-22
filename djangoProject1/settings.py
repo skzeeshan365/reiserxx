@@ -12,6 +12,7 @@ API_KEY = os.getenv('API_KEY')
 API_SECRET = os.getenv('API_SECRET')
 
 INFERENCE_API = os.getenv('INFERENCE_API')
+VOCALHOST_API = os.getenv('VOCALHOST_API')
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
