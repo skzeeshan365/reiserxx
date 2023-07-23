@@ -1,0 +1,246 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'contact/fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'contact/css/owl.carousel.min.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'contact/css/bootstrap.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'contact/css/style.css' %}">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'reiserx/img/favicons/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'reiserx/img/favicons/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'reiserx/img/favicons/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'reiserx/img/favicons/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'reiserx/img/favicons/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'reiserx/img/favicons/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'reiserx/img/favicons/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'reiserx/img/favicons/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'reiserx/img/favicons/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"
+          href="{% static 'reiserx/img/favicons/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'reiserx/img/favicons/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'reiserx/img/favicons/favicon-16x16.png' %}">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-36x36.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-48x48.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-72x72.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-144x144.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-192x192.png' %}">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/favicon.ico' %}">
+    <link rel="manifest" href="{% static 'reiserx/img/favicons/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'reiserx/img/favicons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Favicon -->
+
+    <title>Generate Summary</title>
+    <script src="https://www.google.com/recaptcha/api.js?render={{ SITE_KEY }}"></script>
+
+    <!-- META TAGS -->
+    <meta property="og:title" content="Text Generation"/>
+    <meta property="og:description"
+          content="Instantly create engaging text with GPT-Neo-2.7B text generation model. Unleash AI-powered writing now!"/>
+    <meta property="og:image"
+          content="https://res.cloudinary.com/reiserx/image/upload/v1/media/thumbnail/_42798eb4-b117-4d71-ae3d-0ab017957cfd_jlpr3k?f_auto,q_auto"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <!-- META TAGS -->
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
+            crossorigin="anonymous"></script>
+
+    <style>
+        .outputImageContainer {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .preview {
+            font-size: 14px;
+            color: rgb(117, 117, 117);
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 mb-5 mb-lg-0">
+                        <h3 class="mb-5">TEXT GENERATION <span class="preview">Gpt-neo-2.7B</span></h3>
+
+                        <form action="{% url 'gpt_neo_2_7b' %}" class="border-right pr-5 mb-5" method="POST"
+                              id="contactForm" name="contactForm">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="submit" name="submit" value="GENERATE"
+                                           class="btn btn-primary py-2 px-4"
+                                           style="background-color: #1C9963; color: #FFFFFF; border-color: #1C9963;">
+                                    <span class="submitting"></span>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="form-messages"></div>
+
+                    </div>
+                    <div class="col-lg-4 ml-auto">
+                        <h3 style="font-size: 1.6rem" class="mb-4">AI-Powered Text Generation</h3>
+                        <p>Instantly create engaging text with GPT-Neo-2.7B text generation model. Unleash AI-powered writing now!
+                            <br>For more info and API
+                            <a style="color: #00ab6b"
+                               href="https://reiserx.com/reiserx/introducing-reiserx-ai-text-generation-unleash-the-power-of-text-generation/">Learn
+                                More</a>
+                            <span class="preview">Powered by </span><a style="color: #00ab6b" class="preview"
+                                                                       href="https://vocalhost.reiserx.com/">Vocalhost</a>
+                        </p>
+                    </div>
+                </div>
+                <script async
+                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
+                        crossorigin="anonymous"></script>
+                <!-- display_ad_h1 -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1588658066763563"
+                     data-ad-slot="4142479585"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                <div id="outputImageContainer" class="outputImageContainer">
+                    <p id="tag_name" class="tag_name" style="margin: unset"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    grecaptcha.ready(function () {
+        grecaptcha.execute('{{ SITE_KEY }}', {action: 'model/generation/image/'}).then(function (token) {
+            document.getElementById('id_recaptcha_response').value = token;
+        });
+    });
+</script>
+<script src="{% static 'contact/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'contact/js/popper.min.js' %}"></script>
+<script src="{% static 'contact/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'contact/js/jquery.validate.min.js' %}"></script>
+
+<script>
+    $(function () {
+        'use strict';
+
+        // Form
+
+        var contactForm = function () {
+
+            if ($('#contactForm').length > 0) {
+                $("#contactForm").validate({
+                    rules: {
+                        fname: "required",
+                        lname: "required",
+                        message: {
+                            required: true,
+                            minlength: 5
+                        }
+                    },
+                    messages: {
+                        message: "Please enter a prompt"
+                    },
+                    /* submit via ajax */
+                    submitHandler: function (form) {
+                        var $submit = $('.submitting'),
+                            waitText = 'Generating...';
+
+                        $.ajax({
+                            type: "POST",
+                            url: "",
+                            data: $(form).serialize(),
+
+                            beforeSend: function () {
+                                $submit.css('display', 'block').text(waitText);
+                                grecaptcha.ready(function () {
+                                    grecaptcha.execute('{{ SITE_KEY }}', {action: 'model/generation/tags/'}).then(function (token) {
+                                        document.getElementById('id_recaptcha_response').value = token;
+                                    });
+                                });
+                            },
+                            success: function (response) {
+
+                                if (response.status == 'success') {
+                                    $('#form-messages').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
+                                    $('#tag_name').text(response.generation);
+
+                                    // Show the outputImageContainer
+                                    $('#outputImageContainer').show();
+                                    $('#contactForm')[0].reset();
+
+                                    // Scroll to the outputImageContainer
+                                    $('html, body').animate({
+                                        scrollTop: $('#outputImageContainer').offset().top
+                                    }, 800);
+
+                                } else {
+                                    $('#form-messages').html('<div class="alert alert-danger" role="alert">' + response.message + '</div>');
+                                }
+                            },
+                            error: function () {
+                                $('#form-messages').html('<div class="alert alert-danger" role="alert">Something went wrong. Please try again.</div>');
+                            },
+                            complete: function () {
+                                $submit.css('display', 'none');
+                            }
+                        });
+                    }
+
+                });
+            }
+        };
+        contactForm();
+
+    });
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4FMP7BP8M0"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-4FMP7BP8M0');
+</script>
+
+</body>
+</html>

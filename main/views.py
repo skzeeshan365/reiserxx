@@ -21,7 +21,7 @@ from .models import Category, Subscriber
 from .models import Post, Contact
 from .models import Tag
 # Create your views here.
-from .utils import generate_tags, summarize
+from .utils import generate_tags, summarize, gpt_neo_2_7_B
 
 
 def home(request):
@@ -380,7 +380,7 @@ def stable_diffusion(request):
             return JsonResponse({'status': 'error', 'message': 'Invalid prompt'})
     else:
         form = StableDiffusionForm()
-        return render(request, 'main/Primary/stable_diffusion.html',
+        return render(request, 'main/AI/stable_diffusion.html',
                       {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
 
 
@@ -418,7 +418,7 @@ def tag_generation(request):
             return JsonResponse({'status': 'error', 'message': 'Invalid prompt'})
     else:
         form = TagModelForm()
-        return render(request, 'main/Primary/tag_generation.html',
+        return render(request, 'main/AI/tag_generation.html',
                       {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
 
 
@@ -456,7 +456,7 @@ def summarize_text(request):
             return JsonResponse({'status': 'error', 'message': 'Invalid prompt'})
     else:
         form = TagModelForm()
-        return render(request, 'main/Primary/summary_generation.html',
+        return render(request, 'main/AI/summary_generation.html',
                       {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
 
 
@@ -494,3 +494,41 @@ def summarize_text_api(request):
         JsonResponse({'status': 'error', 'message': 'reCAPTCHA API error. Please try again.'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+
+def generation_gpt_neo_2_7_B(request):
+    if request.method == 'POST':
+        form = TagModelForm(request.POST)
+        if form.is_valid():
+            token = form.cleaned_data.get('recaptcha_response')
+
+            # Validate reCAPTCHA token
+            recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
+            recaptcha_secret_key = settings.RECAPTCHA_PRIVATE_KEY
+            data = {'secret': recaptcha_secret_key, 'response': token}
+            response = requests.post(url=recaptcha_url, data=data)
+            if response.ok:
+                result = response.json()
+                if result.get('success') and result.get('score', 0) >= 0.9:
+                    # Accept form submission
+                    input_text = form.cleaned_data['input_text']
+                    try:
+                        generation = gpt_neo_2_7_B(input_text)
+                        return JsonResponse(
+                            {'status': 'success', 'message': 'Text generated', 'generation': generation,
+                             'input_text': input_text})
+                    except Exception as e:
+                        return JsonResponse({'status': 'error', 'message': 'Service unavailable, please try again later'})
+
+                else:
+                    # Reject form submission
+                    return JsonResponse({'status': 'error', 'message': 'Invalid reCAPTCHA. Please try again.'})
+            else:
+                # reCAPTCHA API error
+                return JsonResponse({'status': 'error', 'message': 'reCAPTCHA API error. Please try again.'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid prompt'})
+    else:
+        form = TagModelForm()
+        return render(request, 'main/AI/text_generation_gpt-neo.html',
+                      {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })

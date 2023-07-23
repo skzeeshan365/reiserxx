@@ -95,3 +95,16 @@ def summarize(input_data):
     response = json.loads(response.text)
     summary = response.get('summary')
     return summary
+
+
+def gpt_neo_2_7_B(input_data):
+    data = {
+        'message': input_data,
+        'limit': 64
+    }
+    message = json.dumps(data)
+
+    response = vocalhost.Request.send(message=message, receiver_id='gpt-neo-2.7B', timeout=120)
+    response = json.loads(response.text)
+    summary = response.get('generation')
+    return summary
