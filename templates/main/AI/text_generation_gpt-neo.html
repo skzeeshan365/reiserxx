@@ -48,7 +48,7 @@
     <meta name="theme-color" content="#ffffff">
     <!-- Favicon -->
 
-    <title>Generate Summary</title>
+    <title>Text Generation</title>
     <script src="https://www.google.com/recaptcha/api.js?render={{ SITE_KEY }}"></script>
 
     <!-- META TAGS -->
@@ -94,7 +94,7 @@
                     <div class="col-lg-7 mb-5 mb-lg-0">
                         <h3 class="mb-5">TEXT GENERATION <span class="preview">Gpt-neo-2.7B</span></h3>
 
-                        <form action="{% url 'gpt_neo_2_7b' %}" class="border-right pr-5 mb-5" method="POST"
+                        <form action="{% url 'text_generation' %}" class="border-right pr-5 mb-5" method="POST"
                               id="contactForm" name="contactForm">
                             {% csrf_token %}
                             {{ form.as_p }}

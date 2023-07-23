@@ -16,7 +16,7 @@ urlpatterns = [
     path('model/generation/tags/', views.tag_generation, name='tag_generation'),
     path('model/summarization/summarize/', views.summarize_text, name='summary_generation'),
     path('model/api/summarization/summarize/', views.summarize_text_api, name='summary_generation_api'),
-    path('model/generation/gpt-neo-2-7b/', views.generation_gpt_neo_2_7_B, name='gpt_neo_2_7b'),
+    path('model/generation/text/', views.generation_gpt_neo_2_7_B, name='text_generation'),
 
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
