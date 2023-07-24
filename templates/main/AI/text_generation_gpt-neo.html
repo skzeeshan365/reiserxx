@@ -212,9 +212,10 @@
                                     $('#form-messages').html('<div class="alert alert-danger" role="alert">' + response.message + '</div>');
                                 }
                             },
-                            error: function () {
-                                $('#form-messages').html('<div class="alert alert-danger" role="alert">Something went wrong. Please try again.</div>');
-                            },
+                            error: function (xhr, status, error) {
+    console.log('AJAX Error:', error);
+    $('#form-messages').html('<div class="alert alert-danger" role="alert">Something went wrong. Please try again.</div>');
+},
                             complete: function () {
                                 $submit.css('display', 'none');
                             }
