@@ -101,11 +101,6 @@ DATABASES = {
         'USER': USER,
         'PASSWORD': PASSWORD,
         'PORT': PORT,
-        'OPTIONS': {
-            'ssl': {
-                'ca': 'djangoProject1/DigiCertGlobalRootCA.crt.pem',
-            }
-        }
     }
 }
 
