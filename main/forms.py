@@ -104,7 +104,8 @@ class SubscriberForm(forms.ModelForm):
     def send_verification_email(self, subscriber, verification_link):
         subject = 'Verify your email'
         message = f'Hi {subscriber.email}, please click on the link below to verify your email:\n\n{verification_link}'
-        from_email = settings.DEFAULT_FROM_EMAIL
+        from_email = 'ReiserX <{}>'.format(settings.DEFAULT_FROM_EMAIL)
+
         content = Content("text/plain", message)
         mail = Mail(from_email=from_email, subject=subject, to_emails=subscriber.email, plain_text_content=content)
         try:
