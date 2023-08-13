@@ -155,7 +155,7 @@ RECAPTCHA_PRIVATE_KEY = os.getenv('CAPTCHA_SITE_SECRET_KEY')
 
 BASE_URL = 'https://www.reiserx.com'
 
-DEFAULT_FROM_EMAIL = "skzeeshan3650@gmail.com"
+DEFAULT_FROM_EMAIL = "support@reiserx.com"
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 VERIFALIA_USERNAME = os.getenv('VERIFALIA_USERNAME')
 VERIFALIA_PASSWORD = os.getenv('VERIFALIA_PASSWORD')

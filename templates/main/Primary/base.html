@@ -120,9 +120,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
-                    </li>
                     <!-- home -->
                 {% elif current_menu == 2 %}
                     <!-- category -->
@@ -135,25 +132,7 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
-                    </li>
                     <!-- category -->
-                {% elif current_menu == 3 %}
-                    <!-- about -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'stable_diffusion' %}">AI</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="https://vocalhost.reiserx.com/">VOCALHOST</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'category' %}">CATEGORY <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
-                    </li>
-                    <!-- about -->
 
                 {% endif %}
             </ul>

@@ -244,6 +244,16 @@ ul.models-desc li a:hover {
                         margin-top: 12px;
                         margin-bottom: 12px;
                     }
+.links {
+    text-decoration: none;
+    color: #5d5d5d;
+    font-size: 12px;
+    position: relative;
+    font-weight: 600;
+}
+.links:hover {
+    text-decoration: none;
+}
                 </style>
                 <div id="sentinel"></div>
                 <!-- End List Posts -->
@@ -371,6 +381,15 @@ ul.models-desc li a:hover {
                 <h6><span>Read</span></h6>
                 <p style="font-size: 14px; font-weight: 400; color: #5d5d5d">Click the save icon on any story to save it
                     to your personal reading collection or a customized list.</p>
+            </div>
+            <!-- End reading list -->
+
+            <!-- Begin reading list -->
+            <div class="after-post-tags" style="width: 150%; margin-top: 20px">
+                <a href="{% url 'policy' %}" class="links">Privacy Policy</a>
+                <a href="{% url 'contact' %}" class="links">Contact us</a>
+                <a href="{% url 'about' %}" class="links">About</a>
+                </p>
             </div>
             <!-- End reading list -->
         </div>
