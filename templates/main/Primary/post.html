@@ -445,7 +445,7 @@
                 const listItem = document.createElement('li');
                 listItem.classList.add('list-group-item');
                 listItem.textContent = result.languages[i].name;
-                listItem.setAttribute('data-url', `/translate/${post.author}/${post.slug}/${result.languages[i].code}`);
+                listItem.setAttribute('data-url', `/${post.author}/${post.slug}/${result.languages[i].code}`);
                 listItem.addEventListener('click', () => {
                     const url = listItem.getAttribute('data-url');
                     window.open(url, '_blank');
