@@ -30,7 +30,7 @@ def home(request):
 
 def load_tags(request):
     tags = Tag.objects.annotate(num_posts=Count('posts')).order_by('-num_posts')[:5]
-    tag_list = [{'name': tag.tag, 'slug': tag.slug} for tag in tags]
+    tag_list = [{'name': tag.tag[0].upper() + tag.tag[1:], 'slug': tag.slug} for tag in tags]
     return JsonResponse({'tags': tag_list})
 
 
@@ -191,7 +191,7 @@ def search_by_author(request, username):
 
 def about(request):
     return render(request, 'main/About/about.html',
-                  {'title': "Blast off into the Exciting Universe of ReiserX!"})
+                  {'title': "Welcome to ReiserX: Your Portal to Exploring the Boundless Horizons of Knowledge!"})
 
 
 def subscribe(request):
