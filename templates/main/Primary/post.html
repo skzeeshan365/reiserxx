@@ -252,7 +252,7 @@
             <div class="after-post-tags">
                 <ul class="tags">
                     {% for tag in tagss %}
-                        <li><a href="{% url 'search_by_tag' tag.slug %}">{{ tag }}</a></li>
+                        <li><a href="{% url 'search_by_tag' tag.slug %}">{{ tag.tag.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
