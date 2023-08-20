@@ -1,9 +1,11 @@
 from django.conf.urls.static import static
 from django.urls import path, re_path
+from django.utils.feedgenerator import Atom1Feed
 from django.views.generic import RedirectView
 
 from djangoProject1 import settings
 from . import views
+from .feeds import BlogFeed
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -17,6 +19,8 @@ urlpatterns = [
     path('model/summarization/summarize/', views.summarize_text, name='summary_generation'),
     path('model/api/summarization/summarize/', views.summarize_text_api, name='summary_generation_api'),
     path('model/generation/text/', views.generation_gpt_neo_2_7_B, name='text_generation'),
+
+    path('feed/rss/', BlogFeed(), name='rss_feed'),  # URL for RSS feed
 
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
