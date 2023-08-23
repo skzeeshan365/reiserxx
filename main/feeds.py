@@ -12,7 +12,7 @@ class BlogFeed(Feed):
     template_name = "main/partials/postlist.html"  # Use your custom template
 
     def items(self):
-        return Post.objects.filter(draft=False)  # Filter published posts
+        return Post.objects.filter(draft=False).order_by('-timestamp')  # Filter published posts
 
     def item_title(self, item):
         return item.title  # Title of each post
