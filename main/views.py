@@ -16,8 +16,9 @@ from google.cloud import translate
 from google.oauth2 import service_account
 
 from djangoProject1 import settings
+from . import utils
 from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm, TagModelForm
-from .models import Category, Subscriber
+from .models import Category, Subscriber, Comment, Reply
 from .models import Post, Contact
 from .models import Tag
 # Create your views here.
@@ -100,6 +101,38 @@ def open_post(request, user, post_slug):
                 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY}
 
     return render(request, 'main/Primary/post.html', contents)
+
+
+def post_reply(request, comment_id):
+    if request.method == 'POST':
+        request_data = json.loads(request.body)  # Parse the JSON data
+        reply_content = request_data.get('content')
+        comment = Comment.objects.get(pk=comment_id)
+
+        # Save the reply to the database
+        Reply.objects.create(
+            comment=comment,
+            content=reply_content,
+            user=request.user
+        )
+
+        subject = f"{request.user.username} has replied to your comment"
+
+        message = render_to_string('main/About/email_template.html', {
+            'recipient_name': comment.name,
+            'sender_name': request.user.username,
+            'comment_content': comment.content,
+            'post_title': comment.post.title,
+            'post_url': comment.post.get_absolute_post_url(request),
+            'reply_content': reply_content,
+        })
+
+        to_email = comment.email
+        utils.send_email(subject=subject, message=message, to_email=to_email)
+
+        return JsonResponse({'message': 'Reply posted successfully.'})
+    else:
+        return JsonResponse({'message': 'Invalid request.'}, status=400)
 
 
 def contact(request):
@@ -296,7 +329,7 @@ def lang(request):
 
 
 def translate_post(request, user, post_slug, code):
-    post = Post.objects.get(slug=post_slug).translate(code)
+    post = get_object_or_404(Post, slug=post_slug).translate(code)
     tag = post.tags.all()
     related_posts = post.get_related_posts()
     comments = post.get_comments()

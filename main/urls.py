@@ -33,6 +33,8 @@ urlpatterns = [
     path('category/<slug:category_slug>/', views.search_by_category, name='search_by_category'),
     path('<str:user>/<slug:post_slug>/<str:code>/', views.translate_post, name='translate'),
     path('privacypolicy/', views.policy, name='policy'),
+
+    path('comment_reply/<int:comment_id>/', views.post_reply, name='post_reply'),
     re_path(r'^(?P<user>[^/]+)/(?P<post_slug>[^/]+)/$', views.open_post, name='open'),
     re_path(r'^(?P<username>[a-zA-Z0-9]{3,})/$', views.search_by_author, name='search_by_author'),
 

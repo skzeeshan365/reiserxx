@@ -4,6 +4,7 @@ import json
 import requests
 import vocalhost
 from PIL import Image
+from sendgrid import Content, Mail, SendGridAPIClient
 
 from djangoProject1 import settings
 
@@ -108,3 +109,16 @@ def gpt_neo_2_7_B(input_data):
     response = json.loads(response.text)
     summary = response.get('generation')
     return summary
+
+
+def send_email(subject, message, to_email):
+    subject = subject
+    message = message
+    from_email = 'ReiserX <{}>'.format(settings.DEFAULT_FROM_EMAIL)
+
+    mail = Mail(from_email=from_email, subject=subject, to_emails=to_email, html_content=message)
+    try:
+        sg = SendGridAPIClient(api_key=settings.SENDGRID_API_KEY)
+        sg.send(mail)
+    except Exception as e:
+        pass

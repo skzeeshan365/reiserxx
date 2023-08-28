@@ -89,30 +89,107 @@
         .language-python {
             font-size: 0.95rem;
         }
+
         .menu {
-        padding: 8px;
-        font-size: 16px;
-    }
+            padding: 8px;
+            font-size: 16px;
+        }
+
         .card-text {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2; /* Adjust the number of lines as needed */
-        overflow: hidden;
-    }
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; /* Adjust the number of lines as needed */
+            overflow: hidden;
+        }
 
         /* Hide the "Summary" button for mobile */
-@media (max-width: 767px) {
-    .summary_desktop {
-        display: none;
-    }
-}
+        @media (max-width: 767px) {
+            .summary_desktop {
+                display: none;
+            }
+        }
 
-/* Hide the "report.png" image for desktop */
-@media (min-width: 768px) {
-    .summary_phone {
-        display: none;
+        /* Hide the "report.png" image for desktop */
+        @media (min-width: 768px) {
+            .summary_phone {
+                display: none;
+            }
+        }
+
+        .media {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .media-body {
+            position: relative;
+            max-width: 100%;
+        }
+
+        .media-body p {
+            margin: 0;
+        }
+
+        .reply-btn {
+            background-color: #1C9963;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 10%;
+            font-size: small;
+        }
+
+        .reply-form {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .reply-form textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .reply-form button {
+            background-color: #1C9963;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: small;
+        }
+
+        .reply {
+        align-items: center;
+        margin-top: 10px;
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-radius: 5px;
     }
-}
+
+    .reply-content {
+        word-wrap: break-word;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .reply-details {
+        display: flex;
+        justify-content: flex-end /* Distribute items along the space */
+    }
+
+    .user-name {
+        margin-right: 10px;
+        font-size: 0.9em;
+    }
+
+    .timestamp {
+        font-style: italic;
+    }
     </style>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
@@ -157,7 +234,8 @@
                 <!-- Begin Menu -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             AI
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -219,10 +297,15 @@
                         <span class="post-read">{{ post.get_reading_time }} min read</span>
                     </div>
                     <div class="ml-auto">
-                        <a data-toggle="modal" data-target="#summaryModalLong" style="font-size: 10px; background: unset; color: teal; margin-right: 8px;" href="#" class="btn subscribe summary_desktop" onclick="openModal()" onmouseover="this.style.backgroundColor='teal'; this.style.color='white';" onmouseout="this.style.backgroundColor='unset'; this.style.color='teal';">Summary</a>
+                        <a data-toggle="modal" data-target="#summaryModalLong"
+                           style="font-size: 10px; background: unset; color: teal; margin-right: 8px;" href="#"
+                           class="btn subscribe summary_desktop" onclick="openModal()"
+                           onmouseover="this.style.backgroundColor='teal'; this.style.color='white';"
+                           onmouseout="this.style.backgroundColor='unset'; this.style.color='teal';">Summary</a>
 
                         <a href="#summaryModalLong" data-toggle="modal" style="margin-right: 5px;">
-                            <img onclick="openModal()" class="summary_phone" src="{% static 'reiserx/img/report.png' %}" width="22" height="22">
+                            <img onclick="openModal()" class="summary_phone" src="{% static 'reiserx/img/report.png' %}"
+                                 width="22" height="22">
                         </a>
 
                         <a href="#modalScrollableCenter" data-bs-toggle="modal">
@@ -257,38 +340,38 @@
                 </ul>
             </div>
             <!-- End Tags -->
-        <div class="row listrecent listrelated">
+            <div class="row listrecent listrelated">
 
-        {% for post in related %}
-            <!-- begin post -->
-            <div class="col-md-6">
-                <div class="card card-flat">
-                    <a href="{% url 'open' post.get_author_name post.slug %}">
-                        <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="{{ post.title }}"
-                             style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: 185px; width: 100%;">
-                    </a>
-                    <div class="card-block">
-                        <h5 class="card-title"><a
-                                href="{% url 'open' post.get_author_name post.slug %} "
-                                style="color: black; font-weight: bold">{{ post.title }}</a>
-                        </h5>
-                        <h4 class="card-text">{{ post.description }}</h4>
-                        <div class="metafooter">
-                            <div class="wrapfooter"><span class="author-meta"><span class="post-name"><a
-                                    href="{% url 'search_by_author' post.author.username %}">{{ post.get_author_name }}</a></span><br/>
+                {% for post in related %}
+                    <!-- begin post -->
+                    <div class="col-md-6">
+                        <div class="card card-flat">
+                            <a href="{% url 'open' post.get_author_name post.slug %}">
+                                <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="{{ post.title }}"
+                                     style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: 185px; width: 100%;">
+                            </a>
+                            <div class="card-block">
+                                <h5 class="card-title"><a
+                                        href="{% url 'open' post.get_author_name post.slug %} "
+                                        style="color: black; font-weight: bold">{{ post.title }}</a>
+                                </h5>
+                                <h4 class="card-text">{{ post.description }}</h4>
+                                <div class="metafooter">
+                                    <div class="wrapfooter"><span class="author-meta"><span class="post-name"><a
+                                            href="{% url 'search_by_author' post.author.username %}">{{ post.get_author_name }}</a></span><br/>
 								<span class="post-date">{{ post.get_date }}</span><span class="dot"></span><span
-                                        class="post-read">{{ post.get_reading_time }} min read</span>
+                                                class="post-read">{{ post.get_reading_time }} min read</span>
 								</span>
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
+                    </div>
+                    <!-- end post -->
+                {% endfor %}
             </div>
-            <!-- end post -->
-        {% endfor %}
-    </div>
         </div>
         <!-- End Post -->
     </div>
@@ -298,6 +381,7 @@
 
 <!-- Begin Related
 ================================================== -->
+
 
 <br>
 <div class="container" id="comments-section">
@@ -312,6 +396,26 @@
                             <small class="text-muted"
                                    style="font-style: italic">{{ comment.timestamp|timesince }}</small>
                         </div>
+                        <button class="reply-btn">Reply</button>
+                        <div class="reply-form" data-comment-id="{{ comment.id }}">
+                            <form>
+                                <textarea name="reply_content" rows="2" cols="40"
+                                          placeholder="Write a reply..."></textarea><br>
+                                <button class="submit-reply-btn">Submit Reply</button>
+                            </form>
+                        </div>
+                        <!-- Display replies for the current comment -->
+                        {% for reply in comment.ordered_replies %}
+                            <div class="reply">
+                                <div class="reply-content">
+                                    <p>{{ reply.content }}</p>
+                                </div>
+                                <div class="reply-details">
+                                    <h6 class="user-name">{{ reply.user }}</h6>
+                                    <small class="text-muted" style="align-self: unset; margin: unset">{{ reply.timestamp|timesince }}</small>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             {% empty %}
@@ -383,20 +487,21 @@
     </div>
 </div>
 
-<div class="modal fade" id="summaryModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Summary</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p id="summary"></p>
-      </div>
+<div class="modal fade" id="summaryModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Summary</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="summary"></p>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 
@@ -544,7 +649,7 @@
             body: JSON.stringify({
                 input_text: content,  // Add the input text value here
                 recaptcha_response: token  // Add the reCAPTCHA token value here
-                })
+            })
         })
             .then(response => response.json())
             .then(data => {
@@ -560,6 +665,66 @@
                 summaryElement.textContent = error;
             });
     }
+</script>
+<script>
+    const replyButtons = document.querySelectorAll(".reply-btn");
+    replyButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+            event.preventDefault();  // Prevent any default link behavior
+
+            const replyForm = button.closest(".media-body").querySelector(".reply-form");
+            const replyTextArea = replyForm.querySelector("textarea[name='reply_content']");
+            replyTextArea.value = '';
+
+            if (replyForm.style.display === "block") {
+                replyForm.style.display = "none";
+                replyTextArea.value = "";  // Reset the text area content
+            } else {
+                replyForm.style.display = "block";
+            }
+        });
+    });
+
+    const submitReplyButtons = document.querySelectorAll(".submit-reply-btn");
+    submitReplyButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+            event.preventDefault();  // Prevent the default form submission
+
+            const replyForm = button.closest(".reply-form");
+            const replyContent = replyForm.querySelector("textarea[name='reply_content']").value;
+            const commentId = replyForm.dataset.commentId;
+
+            // Send an AJAX request to the server to submit the reply
+            // Adjust the URL to match your project's URL structure
+            fetch(`/comment_reply/${commentId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',  // Add CSRF token
+                },
+                body: JSON.stringify({content: replyContent}),
+            }).then(response => {
+                if (response.ok) {
+                // Update the UI here
+                const replySection = replyForm.parentElement;
+                const reply = document.createElement("div");
+                reply.classList.add("reply");
+                reply.innerHTML = `
+                    <div class="reply-content">${replyContent}</div>
+                    <div class="reply-details">
+                        <h6 class="user-name">{{ user.username }}</h6>
+                        <small class="text-muted" style="align-self: unset; margin: unset">Just now</small>
+                    </div>
+                `;
+                // Insert the new reply after the reply form
+                    replyForm.insertAdjacentElement('afterend', reply);
+                    replyForm.style.display = "none"; // Hide the form after successful reply
+            } else {
+                // Handle error if needed
+            }
+            });
+        });
+    });
 </script>
 </body>
 </html>

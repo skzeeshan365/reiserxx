@@ -114,6 +114,11 @@ class Post(models.Model):
         })
         return f"{url}?{query_params}"
 
+    def get_absolute_post_url(self, request):
+        relative_url = reverse('open', args=[self.author.username, self.slug])
+        absolute_url = request.build_absolute_uri(relative_url)
+        return absolute_url
+
     def get_date(self):
         # Format the date_published field as "22 July 2017"
         if self.timestamp:
@@ -262,6 +267,16 @@ class Comment(models.Model):
     content = models.TextField(validators=[MaxLengthValidator(500)])
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def ordered_replies(self):
+        return self.replies.all().order_by('-timestamp')
+
+
+class Reply(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies')
+    content = models.TextField(validators=[MaxLengthValidator(500)])
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
 
