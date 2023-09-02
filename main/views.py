@@ -7,9 +7,10 @@ import requests
 from cloudinary.uploader import upload
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.sitemaps.views import sitemap
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from google.cloud import translate
@@ -21,8 +22,9 @@ from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm
 from .models import Category, Subscriber, Comment, Reply
 from .models import Post, Contact
 from .models import Tag
+from .sitemap_lang import DynamicSitemap
 # Create your views here.
-from .utils import generate_tags, summarize, gpt_neo_2_7_B
+from .utils import generate_tags, summarize, gpt_neo_2_7_B, SUPPORTED_LANGUAGES
 
 
 def home(request):
@@ -98,7 +100,8 @@ def open_post(request, user, post_slug):
                 'form': form,
                 'comments': comments,
                 'subscribed': subscribed,
-                'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY}
+                'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
+                'code': 'en'}
 
     return render(request, 'main/Primary/post.html', contents)
 
@@ -316,6 +319,7 @@ def lang(request):
 
             # Create a list of dictionaries containing language code, name, and native name
             language_list = []
+            print(response.languages)
             for language in response.languages:
                 language_list.append({
                     'code': language.language_code,
@@ -351,7 +355,8 @@ def translate_post(request, user, post_slug, code):
                 'tagss': tag,
                 'form': form,
                 'comments': comments,
-                'subscribed': subscribed}
+                'subscribed': subscribed,
+                'code': code}
 
     return render(request, 'main/Primary/post.html', contents)
 
@@ -565,3 +570,17 @@ def generation_gpt_neo_2_7_B(request):
         form = TagModelForm()
         return render(request, 'main/AI/text_generation_gpt-neo.html',
                       {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
+
+
+def dynamic_sitemap(request, language):
+    if language not in SUPPORTED_LANGUAGES:
+        # Handle unsupported languages here, e.g., return a 404 response
+        return HttpResponse(status=404)
+
+    # Create a dictionary to hold sitemap instances for different languages
+    sitemap_instances = {
+        f'posts_{language}': DynamicSitemap(language),
+    }
+
+    # Generate the sitemap for the specified language
+    return sitemap(request, sitemaps=sitemap_instances)

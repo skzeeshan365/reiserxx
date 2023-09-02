@@ -22,6 +22,8 @@ from django.views.generic import RedirectView
 
 import administration.views
 from main.sitemap import sitemaps, CategorySitemap, TagSitemap, PostSitemap
+from main.sitemap_lang import DynamicSitemap
+from main.views import dynamic_sitemap
 from reiserx.sitemap import sitemaps as sitemap_system
 
 urlpatterns = [
@@ -34,6 +36,7 @@ urlpatterns = [
     path('sitemap-tags.xml/', sitemap, {'sitemaps': {'tags': TagSitemap}}, name='tag_sitemap'),
     path('sitemap-posts.xml/', sitemap, {'sitemaps': {'posts': PostSitemap}}, name='post_sitemap'),
     path('sitemap-reiserx-system.xml/', sitemap, {'sitemaps': sitemap_system}, name='system_sitemap'),
+    path('sitemap-posts-<str:language>.xml/', dynamic_sitemap, name='dynamic_sitemap'),
 
     # robots.txt
     path('robots.txt/', administration.views.robots_txt, name='robots_txt'),

@@ -7,7 +7,7 @@ from django.urls import reverse
 from sendgrid import Mail, Content, SendGridAPIClient
 
 from djangoProject1 import settings
-from .models import Comment, Subscriber, Reply
+from .models import Comment, Subscriber
 from .utils import is_valid_email
 
 

@@ -1,6 +1,5 @@
 from django.conf.urls.static import static
 from django.urls import path, re_path
-from django.utils.feedgenerator import Atom1Feed
 from django.views.generic import RedirectView
 
 from djangoProject1 import settings
