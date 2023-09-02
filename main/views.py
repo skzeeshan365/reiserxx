@@ -356,6 +356,7 @@ def translate_post(request, user, post_slug, code):
                 'form': form,
                 'comments': comments,
                 'subscribed': subscribed,
+                'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
                 'code': code}
 
     return render(request, 'main/Primary/post.html', contents)
