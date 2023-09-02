@@ -122,7 +122,7 @@ class Post(models.Model):
     def get_date(self):
         # Format the date_published field as "22 July 2017"
         if self.timestamp:
-            return self.timestamp.strftime('%d %B %Y')
+            return self.timestamp.strftime('%d %B, %Y')
         else:
             return 'now'
 
@@ -248,7 +248,7 @@ class Post(models.Model):
         # Initialize the Google Cloud Translation API client
         client = translate.TranslationServiceClient(credentials=credentials)
         response = client.translate_text(
-            contents=[self.title, self.content+""
+            contents=[self.title, self.description, self.content+""
                                                "Translated by AI"],
             target_language_code=code,
             parent='projects/' + credentials_info['project_id']
@@ -257,7 +257,8 @@ class Post(models.Model):
         # Get the translated text from the response and display it
         translations = response.translations
         self.title = translations[0].translated_text
-        self.content = translations[1].translated_text
+        self.description = translations[1].translated_text
+        self.content = translations[2].translated_text
 
         return self
 

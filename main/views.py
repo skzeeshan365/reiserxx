@@ -24,7 +24,7 @@ from .models import Post, Contact
 from .models import Tag
 from .sitemap_lang import DynamicSitemap
 # Create your views here.
-from .utils import generate_tags, summarize, gpt_neo_2_7_B, SUPPORTED_LANGUAGES
+from .utils import generate_tags, summarize, gpt_neo_2_7_B, SUPPORTED_LANGUAGES, language_list
 
 
 def home(request):
@@ -305,28 +305,7 @@ def lang(request):
             # Handle the reCAPTCHA verification failure
             return JsonResponse({'success': False, 'message': 'reCAPTCHA verification failed. Please try again later.'})
         else:
-            # calling up google vision json file
-            with open(r"main/key.json") as f:
-                credentials_info = json.load(f)
-            credentials = service_account.Credentials.from_service_account_info(credentials_info)
-
-            # Initialize the Google Cloud Translation API client
-            client = translate.TranslationServiceClient(credentials=credentials)
-
-            # Call the API to retrieve the list of supported languages
-            response = client.get_supported_languages(parent='projects/' + credentials_info['project_id'],
-                                                      display_language_code="en")
-
             # Create a list of dictionaries containing language code, name, and native name
-            language_list = []
-            print(response.languages)
-            for language in response.languages:
-                language_list.append({
-                    'code': language.language_code,
-                    'name': language.display_name,
-                })
-
-            # Return the language list as a JSON response
             return JsonResponse({'success': True, 'languages': language_list})
     else:
         raise Http404('Page not found')
