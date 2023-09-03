@@ -10,14 +10,18 @@ from django.core.validators import MaxLengthValidator
 from django.db import IntegrityError
 from django.db import models, transaction
 # Create your models here.
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.http import urlencode
 from django.utils.text import slugify
 from google.cloud import translate
 from google.oauth2 import service_account
+
+from djangoProject1 import settings
+from main import utils
 
 
 class Category(models.Model):
@@ -286,6 +290,26 @@ class Contact(models.Model):
     email = models.EmailField(max_length=100, blank=True)
     message = models.TextField()
     timestamp = models.DateTimeField(max_length=50, auto_now=True)
+
+
+@receiver(post_save, sender=Contact)
+def send_contact_email(sender, instance, created, **kwargs):
+    if created:
+        subject = "A new message is received"
+
+        message = render_to_string('main/About/contact_email_template.html', {
+            'sender_name': instance.username,
+            'email': instance.email,
+            'message': instance.message,
+        })
+
+        superusers = User.objects.filter(is_superuser=True)
+        to_email = [user.email for user in superusers]
+
+        try:
+            utils.send_email(subject=subject, message=message, to_email=to_email)
+        except Exception as e:
+            pass
 
 
 class Subscriber(models.Model):
