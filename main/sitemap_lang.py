@@ -5,7 +5,7 @@ from main.models import Post
 
 
 class DynamicSitemap(Sitemap):
-    priority = 0.8
+    priority = 1.0
 
     def __init__(self, language):
         self.language = language
