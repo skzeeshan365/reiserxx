@@ -295,7 +295,7 @@ class Contact(models.Model):
 @receiver(post_save, sender=Contact)
 def send_contact_email(sender, instance, created, **kwargs):
     if created:
-        subject = "A new message is received"
+        subject = "A New Message Is Received"
 
         message = render_to_string('main/About/contact_email_template.html', {
             'sender_name': instance.username,
