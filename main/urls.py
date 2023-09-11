@@ -31,7 +31,8 @@ urlpatterns = [
     path('category/', views.categories, name='category'),
     path('category/<slug:category_slug>/', views.search_by_category, name='search_by_category'),
     path('<str:user>/<slug:post_slug>/<str:code>/', views.translate_post, name='translate'),
-    path('privacypolicy/', views.policy, name='policy'),
+    path('privacy-policy/', views.policy, name='policy'),
+    path('terms-of-service/', views.terms, name='terms_of_service'),
 
     path('comment_reply/<int:comment_id>/', views.post_reply, name='post_reply'),
     re_path(r'^(?P<user>[^/]+)/(?P<post_slug>[^/]+)/$', views.open_post, name='open'),

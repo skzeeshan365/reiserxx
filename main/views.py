@@ -350,6 +350,10 @@ def policy(request):
     return render(request, 'main/About/privacy_policy.html')
 
 
+def terms(request):
+    return render(request, 'main/About/terms.html')
+
+
 def generate_image(input_data):
     API_URL = "https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4"
     headers = {"Authorization": "Bearer "+settings.INFERENCE_API}
