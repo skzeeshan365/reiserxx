@@ -252,10 +252,11 @@ class Post(models.Model):
             # calling up google vision json file
             with open(r"main/key.json") as f:
                 credentials_info = json.load(f)
-            credentials = service_account.Credentials.from_service_account_info(credentials_info)
+            credentials = service_account.Credentials.from_service_account_file(r"main/key.json")
 
             # Initialize the Google Cloud Translation API client
             client = translate.TranslationServiceClient(credentials=credentials)
+
             response = client.translate_text(
                 contents=[self.title, self.description, self.content + ""
                                                                        "Translated by AI"],

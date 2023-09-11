@@ -12,7 +12,9 @@ from django.core.paginator import Paginator
 from django.db.models import Count
 from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template import loader
 from django.template.loader import render_to_string
+from django.urls import reverse
 from google.cloud import translate
 from google.oauth2 import service_account
 
@@ -567,3 +569,19 @@ def dynamic_sitemap(request, language):
 
     # Generate the sitemap for the specified language
     return sitemap(request, sitemaps=sitemap_instances)
+
+
+def sitemap_index(request):
+    # Create a list of sitemap URLs for each language
+    sitemap_urls = []
+    for language in SUPPORTED_LANGUAGES:
+        url = f"https://reiserx.com/sitemap-posts-{language}.xml"
+        sitemap_urls.append(url)
+
+    # Load the sitemap index template and render it with the sitemap URLs
+    template = loader.get_template('sitemap_index.xml')
+    context = {'sitemap_urls': sitemap_urls}
+    sitemap_index_xml = template.render(context)
+
+    # Return the sitemap index XML as an HttpResponse
+    return HttpResponse(sitemap_index_xml, content_type='application/xml')
