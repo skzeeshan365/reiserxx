@@ -22,7 +22,6 @@ from django.views.generic import RedirectView
 
 import administration.views
 from main.sitemap import sitemaps, CategorySitemap, TagSitemap, PostSitemap
-from main.sitemap_lang import DynamicSitemap
 from main.views import dynamic_sitemap
 from reiserx.sitemap import sitemaps as sitemap_system
 

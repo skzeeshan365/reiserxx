@@ -243,28 +243,56 @@ class Post(models.Model):
                                                                  'timestamp')
 
     def translate(self, code):
+        try:
+            existing_translation = TranslatedPost.objects.get(post=self, language_code=code)
+            self.title = existing_translation.translated_title
+            self.description = existing_translation.translated_description
+            self.content = existing_translation.translated_content
+        except TranslatedPost.DoesNotExist:
+            # calling up google vision json file
+            with open(r"main/key.json") as f:
+                credentials_info = json.load(f)
+            credentials = service_account.Credentials.from_service_account_info(credentials_info)
 
-        # calling up google vision json file
-        with open(r"main/key.json") as f:
-            credentials_info = json.load(f)
-        credentials = service_account.Credentials.from_service_account_info(credentials_info)
+            # Initialize the Google Cloud Translation API client
+            client = translate.TranslationServiceClient(credentials=credentials)
+            response = client.translate_text(
+                contents=[self.title, self.description, self.content + ""
+                                                                       "Translated by AI"],
+                target_language_code=code,
+                parent='projects/' + credentials_info['project_id']
+            )
 
-        # Initialize the Google Cloud Translation API client
-        client = translate.TranslationServiceClient(credentials=credentials)
-        response = client.translate_text(
-            contents=[self.title, self.description, self.content+""
-                                               "Translated by AI"],
-            target_language_code=code,
-            parent='projects/' + credentials_info['project_id']
-        )
+            # Get the translated text from the response and display it
+            translations = response.translations
+            self.title = translations[0].translated_text
+            self.description = translations[1].translated_text
+            self.content = translations[2].translated_text
 
-        # Get the translated text from the response and display it
-        translations = response.translations
-        self.title = translations[0].translated_text
-        self.description = translations[1].translated_text
-        self.content = translations[2].translated_text
+            translation = TranslatedPost(
+                post=self,
+                language_code=code,
+                translated_title=self.title,
+                translated_description=self.description,
+                translated_content=self.content
+            )
+            translation.save()
 
         return self
+
+
+class TranslatedPost(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='translated_version')
+    language_code = models.CharField(max_length=10)
+    translated_title = models.CharField(max_length=200)
+    translated_description = models.CharField(max_length=255)
+    translated_content = models.TextField()
+
+    def __str__(self):
+        return f"Translation for {self.post.title} ({self.language_code})"
+
+    class Meta:
+        unique_together = ['post', 'language_code']
 
 
 class Comment(models.Model):
