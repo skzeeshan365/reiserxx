@@ -312,7 +312,10 @@ def lang(request):
 
 
 def translate_post(request, user, post_slug, code):
-    post = get_object_or_404(Post, slug=post_slug).translate(code)
+    if code in SUPPORTED_LANGUAGES:
+        post = get_object_or_404(Post, slug=post_slug).translate(code)
+    else:
+        raise Http404
     tag = post.tags.all()
     related_posts = post.get_related_posts()
     comments = post.get_comments()

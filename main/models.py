@@ -285,11 +285,11 @@ class TranslatedPost(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='translated_version')
     language_code = models.CharField(max_length=10)
     translated_title = models.CharField(max_length=200)
-    translated_description = models.CharField(max_length=255)
+    translated_description = models.CharField(max_length=1000)
     translated_content = models.TextField()
 
     def __str__(self):
-        return f"Translation for {self.post.title} ({self.language_code})"
+        return f"{self.post.title} ({self.language_code})"
 
     class Meta:
         unique_together = ['post', 'language_code']
