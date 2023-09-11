@@ -33,6 +33,7 @@ urlpatterns = [
     path('<str:user>/<slug:post_slug>/<str:code>/', views.translate_post, name='translate'),
     path('privacy-policy/', views.policy, name='policy'),
     path('terms-of-service/', views.terms, name='terms_of_service'),
+    path('refund-policy/', views.refund, name='refund_policy'),
 
     path('comment_reply/<int:comment_id>/', views.post_reply, name='post_reply'),
     re_path(r'^(?P<user>[^/]+)/(?P<post_slug>[^/]+)/$', views.open_post, name='open'),
