@@ -281,6 +281,21 @@ class Post(models.Model):
 
         return self
 
+    def get_summary(self):
+        try:
+            return self.summary.get(post=self).summary
+        except Summary.DoesNotExist:
+            return None
+
+
+class Summary(models.Model):
+    post = models.ForeignKey(Post, related_name='summary', on_delete=models.CASCADE)
+    summary = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Summary for {self.post.title}"
+
 
 class TranslatedPost(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='translated_version')

@@ -21,7 +21,7 @@ from google.oauth2 import service_account
 from djangoProject1 import settings
 from . import utils
 from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm, TagModelForm
-from .models import Category, Subscriber, Comment, Reply
+from .models import Category, Subscriber, Comment, Reply, Summary
 from .models import Post, Contact
 from .models import Tag
 from .sitemap_lang import DynamicSitemap
@@ -498,6 +498,7 @@ def summarize_text_api(request):
         if 'input_text' in data and 'recaptcha_response' in data:
             input_text = data.get('input_text')
             token = data.get('recaptcha_response')
+            slug = data.get('slug')
 
             # Validate reCAPTCHA token
             recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
@@ -510,12 +511,17 @@ def summarize_text_api(request):
                     # Accept form submission
                     try:
                         summary = summarize(input_text)
+                        post = Post.objects.get(slug=slug)
+                        summary_model = Summary(
+                            post=post,
+                            summary=summary[0],
+                        )
+                        summary_model.save()
                         return JsonResponse(
                             {'status': 'success', 'message': 'Summary generated', 'summary': summary})
                     except Exception as e:
                         return JsonResponse(
                             {'status': 'error', 'message': 'Service unavailable, please try again later'})
-
                 else:
                     # Reject api call
                     return JsonResponse({'status': 'error', 'message': 'Invalid reCAPTCHA. Please try again.'})

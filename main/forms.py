@@ -43,7 +43,7 @@ class ContactForm(forms.Form):
         else:
             is_valid, error = is_valid_email(email)
             if error is not None:
-                raise forms.ValidationError(error, "ghfghfh")
+                raise forms.ValidationError(error)
             elif not is_valid:
                 raise forms.ValidationError("Please enter a valid email address")
         return email

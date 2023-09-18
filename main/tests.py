@@ -64,7 +64,7 @@ class ContactFormTestCase(TestCase):
     def test_valid_form(self):
         form_data = {
             'username': 'John Doe',
-            'email': 'johndoe@example.com',
+            'email': 'skzeeshan3650@gmail.com',
             'message': 'Hello, this is a test message',
             'recaptcha_response': 'valid_token'
         }

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from administration.forms import PostForm
-from .models import Post, Tag, Category, Comment, Contact, Subscriber, Reply, TranslatedPost
+from .models import Post, Tag, Category, Comment, Contact, Subscriber, Reply, TranslatedPost, Summary
 
 
 # Register your models here.
@@ -40,3 +40,5 @@ admin.site.register(Reply)
 admin.site.register(Contact)
 admin.site.register(Subscriber)
 admin.site.register(TranslatedPost)
+admin.site.register(Summary)
+
