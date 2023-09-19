@@ -20,7 +20,6 @@ from .models import Category, Subscriber, Comment, Reply, Summary
 from .models import Post, Contact
 from .models import Tag
 from .sitemap_lang import DynamicSitemap
-
 from .utils import generate_tags, summarize, gpt_neo_2_7_B, SUPPORTED_LANGUAGES, language_list, generate_image, whisper
 
 

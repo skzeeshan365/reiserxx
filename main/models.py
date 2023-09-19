@@ -20,7 +20,6 @@ from django.utils.text import slugify
 from google.cloud import translate
 from google.oauth2 import service_account
 
-from djangoProject1 import settings
 from main import utils
 
 

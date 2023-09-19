@@ -1,11 +1,10 @@
 import io
 import json
 
-import requests
-import vocalhost
 import cloudinary
-from cloudinary.uploader import upload
+import vocalhost
 from PIL import Image
+from cloudinary.uploader import upload
 from sendgrid import Mail, SendGridAPIClient
 
 from djangoProject1 import settings
