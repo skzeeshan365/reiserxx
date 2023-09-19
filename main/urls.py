@@ -18,6 +18,7 @@ urlpatterns = [
     path('model/summarization/summarize/', views.summarize_text, name='summary_generation'),
     path('model/api/summarization/summarize/', views.summarize_text_api, name='summary_generation_api'),
     path('model/generation/text/', views.generation_gpt_neo_2_7_B, name='text_generation'),
+    path('model/transcription/whisper/', views.transcribe, name='transcription'),
 
     path('feed/rss/', BlogFeed(), name='rss_feed'),  # URL for RSS feed
 

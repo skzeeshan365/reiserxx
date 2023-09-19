@@ -48,15 +48,15 @@
     <meta name="theme-color" content="#ffffff">
     <!-- Favicon -->
 
-    <title>>AI | Generate Tags</title>
+    <title>AI | Transcription</title>
     <script src="https://www.google.com/recaptcha/api.js?render={{ SITE_KEY }}"></script>
 
     <!-- META TAGS -->
-    <meta property="og:title" content="Generate Tags"/>
+    <meta property="og:title" content="Convert Your Voice to Text"/>
     <meta property="og:description"
-          content="Boost your content with our user-friendly tag generation tool. Turn text into effective tags with ease. Unleash your creativity today!."/>
+          content="Unlock the power of AI with Whisper-Large-V2! Effortlessly convert audio and video to text."/>
     <meta property="og:image"
-          content="https://res.cloudinary.com/reiserx/image/upload/v1/media/thumbnail/_bd2f9aeb-781a-4419-b198-389cacac4d05_rzbnd5?f_auto,q_auto"/>
+          content="https://res.cloudinary.com/reiserx/image/upload/v1/media/thumbnail/_64069e98-19d9-4841-8d54-8835df5af354_utk5j0?f_auto,q_auto"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:type" content="website">
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
@@ -92,9 +92,9 @@
             <div class="col-md-10">
                 <div class="row align-items-center">
                     <div class="col-lg-7 mb-5 mb-lg-0">
-                        <h3 class="mb-5">GENERATE TAGS <span class="preview">Preview</span></h3>
+                        <h3 class="mb-5">TRANSCRIPTION <span class="preview">Whisper-large-v2</span></h3>
 
-                        <form action="{% url 'tag_generation' %}" class="border-right pr-5 mb-5" method="POST"
+                        <form action="{% url 'transcription' %}" class="border-right pr-5 mb-5" method="POST"
                               id="contactForm" name="contactForm">
                             {% csrf_token %}
                             {{ form.as_p }}
@@ -111,15 +111,12 @@
 
                     </div>
                     <div class="col-lg-4 ml-auto">
-                        <h3 style="font-size: 1.6rem" class="mb-4">AI-Powered Tag generation</h3>
-                        <p>Boost your content with our user-friendly tag generation tool. Turn text into effective tags
-                            with ease. Unleash your creativity today!.
+                        <h3 style="font-size: 1.6rem" class="mb-4">AI-Powered audio & video to Text Conversion</h3>
+                        <p>Unlock the power of AI with Whisper-Large-V2! Effortlessly convert audio and video to text. Explore our Whisper API for precise transcriptions now!
                             <br>For more info and API
                             <a style="color: #00ab6b"
-                               href="https://reiserx.com/reiserx/introducing-reiserx-ai-tag-generation-unleash-the-power-of-tag-generation/">Learn
+                               href="https://reiserx.com/reiserx/introducing-reiserx-ai-transcription-convert-your-voice-to-text-with-ease/">Learn
                                 More</a>
-                            <span class="preview">Powered by </span><a style="color: #00ab6b" class="preview"
-                                                                       href="https://vocalhost.reiserx.com/">Vocalhost</a>
                         </p>
                     </div>
                 </div>
@@ -189,16 +186,15 @@
                             beforeSend: function () {
                                 $submit.css('display', 'block').text(waitText);
                                 grecaptcha.ready(function () {
-                                    grecaptcha.execute('{{ SITE_KEY }}', {action: 'model/generation/tags/'}).then(function (token) {
+                                    grecaptcha.execute('{{ SITE_KEY }}', {action: '{% url "transcription" %}'}).then(function (token) {
                                         document.getElementById('id_recaptcha_response').value = token;
                                     });
                                 });
                             },
                             success: function (response) {
-
                                 if (response.status == 'success') {
                                     $('#form-messages').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
-                                    $('#tag_name').text(response.tags);
+                                    $('#tag_name').text(response.transcription);
 
                                     // Show the outputImageContainer
                                     $('#outputImageContainer').show();
@@ -213,9 +209,10 @@
                                     $('#form-messages').html('<div class="alert alert-danger" role="alert">' + response.message + '</div>');
                                 }
                             },
-                            error: function () {
+                            error: function (xhr, status, error) {
+                                console.log('AJAX Error:', error);
                                 $('#form-messages').html('<div class="alert alert-danger" role="alert">Something went wrong. Please try again.</div>');
-                            },
+},
                             complete: function () {
                                 $submit.css('display', 'none');
                             }

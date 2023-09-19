@@ -2,9 +2,7 @@ import json
 import random
 from datetime import datetime, timedelta
 
-import cloudinary
 import requests
-from cloudinary.uploader import upload
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.sitemaps.views import sitemap
@@ -14,19 +12,16 @@ from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from django.template.loader import render_to_string
-from django.urls import reverse
-from google.cloud import translate
-from google.oauth2 import service_account
 
 from djangoProject1 import settings
 from . import utils
-from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm, TagModelForm
+from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm, TagModelForm, WhisperModelForm
 from .models import Category, Subscriber, Comment, Reply, Summary
 from .models import Post, Contact
 from .models import Tag
 from .sitemap_lang import DynamicSitemap
-# Create your views here.
-from .utils import generate_tags, summarize, gpt_neo_2_7_B, SUPPORTED_LANGUAGES, language_list
+
+from .utils import generate_tags, summarize, gpt_neo_2_7_B, SUPPORTED_LANGUAGES, language_list, generate_image, whisper
 
 
 def home(request):
@@ -358,25 +353,6 @@ def refund(request):
     return render(request, 'main/About/refund_policy.html')
 
 
-def generate_image(input_data):
-    API_URL = "https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4"
-    headers = {"Authorization": "Bearer "+settings.INFERENCE_API}
-    # Send a request to the Hugging Face API to generate the image
-    response = requests.post(API_URL, headers=headers, json={"inputs": input_data})
-    response.raise_for_status()
-    image_bytes = response.content
-
-    cloudinary.config(
-        cloud_name=settings.CLOUD_NAME,
-        api_key=settings.API_KEY,
-        api_secret=settings.API_SECRET
-    )
-
-    # Upload the image to Cloudinary
-    result = cloudinary.uploader.upload(image_bytes, folder='stable_diffusion')
-    return result['secure_url']
-
-
 def stable_diffusion(request):
     if request.method == 'POST':
         form = StableDiffusionForm(request.POST)
@@ -488,6 +464,43 @@ def summarize_text(request):
     else:
         form = TagModelForm()
         return render(request, 'main/AI/summary_generation.html',
+                      {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
+
+
+def transcribe(request):
+    if request.method == 'POST':
+        form = WhisperModelForm(request.POST)
+        if form.is_valid():
+            token = form.cleaned_data.get('recaptcha_response')
+
+            # Validate reCAPTCHA token
+            recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
+            recaptcha_secret_key = settings.RECAPTCHA_PRIVATE_KEY
+            data = {'secret': recaptcha_secret_key, 'response': token}
+            response = requests.post(url=recaptcha_url, data=data)
+            if response.ok:
+                result = response.json()
+                if result.get('success') and result.get('score', 0) >= 0.8:
+                    # Accept form submission
+                    input_text = form.cleaned_data['input_text']
+                    try:
+                        transcription = whisper(input_text)
+                        return JsonResponse(
+                            {'status': 'success', 'message': 'Text generated', 'transcription': transcription,
+                             'input_text': input_text})
+                    except Exception as e:
+                        return JsonResponse({'status': 'error', 'message': 'Service unavailable, please try again later'})
+                else:
+                    # Reject form submission
+                    return JsonResponse({'status': 'error', 'message': 'Invalid reCAPTCHA. Please try again.'})
+            else:
+                # reCAPTCHA API error
+                return JsonResponse({'status': 'error', 'message': 'reCAPTCHA API error. Please try again.'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid prompt'})
+    else:
+        form = WhisperModelForm()
+        return render(request, 'main/AI/transcription.html',
                       {'form': form, 'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY, })
 
 

@@ -12,6 +12,7 @@ API_KEY = os.getenv('API_KEY')
 API_SECRET = os.getenv('API_SECRET')
 
 INFERENCE_API = os.getenv('INFERENCE_API')
+WHISPER_INFERENCE_API = os.getenv('WHISPER_INFERENCE_API')
 VOCALHOST_API = os.getenv('VOCALHOST_API')
 
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -197,3 +198,6 @@ WHITENOISE_USE_FINDERS = True
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PAYPAL_CLIENT_ID = 'your_paypal_client_id'
+PAYPAL_SECRET = 'your_paypal_secret'

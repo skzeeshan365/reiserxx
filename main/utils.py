@@ -3,6 +3,8 @@ import json
 
 import requests
 import vocalhost
+import cloudinary
+from cloudinary.uploader import upload
 from PIL import Image
 from sendgrid import Mail, SendGridAPIClient
 
@@ -144,6 +146,25 @@ def is_valid_email(email):
 vocalhost.API_KEY = settings.VOCALHOST_API
 
 
+def generate_image(input_data):
+    API_URL = "https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4"
+    headers = {"Authorization": "Bearer "+settings.INFERENCE_API}
+    # Send a request to the Hugging Face API to generate the image
+    response = requests.post(API_URL, headers=headers, json={"inputs": input_data})
+    response.raise_for_status()
+    image_bytes = response.content
+
+    cloudinary.config(
+        cloud_name=settings.CLOUD_NAME,
+        api_key=settings.API_KEY,
+        api_secret=settings.API_SECRET
+    )
+
+    # Upload the image to Cloudinary
+    result = cloudinary.uploader.upload(image_bytes, folder='stable_diffusion')
+    return result['secure_url']
+
+
 def generate_tags(input_data):
     data = {
         'message': input_data,
@@ -195,3 +216,23 @@ def send_email(subject, message, to_email):
         sg.send(mail)
     except Exception as e:
         pass
+
+
+import requests
+import pytube
+import os
+
+
+def whisper(url):
+    data = pytube.YouTube(url)
+    audio = data.streams.get_audio_only().download()
+
+    API_URL = "https://api-inference.huggingface.co/models/openai/whisper-large-v2"
+    headers = {"Authorization": "Bearer "+settings.WHISPER_INFERENCE_API}
+
+    with open(audio, "rb") as f:
+        data = f.read()
+
+    response = requests.post(API_URL, headers=headers, data=data)
+    os.remove(audio)
+    return response.json()['text']

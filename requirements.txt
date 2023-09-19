@@ -6,3 +6,9 @@ Requests==2.31.0
 sendgrid==6.10.0
 google~=3.0.0
 djangorestframework~=3.14.0
+vocalhost~=1.1.0
+beautifulsoup4~=4.11.1
+django-ckeditor~=6.5.1
+django-froala-editor~=4.0.18
+stripe~=6.4.0
+nlpcloud~=1.0.42

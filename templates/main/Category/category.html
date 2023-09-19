@@ -51,7 +51,7 @@
                             <div class="metafooter">
                                 <div class="wrapfooter">
                                 <span class="meta-footer-thumb">
-                                <a href="category.html">
+                                <a href="{% url 'search_by_author' post.author.username %}">
                                     {% if post.author.userprofile.image.url %}
                                         <img class="author-thumb" src="{{ post.author.userprofile.image.url }}" alt="{{ post.author.username }}">
                                     {% else %}

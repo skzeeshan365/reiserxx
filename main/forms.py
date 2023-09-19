@@ -127,3 +127,10 @@ class TagModelForm(forms.Form):
         attrs={'placeholder': 'Enter prompt', 'class': 'form-control', 'id': 'input_text', 'rows': 7}), label=False,
                               validators=[MaxLengthValidator(4000)])
     recaptcha_response = forms.CharField(widget=forms.HiddenInput())
+
+
+class WhisperModelForm(forms.Form):
+    input_text = forms.CharField(max_length=200, widget=forms.Textarea(
+        attrs={'placeholder': 'e.g. a youtube video url', 'class': 'form-control', 'id': 'input_text', 'rows': 7}), label=False,
+                              validators=[MaxLengthValidator(200)])
+    recaptcha_response = forms.CharField(widget=forms.HiddenInput())
