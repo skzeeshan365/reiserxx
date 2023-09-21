@@ -56,9 +56,8 @@
 
 /* Apply styles to links within the post content */
 .article-post .content a {
-  color: #0078FF;
-  text-decoration: none;
-  border-bottom: 1px solid #0078FF;
+  color: inherit;
+  text-decoration: underline;
 }
 
 /* Apply styles to headings within the post content */
