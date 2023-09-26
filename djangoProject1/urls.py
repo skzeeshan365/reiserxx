@@ -34,7 +34,7 @@ urlpatterns = [
     path('sitemap-categories.xml/', sitemap, {'sitemaps': {'categories': CategorySitemap}}, name='category_sitemap'),
     path('sitemap-tags.xml/', sitemap, {'sitemaps': {'tags': TagSitemap}}, name='tag_sitemap'),
     path('sitemap-posts.xml/', sitemap, {'sitemaps': {'posts': PostSitemap}}, name='post_sitemap'),
-    path('sitemap-reiserx-system.xml/', sitemap, {'sitemaps': sitemap_system}, name='system_sitemap'),
+    path('sitemap-reiserx-remote.xml/', sitemap, {'sitemaps': sitemap_system}, name='system_sitemap'),
     path('sitemap-posts-<str:language>.xml/', dynamic_sitemap, name='dynamic_sitemap'),
     path('sitemap_post_index.xml', sitemap_index, name='sitemap_index'),
 
@@ -42,7 +42,7 @@ urlpatterns = [
     path('robots.txt/', administration.views.robots_txt, name='robots_txt'),
 
     # Reiser-System
-    path('reiserx-system/', include('reiserx.urls')),
+    path('reiserx-remote/', include('reiserx.urls')),
 
     path('ads.txt/', RedirectView.as_view(url=settings.STATIC_URL + 'Ads/ads.txt', permanent=True)),
 
