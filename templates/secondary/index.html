@@ -137,9 +137,8 @@
 <header>
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-4 col-xs-12">
-                <p><i class="fa fa-envelope-o"></i><span> Email</span><a
-                        href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to={{ const.CONSTANT.EMAIL_ADDRESS }}">{{ const.CONSTANT.EMAIL_ADDRESS }}</a>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <p><i class="fa fa-exclamation-circle"></i><span> IMPORTANT</span>Be a Patreon member to access this service. Visit our <a href="https://reiserx.com/reiserx-remote/">Patreon</a> for details.
                 </p>
             </div>
         </div>
@@ -164,7 +163,7 @@
                 <li><a href="#about">ABOUT</a></li>
                 <li><a href="#team">DOWNLOAD</a></li>
                 <li><a href="#service">DOCS</a></li>
-                <li><a href="#portfolio">MEDIA</a></li>
+                <li><a href="#portfolio">ACCESS</a></li>
                 <li><a href="#contact">CONTACT</a></li>
             </ul>
         </div>
@@ -332,28 +331,26 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s"><span>REISERX</span> MEDIA</h2>
+                <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s"><span>ACCESS</span> REISERX REMOTE </h2>
             </div>
         </div>
-        {% for media1 in medias %}
-            <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                <div class="portfolio-thumb">
-                    <img src="{{ media1.img.url }}" class="img-responsive">
-                    <div class="portfolio-overlay">
-                        <h4>{{ media1.name }}</h4>
-                        <p>{{ media1.desc }}</p>
-                        {% if media1.isInternal %}
-                            <a href="{% url 'media' media1.pk %}" class="btn btn-default">DETAIL</a>
-                        {% else %}
-                            <a href="{{ media1.link }}" class="btn btn-default">DETAIL</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+        <p>Access to this service is only available through Patreon <span id="tier-name">AI Innovator</span> tier membership. Join the membership to get access to this service.</p>
+        <a href="https://www.patreon.com/bePatron?u=101491344" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
+
+        <!-- Information about AI Innovator Tier -->
+        <h3>AI Innovator Tier</h3>
+        <p>Welcome to our "AI Innovator" tier! If you're passionate about artificial intelligence and cutting-edge features, this tier is designed just for you. Here's what you'll get:</p>
+        <ul>
+            <li>Access to beta features</li>
+            <li><strong>Access to ReiserX-Remote, A remote service for Android</strong></li>
+            <li>AI Feature Access: Gain exclusive access to our latest AI-powered features before anyone else. Be the first to try out our innovative tools.</li>
+            <li>Feature request</li>
+            <li>Work-in-progress updates (digital)</li>
+            <li>Early access to our APIs</li>
+        </ul>
     </div>
 </section>
+
 <!-- end portfolio -->
 
 <!-- The Modal -->
