@@ -3,10 +3,12 @@ import re
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxLengthValidator
+from django.template.loader import render_to_string
 from django.urls import reverse
 from sendgrid import Mail, Content, SendGridAPIClient
 
 from djangoProject1 import settings
+from . import utils
 from .models import Comment, Subscriber
 from .utils import is_valid_email
 
@@ -74,19 +76,11 @@ class SubscriberForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data['email']
         subscriber = Subscriber.objects.filter(email=email).exists()
-        print(subscriber)
         if subscriber:
             raise forms.ValidationError(
                 "Looks like you're already on our VIP list! Time to sit back, relax and enjoy the exclusive perks "
                 "of being one of our favorites")
-        else:
-            # validate the email using Verifalia API
-            is_valid, error = is_valid_email(email)
-            if error is not None:
-                raise forms.ValidationError(error)
-            elif not is_valid:
-                raise forms.ValidationError("Please enter a valid email address")
-            return email
+        return email
 
     def save(self, commit=True):
         subscriber = super().save(commit=False)
@@ -95,6 +89,7 @@ class SubscriberForm(forms.ModelForm):
             subscriber.save()
             verification_link = self.get_verification_link(subscriber)
             self.send_verification_email(subscriber, verification_link)
+            self.send_promotional_email(subscriber=subscriber)
         return subscriber
 
     def get_verification_link(self, subscriber):
@@ -113,6 +108,16 @@ class SubscriberForm(forms.ModelForm):
             sg.send(mail)
         except Exception as e:
             pass
+
+    def send_promotional_email(self, subscriber):
+        subject = "Join Our Patreon and Unlock Exclusive AI Innovator Benefits!"
+
+        message = render_to_string('main/About/promotional_patreom_email.html', {
+            'recipient_name': subscriber.email,
+        })
+
+        to_email = subscriber.email
+        utils.send_email(subject=subject, message=message, to_email=to_email)
 
 
 class StableDiffusionForm(forms.Form):
