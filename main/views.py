@@ -20,7 +20,8 @@ from .models import Category, Subscriber, Comment, Reply, Summary
 from .models import Post, Contact
 from .models import Tag
 from .sitemap_lang import DynamicSitemap
-from .utils import generate_tags, summarize, gpt_neo_2_7_B, SUPPORTED_LANGUAGES, language_list, generate_image, whisper
+from .utils import generate_tags, summarize, gpt_neo_2_7_B, SUPPORTED_LANGUAGES, language_list, generate_image, whisper, \
+    translation_threshold
 
 
 def home(request):
@@ -309,7 +310,12 @@ def lang(request):
 
 def translate_post(request, user, post_slug, code):
     if code in SUPPORTED_LANGUAGES:
-        post = get_object_or_404(Post, slug=post_slug).translate(code)
+        post = get_object_or_404(Post, slug=post_slug)
+
+        total_text_length = len(post.title) + len(post.description) + len(post.content)
+        if total_text_length > translation_threshold:
+            return HttpResponse("Text is too long for translation.")
+        post = post.translate(code=code)
     else:
         raise Http404
     tag = post.tags.all()

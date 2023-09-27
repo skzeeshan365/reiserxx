@@ -82,6 +82,7 @@ language_list = [{'code': 'af', 'name': 'Afrikaans'}, {'code': 'sq', 'name': 'Al
                  {'code': 'xh', 'name': 'Xhosa'}, {'code': 'yi', 'name': 'Yiddish'}, {'code': 'yo', 'name': 'Yoruba'},
                  {'code': 'zu', 'name': 'Zulu'}]
 
+translation_threshold = 30720  # The maximum allowed characters for translation
 
 def handle_uploaded_image(f):
     # Open the uploaded image in RGBA format
