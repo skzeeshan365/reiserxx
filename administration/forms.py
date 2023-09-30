@@ -104,7 +104,7 @@ class PostForm(forms.ModelForm):
     image = forms.ImageField(required=True, label=False)
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}), required=True, label=False)
     draft = forms.BooleanField(label='Save as draft', required=False)
-    compress_images = forms.BooleanField(label='Compress images', initial=True)
+    compress_images = forms.BooleanField(label='Compress images', initial=True, required=False)
 
     class Meta:
         model = Post
@@ -184,7 +184,7 @@ class PostFormEdit(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'content', 'description', 'category', 'draft']
+        fields = ['title', 'content', 'description', 'category', 'draft', 'author']
 
     def clean_tags(self):
         tags = self.cleaned_data.get('tags')
