@@ -184,7 +184,7 @@ class PostFormEdit(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'content', 'description', 'category', 'draft', 'author']
+        fields = ['title', 'content', 'description', 'category', 'draft']
 
     def clean_tags(self):
         tags = self.cleaned_data.get('tags')
