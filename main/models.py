@@ -227,7 +227,7 @@ class Post(models.Model):
         return self.comments.filter(post=self.pk)
 
     def get_related_posts(self):
-        return Post.objects.filter(tags__tag__in=self.get_tags(), draft=False).exclude(slug=self.slug).distinct()[:3]
+        return Post.objects.filter(tags__tag__in=self.get_tags(), draft=False).exclude(slug=self.slug).distinct()[:6]
 
     def get_author_name(self):
         return self.author.get_username()
