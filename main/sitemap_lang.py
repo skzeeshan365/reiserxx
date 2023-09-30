@@ -11,10 +11,10 @@ class DynamicSitemap(Sitemap):
         self.language = language
 
     def items(self):
-        return Post.objects.filter(draft=False).values('author__username', 'slug', 'timestamp').order_by('-timestamp')
+        return Post.objects.filter(draft=False).values('author__username', 'slug', 'timestamp_modified').order_by('-timestamp_modified')
 
     def location(self, post):
         return reverse("translate", args=[post['author__username'], post['slug'], self.language])
 
     def lastmod(self, post):
-        return post['timestamp']
+        return post['timestamp_modified']

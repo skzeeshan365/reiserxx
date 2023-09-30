@@ -37,7 +37,7 @@ class PostSitemap(Sitemap):
         return reverse('open', kwargs={'user': obj.author.username, 'post_slug': obj.slug})
 
     def lastmod(self, obj):
-        return obj.timestamp
+        return obj.timestamp_modified
 
 
 class StaticViewSitemap(Sitemap):

@@ -63,13 +63,15 @@ class Post(models.Model):
     content = models.TextField()
     description = models.CharField(max_length=1000)
     image = models.ImageField(upload_to='thumbnail/', null=True, blank=True)
-    timestamp = models.DateTimeField(max_length=50, auto_now=True)
+    timestamp_created = models.DateTimeField(auto_now_add=True)
+    timestamp_modified = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True, editable=False, max_length=255)
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE)
     author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE, default=None)
     tags = models.ManyToManyField(Tag, related_name='posts')
     draft = models.BooleanField(default=False)
     is_ad = models.BooleanField(default=False)
+
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -124,8 +126,8 @@ class Post(models.Model):
 
     def get_date(self):
         # Format the date_published field as "22 July 2017"
-        if self.timestamp:
-            return self.timestamp.strftime('%d %B, %Y')
+        if self.timestamp_created:
+            return self.timestamp_created.strftime('%d %B, %Y')
         else:
             return 'now'
 

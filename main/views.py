@@ -44,7 +44,7 @@ def load_more_posts(request):
     page = int(request.GET.get('page', 2))
     posts_per_page = 5
 
-    posts_query = Post.objects.filter(draft=False).order_by('-timestamp')
+    posts_query = Post.objects.filter(draft=False).order_by('-timestamp_modified')
     paginator = Paginator(posts_query, posts_per_page)
 
     try:
