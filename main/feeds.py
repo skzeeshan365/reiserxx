@@ -12,7 +12,7 @@ class BlogFeed(Feed):
     template_name = "main/partials/postlist.html"  # Use your custom template
 
     def items(self):
-        return Post.objects.filter(draft=False).order_by('-timestamp_modified')  # Filter published posts
+        return Post.objects.filter(draft=False).only('title', 'description', 'image', 'timestamp_modified', 'author').order_by('-timestamp_modified')  # Filter published posts
 
     def item_title(self, item):
         return item.title  # Title of each post
@@ -28,4 +28,4 @@ class BlogFeed(Feed):
                                         'image/{}'.format(item.image.name.split('.')[-1]))]
 
     def item_pubdate(self, item):
-        return item.timestamp  # Publish date of each post
+        return item.timestamp_modified  # Publish date of each post
