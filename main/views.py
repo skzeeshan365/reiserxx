@@ -25,7 +25,7 @@ from .utils import generate_tags, summarize, gpt_neo_2_7_B, SUPPORTED_LANGUAGES,
 
 
 def home(request):
-    return render(request, 'main/Primary/main.html', {'current_menu': 1, 'page_title': "ReiserX"})
+    return render(request, 'main/Primary/main.html', {'current_menu': 1, 'page_title': "Home - ReiserX"})
 
 
 def load_tags(request):
@@ -223,8 +223,7 @@ def search_by_author(request, username):
 
 
 def about(request):
-    return render(request, 'main/About/about.html',
-                  {'title': "Welcome to ReiserX: Your Portal to Exploring the Boundless Horizons of Knowledge!"})
+    return render(request, 'main/About/about.html')
 
 
 def subscribe(request):
