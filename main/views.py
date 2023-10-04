@@ -53,7 +53,7 @@ def load_more_posts(request):
         return JsonResponse({'rendered_posts': '', 'has_next_page': False})
 
     # Calculate the number of ads to insert
-    num_ads = len(loaded_posts) // 7
+    num_ads = len(loaded_posts) // 3
 
     # Generate a list of unique random indices to insert ads
     ad_indices = random.sample(range(1, len(loaded_posts) + num_ads), num_ads)
