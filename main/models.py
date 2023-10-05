@@ -305,6 +305,8 @@ class TranslatedPost(models.Model):
     translated_description = models.CharField(max_length=1000)
     translated_content = models.TextField()
 
+    is_ad = False
+
     def __str__(self):
         return f"{self.post.title} ({self.language_code})"
 

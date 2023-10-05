@@ -1,0 +1,492 @@
+{% extends 'main/Primary/base.html' %}
+{% load static %}
+{% block meta_tags %}
+    <!-- META TAGS -->
+    <meta property="og:title" content="ReiserX"/>
+    <meta property="og:description" content="Exploring AI, Igniting Innovation"/>
+    <meta property="og:image" content="{% static 'reiserx/img/logo.png' %}"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <!-- META TAGS -->
+{% endblock %}
+{% block content %}
+
+
+    <style>
+        .cc-window {
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(162, 162, 162, 0.5);
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+        }
+
+        .cc-message {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .cc-link {
+            color: #349d00 !important;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .cc-link:hover {
+            color: #d5d5d5;
+        !important;
+            text-decoration: none;
+        }
+
+        .cc-compliance {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .cc-compliance a {
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+        }
+
+        .cc-compliance a:hover {
+            color: #ffffff;
+        }
+
+        .cc-compliance .cc-btn.cc-allow {
+            background-color: #349d00;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .cc-compliance .cc-btn.cc-allow:hover {
+            background-color: #195400;
+            color: #fff;
+        }
+
+        .cc-compliance .cc-btn.cc-deny {
+            background-color: #ffcece;
+            color: #ffffff;
+        !important;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .cc-compliance .cc-btn.cc-deny:hover {
+            background-color: #ff3030;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .center-horizontal {
+            display: flex;
+            justify-content: center;
+        }
+
+        .container.listfeaturedtag {
+            margin: 0;
+            padding: 0;
+        }
+
+        .card.border-0 {
+            margin: 0;
+            padding: 0;
+        }
+
+        .patreon_button:hover {
+            color: #f96854;
+
+        }
+    </style>
+    <div class="row center-horizontal m-0">
+        <div class="col-xs-2 col-sm-4 col-md-6 col-lg-6 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
+            <div class="container-fluid listfeaturedtag">
+                <!-- Begin List Posts -->
+                <div class="section-title">
+                    <h2><span>For you</span></h2>
+                </div>
+                <div class="row" id="post-list">
+
+                    {% for _ in "xxxxx"|slice:":4" %}
+                        <!-- Placeholder post -->
+                        <div class="col-md-10 col-xl-12 col-xs-10 col-sm-8 placeholder-post">
+                            <div class="card border-0">
+                                <div class="card-block">
+                                    <div class="row" style="align-items: center">
+                                        <div class="col-10">
+                                            <h5 class="card-title placeholder-glow placeholder-color">
+                                            <span class="placeholder col-6 placeholder-lg"
+                                                  style="height: 25px; margin-top: 8px"></span>
+                                            </h5>
+                                            <p class="card-text placeholder-glow">
+                                                <span class="placeholder col-7 placeholder-color"
+                                                      style="height: 20px; margin-bottom: 8px; margin-top: 8px"></span>
+                                                <span class="placeholder col-4 placeholder-color"
+                                                      style="height: 20px; margin-bottom: 8px"></span>
+                                                <span class="placeholder col-4 placeholder-color"
+                                                      style="height: 20px; margin-bottom: 8px"></span>
+                                                <span class="placeholder col-6 placeholder-color"
+                                                      style="height: 20px; margin-bottom: 8px"></span>
+                                            </p>
+                                            <div class="metafooter">
+                                                <div class="wrapfooter placeholder-glow">
+                                                    <span class="placeholder col-4 placeholder-color"
+                                                          style="height: 15px"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="thumbnail">
+                                                <div class="card-img-top placeholder placeholder-glow"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End placeholders -->
+                    {% endfor %}
+                </div>
+                <style>
+                    .card-img-top.placeholder {
+                        color: rgb(215, 215, 215);
+                        height: 100px;
+                        width: 100%;
+                    }
+
+                    .placeholder-color {
+                        color: rgb(215, 215, 215);
+                    }
+
+                    .tag-placeholder {
+                        height: 35px;
+                        border-radius: 50px;
+                        margin-top: 2px;
+                        margin-bottom: 2px;
+                    }
+
+                    hr {
+                        background-color: #c0c0c0;
+                    }
+
+                    ul.models {
+                        list-style: none;
+                        padding-left: 0;
+                        margin: 0 0 3rem 0;
+                    }
+
+                    ul.models li {
+                        display: inline-block;
+                        font-size: 1.0rem;
+                        margin-top: 12px;
+                        margin-left: 2px;
+                        margin-right: 2px;
+                        margin-bottom: 12px;
+                    }
+
+                    ul.models li a {
+                        background: #1C9963;
+                        color: rgb(255, 255, 255);
+                        border-radius: 8px;
+                        padding-right: 12px;
+                        padding-left: 12px;
+                        padding-top: 2px;
+                        padding-bottom: 6px;
+                    }
+
+                    ul.models li a:hover {
+                        background: #69b694;
+                        text-decoration: none;
+                    }
+
+                    .model-placeholder {
+                        height: 30px;
+                        border-radius: 8px;
+                        margin-top: 12px;
+                        margin-bottom: 12px;
+                    }
+
+                    ul.models-desc {
+                        list-style: none;
+                        padding-left: 0;
+                        margin: 0 0 3rem 0;
+                    }
+
+                    ul.models-desc li {
+                        display: inline-block;
+                        font-size: 1.0rem;
+                        margin-left: 8px;
+                        margin-right: 8px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 90%;
+                    }
+
+                    ul.models-desc li a {
+                        color: rgb(176, 176, 176);
+                        border-radius: 8px;
+                    }
+
+                    ul.models-desc li a:hover {
+                        color: #00ab6b;
+                        text-decoration: none;
+                    }
+
+                    .models-desc-placeholder {
+                        height: 30px;
+                        border-radius: 8px;
+                        margin-top: 12px;
+                        margin-bottom: 12px;
+                    }
+
+                    .links {
+                        text-decoration: none;
+                        color: #5d5d5d;
+                        font-size: 12px;
+                        position: relative;
+                        font-weight: 600;
+                    }
+
+                    .links:hover {
+                        text-decoration: none;
+                    }
+
+                </style>
+                <style>
+                    .message-container {
+                        text-align: center;
+                        margin: 20px auto;
+                    }
+
+                    .message {
+                        font-family: 'Source Serif Pro', serif;
+                        font-size: 20px;
+                        color: #333;
+                        margin-bottom: 10px;
+                        letter-spacing: 0.01rem;
+                    }
+
+                    .translate-icon {
+                        vertical-align: middle;
+                        margin-left: 5px;
+                        fill: #1c9963;
+                        width: 25px;
+                        height: 25px;
+                    }
+                    .hidden {
+    display: none;
+}
+                </style>
+
+            <div class="message-container">
+                    <p class="message">Posts have not been translated to {{ name }} language yet. If you want to read in
+                        {{ name }} language, open a Post from the home page or search and click on
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#888" class="bi bi-translate translate-icon"
+                             viewBox="0 0 20 20">
+                            <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"></path>
+                            <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z"></path>
+                        </svg>
+                        to read.
+                    </p>
+                </div>
+
+                <div id="sentinel"></div>
+                <!-- End List Posts -->
+
+
+                <!-- Placeholder post -->
+                <div id="placeholder-template" style="display: none;">
+                    <div class="col-md-10 col-xl-12 col-xs-10 col-sm-8 placeholder-post">
+                        <div class="card border-0">
+                            <div class="card-block">
+                                <div class="row" style="align-items: center">
+                                    <div class="col-10">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6 placeholder-lg"
+                                                  style="height: 25px; margin-top: 8px"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"
+                                  style="height: 20px; margin-bottom: 8px; margin-top: 8px"></span>
+                                            <span class="placeholder col-4"
+                                                  style="height: 20px; margin-bottom: 8px"></span>
+                                            <span class="placeholder col-4"
+                                                  style="height: 20px; margin-bottom: 8px"></span>
+                                            <span class="placeholder col-6"
+                                                  style="height: 20px; margin-bottom: 8px"></span>
+                                        </p>
+                                        <div class="metafooter">
+                                            <div class="wrapfooter placeholder-glow">
+                                                <span class="placeholder col-4" style="height: 15px"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="thumbnail">
+                                            <div class="card-img-top placeholder"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End placeholders -->
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-2 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s"
+             style="margin: 50px; position: sticky" id="tag-container">
+
+            <div class="after-post-tags" style="width: 150%; margin-top: 20px">
+                <h1><span>{{ name }}</span></h1>
+                <p style="font-size: 14px; font-weight: 400; color: #5d5d5d">Find posts in {{ name }} language</p>
+            </div>
+
+            <br>
+
+            <!-- Begin reading list -->
+            <div class="after-post-tags" style="width: 150%; margin-top: 20px">
+                <h6><span>Read</span></h6>
+                <p style="font-size: 14px; font-weight: 400; color: #5d5d5d">Click the save icon on any story to save it
+                    to your personal reading collection or a customized list.</p>
+            </div>
+            <!-- End reading list -->
+
+            <!-- Begin reading list -->
+            <div class="after-post-tags" style="width: 150%; margin-top: 20px">
+                <a href="{% url 'policy' %}" class="links">Privacy Policy</a>
+                <a href="{% url 'contact' %}" class="links">Contact us</a>
+                <a href="{% url 'about' %}" class="links">About</a>
+                </p>
+            </div>
+            <!-- End reading list -->
+        </div>
+    </div>
+
+    <!-- JavaScript code -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var currentPage = 1;
+        var loadMoreUrl = "{% url 'load_lang_posts' code %}";
+        var placeholders = [];
+        var placeholderCount = 0;
+        var has_next = true;
+        var isLoading = false; // Flag to track loading state
+
+
+
+        const placeholderElements = document.getElementsByClassName('placeholder-post');
+        placeholderCount = placeholderElements.length;
+
+        for (let i = 0; i < placeholderCount; i++) {
+            const placeholderClone = placeholderElements[i].cloneNode(true);
+            placeholders.push(placeholderClone);
+        }
+
+        function showPlaceholders() {
+            const postList = document.getElementById('post-list');
+
+            // Add placeholders to the post list
+            const placeholderElement = placeholders[0].cloneNode(true);
+            postList.appendChild(placeholderElement);
+        }
+
+
+        function hidePlaceholders() {
+            const placeholders = document.getElementsByClassName('placeholder-post');
+
+            // Remove the placeholders from the post list
+            while (placeholders.length > 0) {
+                placeholders[0].parentNode.removeChild(placeholders[0]);
+            }
+        }
+
+        function loadMorePosts() {
+            if (isLoading) {
+                return; // Return if a request is already in progress
+            }
+
+            isLoading = true; // Set loading state to true
+
+            showPlaceholders();
+
+            $.ajax({
+                url: loadMoreUrl,
+                data: {page: currentPage},
+                dataType: 'json',
+                success: function (response) {
+                    var renderedPosts = response.rendered_posts;
+                    hidePlaceholders();
+                    $('#post-list').append(renderedPosts);
+                    currentPage++;
+                    if (!response.has_next_page) {
+                        $('#load-more-button').hide();
+                        has_next = false;
+                    } else {
+                        has_next = true;
+                    }
+                    isLoading = false; // Set loading state to false after request completes
+
+                    if ($('#post-list').children().length < 2) {
+            $('.message-container').removeClass('hidden'); // Remove the 'hidden' class
+        } else {
+            $('.message-container').addClass('hidden'); // Add the 'hidden' class to hide the container
+        }
+                },
+                error: function () {
+                    hidePlaceholders();
+                    isLoading = false; // Set loading state to false after request completes
+                }
+            });
+        }
+
+        function handleScroll() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollBottom = scrollTop + windowHeight;
+
+            if (scrollBottom >= documentHeight && has_next) {
+                loadMorePosts();
+            }
+        }
+
+        function handleScroll(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && has_next && !isLoading) {
+                    loadMorePosts();
+                }
+            });
+        }
+
+        const sentinel = document.getElementById('sentinel');
+        const observer = new IntersectionObserver(handleScroll, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1, // Adjust this threshold as needed
+        });
+        observer.observe(sentinel);
+
+        loadMorePosts();
+
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'main/Primary/base.html' %}
+{% load static %}
+{% block meta_tags %}
+    <!-- META TAGS -->
+    <meta property="og:title" content="ReiserX"/>
+    <meta property="og:description" content="Exploring AI, Igniting Innovation"/>
+    <meta property="og:image" content="{% static 'reiserx/img/logo.png' %}"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <!-- META TAGS -->
+{% endblock %}
+{% block content %}
+    <style>
+        /* Style the language list container */
+        .language-list {
+            width: 76%;
+            margin: 0 auto;
+        }
+
+        /* Style the list items */
+        .language-item {
+            list-style: none;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #0b2e13;
+        }
+
+        /* Style the search box */
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: #00feff;
+        }
+
+        /* Apply hover effect to list items */
+        .language-item:hover {
+            background-color: #f0f0f0; /* Change the background color on hover */
+            cursor: pointer; /* Change the cursor to a pointer on hover */
+            text-decoration: none;
+        }
+
+        .language-list-container {
+            display: flex;
+            justify-content: space-between; /* Arrange items horizontally with space in between */
+            gap: 20px; /* Add spacing between items */
+        }
+
+        .language-list-left,
+        .language-list-right {
+            margin: 20px;
+            width: calc(75% - 50px); /* Adjust the width as needed and consider gap */
+        }
+
+    </style>
+
+    <div class="language-list language-list-container">
+        <!-- Language list on the left -->
+        <div class="language-list-left">
+            <!-- Search box -->
+            <input type="text" class="search-box" id="language-search" placeholder="Search languages...">
+            <!-- Language list -->
+            <!-- Language list -->
+            {% for language in languages %}
+                <a href="{% url 'lang_posts_page' language.code %}" style="text-decoration: none;">
+                    <li class="language-item">
+                        <span>{{ language.name }}</span>
+                        <span>{{ language.code }}</span>
+                    </li>
+                </a>
+            {% endfor %}
+
+            <!-- Message when no results are found -->
+            <p id="no-results-message" style="display: none;">No results found for the search</p>
+        </div>
+
+
+        <!-- Message on the right -->
+        <div class="language-list-right">
+            <!-- Message when no results are found -->
+            <h1>AI Powered Multilingual Reading</h1>
+            <p>Explore our articles in over 150 languages with our Multilingual AI Reading feature. Make knowledge accessible to a global audience.</p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the input element and the language items
+            const searchInput = document.getElementById("language-search");
+            const languageItems = document.querySelectorAll(".language-item");
+            const noResultsMessage = document.getElementById("no-results-message");
+
+
+            // Add an event listener to the input element for the "input" event
+            searchInput.addEventListener("input", function () {
+                const searchTerm = searchInput.value.toLowerCase();
+                let noResults = true; // Initialize a flag for no results
+
+
+                // Loop through the language items and show/hide them based on the search term
+                languageItems.forEach(function (item) {
+                    const languageName = item.querySelector("span:first-child").textContent.toLowerCase();
+                    const languageCode = item.querySelector("span:last-child").textContent.toLowerCase();
+                    const shouldShow = languageName.includes(searchTerm) || languageCode.includes(searchTerm);
+                    item.style.display = shouldShow ? "flex" : "none";
+
+                    // If any item matches the search, set the noResults flag to false
+                    if (shouldShow) {
+                        noResults = false;
+                    }
+                });
+
+                // Show/hide the message based on whether there are no results
+                if (noResults) {
+                    noResultsMessage.style.display = "block";
+                } else {
+                    noResultsMessage.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+{% endblock %}

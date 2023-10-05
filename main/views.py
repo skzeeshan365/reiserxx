@@ -16,7 +16,7 @@ from django.template.loader import render_to_string
 from djangoProject1 import settings
 from . import utils
 from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm, TagModelForm, WhisperModelForm
-from .models import Category, Subscriber, Comment, Reply, Summary
+from .models import Category, Subscriber, Comment, Reply, Summary, TranslatedPost
 from .models import Post, Contact
 from .models import Tag
 from .sitemap_lang import DynamicSitemap
@@ -616,3 +616,44 @@ def sitemap_index(request):
 
     # Return the sitemap index XML as an HttpResponse
     return HttpResponse(sitemap_index_xml, content_type='application/xml')
+
+
+def lang_page(request):
+    return render(request, 'main/Languages/languages.html', {'languages': language_list, 'current_menu': 1, 'page_title': f"Languages - ReiserX"})
+
+
+def lang_posts_page(request, code):
+    language_dict = {language['code']: language for language in language_list}
+    return render(request, 'main/Languages/posts.html', {'current_menu': 1, 'page_title': f"Home - {language_dict[code]['name']} - ReiserX", 'code': code, 'name': language_dict[code]['name']})
+
+
+def load_lang_posts(request, code):
+    page = int(request.GET.get('page', 2))
+    posts_per_page = 5
+
+    posts_query = TranslatedPost.objects.filter(language_code=code).order_by('-id')
+    paginator = Paginator(posts_query, posts_per_page)
+
+    try:
+        loaded_posts = paginator.page(page)
+    except Exception:
+        return JsonResponse({'rendered_posts': '', 'has_next_page': False})
+
+    num_ads = len(loaded_posts) // 3
+
+    ad_indices = random.sample(range(1, len(loaded_posts) + num_ads), num_ads)
+
+    combined_list = []
+    for index, post in enumerate(loaded_posts):
+        combined_list.append(post)
+        if index + 1 in ad_indices:
+            post = TranslatedPost()
+            post.is_ad = True
+            ad_placeholder = post  # Create an ad placeholder object
+            combined_list.append(ad_placeholder)
+
+    rendered_posts = render_to_string('main/partials/postlist_lang.html', {'all_posts': loaded_posts})
+
+    has_next_page = loaded_posts.has_next()
+
+    return JsonResponse({'rendered_posts': rendered_posts, 'has_next_page': has_next_page})

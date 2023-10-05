@@ -36,6 +36,10 @@ urlpatterns = [
     path('terms-of-service/', views.terms, name='terms_of_service'),
     path('refund-policy/', views.refund, name='refund_policy'),
 
+    path('languages/', views.lang_page, name='lang_page'),
+    path('<str:code>/', views.lang_posts_page, name='lang_posts_page'),
+    path('languages/<str:code>/', views.load_lang_posts, name='load_lang_posts'),
+
     path('comment_reply/<int:comment_id>/', views.post_reply, name='post_reply'),
     re_path(r'^(?P<user>[^/]+)/(?P<post_slug>[^/]+)/$', views.open_post, name='open'),
     re_path(r'^(?P<username>[a-zA-Z0-9]{3,})/$', views.search_by_author, name='search_by_author'),

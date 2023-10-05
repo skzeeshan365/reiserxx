@@ -1,0 +1,84 @@
+<style>
+    .ads-container {
+        overflow-x: hidden;
+    }
+</style>
+{% for lang_post in all_posts %}
+    {% if lang_post.is_ad is True %}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-g9-1d-y-mw+19t"
+     data-ad-client="ca-pub-1588658066763563"
+     data-ad-slot="5361957873"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    {% elif lang_post.is_ad is not True%}
+
+     <!-- begin post -->
+                        <div class="col-xs-8 col-sm-10 col-md-12 col-lg-12 col-xl-12">
+                            <div class="card border-0">
+                                <div class="card-block">
+                                    <div class="row" style="align-items: center">
+                                        <div class="col-10">
+                                            <div class="metafooter">
+                                                <div class="wrapfooter">
+                                            <span class="author-meta">
+                                                <img class="rounded-circle"
+                                                     src="{{ lang_post.post.author.userprofile.image.url }}" alt="Profile Icon"
+                                                     width="24" height="24">
+                                                <span class="post-name">
+                                                    <a href="{% url 'search_by_author' lang_post.post.get_author_name %}"
+                                                       aria-label="{{ lang_post.post.get_author_name }}">{{ lang_post.post.get_author_name }}</a>
+                                                </span>
+                                                <span class="dot">
+                                                </span>
+                                                <span class="post-date">{{ lang_post.post.get_date }}</span>
+                                            </span>
+                                                </div>
+                                            </div>
+                                            <h2 class="card-title">
+                                                <a href="{% url 'translate' lang_post.post.get_author_name lang_post.post.slug lang_post.language_code %}"
+                                                   aria-label="{{ lang_post.translated_title }}">{{ lang_post.translated_title }}</a>
+                                            </h2>
+                                            <p class="card-text">
+                                                <a href="{% url 'translate' lang_post.post.get_author_name lang_post.post.slug lang_post.language_code %}">{{ lang_post.translated_description }}</a>
+                                            </p>
+                                            <div class="metafooter">
+                                                <div class="wrapfooter">
+                                                    <span class="author-meta">
+                                                        <span class="post-date"><a style="font-weight: 500; color: unset; text-decoration: none;" href="{% url 'search_by_category' lang_post.post.category.slug %}">{{ lang_post.post.category.category }}</a></span>
+                                                        <span class="dot"></span>
+                                                        <span class="post-read">{{ lang_post.post.get_reading_time }} min read</span>
+                                                    </span>
+
+                                                    <span class="post-read-more" style="margin-top: unset">
+                                                        <a href="{% url 'translate' lang_post.post.get_author_name lang_post.post.slug lang_post.language_code %}" title="Save">
+                                                            <svg class="svgIcon-use" width="20" height="22" viewbox="0 0 20 22">
+                                                                <path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path>
+                                                            </svg>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="thumbnail-wrapper">
+                                                <a href="{% url 'translate' lang_post.post.get_author_name lang_post.post.slug lang_post.language_code %}">
+                                                    <div class="thumbnail"
+                                                         style="background-image: url('{{ lang_post.post.image.url }}?f_auto,q_auto');"
+                                                         role="img" aria-label="{{ lang_post.title }}"></div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end post -->
+    {% endif %}
+    {% endfor %}
