@@ -152,7 +152,7 @@
 </div>
 <script>
     grecaptcha.ready(function () {
-        grecaptcha.execute('{{ SITE_KEY }}', {action: 'model/generation/image/'}).then(function (token) {
+        grecaptcha.execute('{{ SITE_KEY }}', {action: "{% url 'stable_diffusion' %}"}).then(function (token) {
             document.getElementById('id_recaptcha_response').value = token;
         });
     });
@@ -196,7 +196,7 @@
                             beforeSend: function () {
                                 $submit.css('display', 'block').text(waitText);
                                 grecaptcha.ready(function () {
-                                    grecaptcha.execute('{{ SITE_KEY }}', {action: 'model/generation/image/'}).then(function (token) {
+                                    grecaptcha.execute('{{ SITE_KEY }}', {action: "{% url 'stable_diffusion' %}"}).then(function (token) {
                                         document.getElementById('id_recaptcha_response').value = token;
                                     });
                                 });

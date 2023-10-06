@@ -13,12 +13,12 @@ urlpatterns = [
     path('loadcategories/', views.load_categories, name='load_categories'),
 
     # AI Models
-    path('model/generation/image/', views.stable_diffusion, name='stable_diffusion'),
-    path('model/generation/tags/', views.tag_generation, name='tag_generation'),
-    path('model/summarization/summarize/', views.summarize_text, name='summary_generation'),
-    path('model/api/summarization/summarize/', views.summarize_text_api, name='summary_generation_api'),
-    path('model/generation/text/', views.generation_gpt_neo_2_7_B, name='text_generation'),
-    path('model/transcription/whisper/', views.transcribe, name='transcription'),
+    path('ai/generation/image/', views.stable_diffusion, name='stable_diffusion'),
+    path('ai/generation/tags/', views.tag_generation, name='tag_generation'),
+    path('ai/summarization/summarize/', views.summarize_text, name='summary_generation'),
+    path('ai/api/summarization/summarize/', views.summarize_text_api, name='summary_generation_api'),
+    path('ai/generation/text/', views.generation_gpt_neo_2_7_B, name='text_generation'),
+    path('ai/transcription/whisper/', views.transcribe, name='transcription'),
 
     path('feed/rss/', BlogFeed(), name='rss_feed'),  # URL for RSS feed
 

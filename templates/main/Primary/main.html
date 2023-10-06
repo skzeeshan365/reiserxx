@@ -542,10 +542,10 @@ ul.models-desc li a:hover {
     <script>
 
     const models = [
-        { name: "Text generation", link: "model/generation/text/" },
-        { name: "Image generation", link: "model/generation/image/" },
-        { name: "Tag generation", link: "model/generation/tags/" },
-        { name: "Summary generation", link: "model/summarization/summarize/" },
+        { name: "Text generation", link: "{% url 'text_generation' %}" },
+        { name: "Image generation", link: "{% url 'stable_diffusion' %}" },
+        { name: "Tag generation", link: "{% url 'tag_generation' %}" },
+        { name: "Summary generation", link: "{% url 'summary_generation' %}" },
         { name: "Transcription", link: "{% url 'transcription' %}" },
     ];
 
