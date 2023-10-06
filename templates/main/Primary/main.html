@@ -313,12 +313,23 @@ ul.models-desc li a:hover {
                     <li class="placeholder-glow placeholder-color m-0"><span class="placeholder model-placeholder"
                                                                              style="width: 150px;"></span></li>
                 </ul>
-                <ul class="models-desc" id="model-desc-list" style="margin: unset">
-                    <li class="placeholder-glow placeholder-color m-0"><span class="placeholder models-desc-placeholder"
-                                                                             style="width: 200px;"></span></li>
-                </ul>
             </div>
             <!-- End AI -->
+            <hr>
+
+            <!-- Begin updates -->
+            <div class="after-post-tags" style="width: 150%; margin-top: 20px; align-items: center">
+                <h6><span>Learn More About AI</span></h6>
+
+                <a href="https://www.amazon.in/Artificial-Intelligence-Learning-Beginners-Networking/dp/1801206066?crid=2KW6WU70Z7D5S&keywords=Ai+books&qid=1696607153&sprefix=ai+book%2Caps%2C241&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1&linkCode=li3&tag=reiserx-21&linkId=bccb4e950c64356ca52f4dd1a59077ae&language=en_IN&ref_=as_li_ss_il" target="_blank">
+                    <img border="0" src="//ws-in.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=1801206066&Format=_SL250_&ID=AsinImage&MarketPlace=IN&ServiceVersion=20070822&WS=1&tag=reiserx-21&language=en_IN" >
+                </a>
+                <img src="https://ir-in.amazon-adsystem.com/e/ir?t=reiserx-21&language=en_IN&l=li3&o=31&a=1801206066" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+
+                <a href="https://www.amazon.in/2041-Paperback-Qiufan-Chen-Kai-Fu/dp/0753559013?crid=NLST4ZHSIZ2V&keywords=AI+2041%3A+Ten+Visions+for+Our+Future&qid=1696608016&s=books&sprefix=ai+2041+ten+visions+for+our+future%2Cstripbooks%2C200&sr=1-1&linkCode=li3&tag=reiserx-21&linkId=b27ec90f797ef1b819312395123a6e95&language=en_IN&ref_=as_li_ss_il" target="_blank"><img border="0" src="//ws-in.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=0753559013&Format=_SL250_&ID=AsinImage&MarketPlace=IN&ServiceVersion=20070822&WS=1&tag=reiserx-21&language=en_IN" ></a><img src="https://ir-in.amazon-adsystem.com/e/ir?t=reiserx-21&language=en_IN&l=li3&o=31&a=0753559013" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+            </div>
+            <!-- End updates -->
+
             <hr>
 
             <!-- Begin Tags -->
@@ -366,6 +377,7 @@ ul.models-desc li a:hover {
             </div>
             <!-- End Tags -->
             <hr>
+
             <!-- Begin updates -->
             <div class="after-post-tags" style="width: 150%; margin-top: 20px; align-items: center">
                 <h6><span>Get updates</span></h6>
@@ -540,21 +552,12 @@ ul.models-desc li a:hover {
     </script>
 
     <script>
-
     const models = [
         { name: "Text generation", link: "{% url 'text_generation' %}" },
         { name: "Image generation", link: "{% url 'stable_diffusion' %}" },
         { name: "Tag generation", link: "{% url 'tag_generation' %}" },
         { name: "Summary generation", link: "{% url 'summary_generation' %}" },
         { name: "Transcription", link: "{% url 'transcription' %}" },
-    ];
-
-    const models_desc = [
-        { name: "Introducing ReiserX AI Text Generation: Unleash the Power of Text Generation", link: "/reiserx/introducing-reiserx-ai-image-generation-unleashing-the-power-of-image-generation/" },
-        { name: "Introducing ReiserX AI Image generation: Unleashing the Power of Image Generation", link: "/reiserx/introducing-reiserx-ai-image-generation-unleashing-the-power-of-image-generation/" },
-        { name: "Introducing ReiserX AI Tag Generation: Unleash the Power of Tag Generation", link: "/reiserx/introducing-reiserx-ai-tag-generation-unleash-the-power-of-tag-generation/" },
-        { name: "Introducing ReiserX AI Summary Generation: Unleash the Power of Summary Generation", link: "https://reiserx.com/reiserx/introducing-reiserx-ai-summary-generation-unleash-the-power-of-summary-generation/" },
-        { name: "Introducing ReiserX AI Transcription: Convert Your Voice to Text with Ease", link: "/reiserx/introducing-reiserx-ai-transcription-convert-your-voice-to-text-with-ease/" },
     ];
 
     function renderModels(models) {
@@ -572,95 +575,81 @@ ul.models-desc li a:hover {
 
             modelList.appendChild(listItem);
         });
+    }
 
-        const model_desc_List = document.getElementById('model-desc-list');
-        model_desc_List.innerHTML = ''; // Clear existing models
+    function renderTags(tags) {
+        const tagList = document.getElementById('tag-list');
+        tagList.innerHTML = ''; // Clear existing tags
 
-        models_desc.forEach(model => {
-            const model_desc_Link = document.createElement('a');
-            model_desc_Link.classList.add('model-desc-link');
-            model_desc_Link.href = model.link;
-            model_desc_Link.textContent = model.name;
+        tags.forEach(tag => {
+            const tagLink = document.createElement('a');
+            tagLink.href = getTagURL(tag.slug);
+            tagLink.textContent = tag.name;
+            tagLink.classList.add('tag-link');
 
             const listItem = document.createElement('li');
-            listItem.appendChild(model_desc_Link);
+            listItem.appendChild(tagLink);
 
-            model_desc_List.appendChild(listItem);
+            tagList.appendChild(listItem);
         });
     }
 
-        function renderTags(tags) {
-            const tagList = document.getElementById('tag-list');
-            tagList.innerHTML = ''; // Clear existing tags
+    // Function to generate the tag URL
+    function getTagURL(slug) {
+        return "/tag/" + slug;
+    }
 
-            tags.forEach(tag => {
-                const tagLink = document.createElement('a');
-                tagLink.href = getTagURL(tag.slug);
-                tagLink.textContent = tag.name;
-                tagLink.classList.add('tag-link');
+    // Function to check if the screen size is desktop
+    function isDesktopScreen() {
+        return window.innerWidth >= 992;
+    }
 
-                const listItem = document.createElement('li');
-                listItem.appendChild(tagLink);
+    // Check if the screen size is desktop
+    if (isDesktopScreen()) {
+        // AJAX request to fetch the tags
+        $.ajax({
+            url: "{% url 'load_tags' %}",
+            dataType: 'json',
+            success: function (response) {
+                const tags = response.tags;
+                renderTags(tags);
+                renderModels(models);
+            },
+            error: function () {
+                console.log("Failed to load tags.");
+            }
+        });
 
-                tagList.appendChild(listItem);
-            });
-        }
+    } else {
+        // Hide the tag container for smaller screens
+        const tagContainer = document.getElementById('tag-container');
+        tagContainer.style.display = 'none';
+    }
 
-        // Function to generate the tag URL
-        function getTagURL(slug) {
-            return "/tag/" + slug;
-        }
-
-        // Function to check if the screen size is desktop
-        function isDesktopScreen() {
-            return window.innerWidth >= 992;
-        }
-
-        // Check if the screen size is desktop
+    // Event listener to recheck screen size on window resize
+    window.addEventListener('resize', function () {
         if (isDesktopScreen()) {
-            // AJAX request to fetch the tags
+            const tagContainer = document.getElementById('tag-container');
+            tagContainer.style.display = ''; // Show the tag container
+            // Execute the AJAX request to fetch and render the tags
             $.ajax({
                 url: "{% url 'load_tags' %}",
                 dataType: 'json',
                 success: function (response) {
                     const tags = response.tags;
                     renderTags(tags);
-                    renderModels(models);
                 },
                 error: function () {
                     console.log("Failed to load tags.");
                 }
             });
-
         } else {
-            // Hide the tag container for smaller screens
             const tagContainer = document.getElementById('tag-container');
-            tagContainer.style.display = 'none';
+            tagContainer.style.display = 'none'; // Hide the tag container
         }
+    });
+</script>
 
-        // Event listener to recheck screen size on window resize
-        window.addEventListener('resize', function () {
-            if (isDesktopScreen()) {
-                const tagContainer = document.getElementById('tag-container');
-                tagContainer.style.display = ''; // Show the tag container
-                // Execute the AJAX request to fetch and render the tags
-                $.ajax({
-                    url: "{% url 'load_tags' %}",
-                    dataType: 'json',
-                    success: function (response) {
-                        const tags = response.tags;
-                        renderTags(tags);
-                    },
-                    error: function () {
-                        console.log("Failed to load tags.");
-                    }
-                });
-            } else {
-                const tagContainer = document.getElementById('tag-container');
-                tagContainer.style.display = 'none'; // Hide the tag container
-            }
-        });
-    </script>
 
     <script>
     function renderCategories(categories) {
