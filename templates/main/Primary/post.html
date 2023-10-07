@@ -204,6 +204,20 @@
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
             crossorigin="anonymous"></script>
+    <script>
+    // Get the right-side section element
+    const rightSideSection = document.querySelector('.right-side-section');
+
+    // Get the main content element
+    const mainContent = document.querySelector('.col-md-8');
+
+    // Calculate the maximum height for the right-side section based on the main content's height
+    const maxHeight = mainContent.offsetHeight;
+
+    // Set the maximum height for the right-side section
+    rightSideSection.style.maxHeight = maxHeight + 'px';
+
+</script>
 </head>
 <body>
 
@@ -825,20 +839,7 @@
         });
     });
 </script>
-<script>
-    // Get the right-side section element
-    const rightSideSection = document.querySelector('.right-side-section');
 
-    // Get the main content element
-    const mainContent = document.querySelector('.col-md-8');
-
-    // Calculate the maximum height for the right-side section based on the main content's height
-    const maxHeight = mainContent.offsetHeight;
-
-    // Set the maximum height for the right-side section
-    rightSideSection.style.maxHeight = maxHeight + 'px';
-
-</script>
 <script>
     // Function to remove the right section by its ID
     function removeRightSectionById() {
