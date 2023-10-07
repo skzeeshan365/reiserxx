@@ -206,20 +206,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<script>
-    // Get the right-side section element
-    const rightSideSection = document.querySelector('.right-side-section');
 
-    // Get the main content element
-    const mainContent = document.querySelector('.col-md-8');
-
-    // Calculate the maximum height for the right-side section based on the main content's height
-    const maxHeight = mainContent.offsetHeight;
-
-    // Set the maximum height for the right-side section
-    rightSideSection.style.maxHeight = maxHeight + 'px';
-
-</script>
 <!-- Begin Nav
 ================================================== -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation">
@@ -401,7 +388,7 @@
         <!-- End Post -->
 
         <!-- Right Side Section -->
-        <div class="col-md-4 col-xs-2 after-post-models right-side-section">
+        <div id="right-section" class="col-md-4 col-xs-2 after-post-models right-side-section">
             <!-- Your right-side content goes here -->
 
             <div class="container">
@@ -837,6 +824,42 @@
             });
         });
     });
+</script>
+<script>
+    // Get the right-side section element
+    const rightSideSection = document.querySelector('.right-side-section');
+
+    // Get the main content element
+    const mainContent = document.querySelector('.col-md-8');
+
+    // Calculate the maximum height for the right-side section based on the main content's height
+    const maxHeight = mainContent.offsetHeight;
+
+    // Set the maximum height for the right-side section
+    rightSideSection.style.maxHeight = maxHeight + 'px';
+
+</script>
+<script>
+    // Function to remove the right section by its ID
+    function removeRightSectionById() {
+        var rightSection = document.getElementById('right-section'); // Replace 'yourRightSectionId' with the actual ID
+        if (rightSection) {
+            rightSection.parentNode.removeChild(rightSection); // Remove the right section
+        }
+    }
+
+    // Check if the screen width is less than or equal to 767px (mobile)
+    function checkScreenWidth() {
+        if (window.innerWidth <= 767) {
+            removeRightSectionById(); // Call the function to remove the right section
+        }
+    }
+
+    // Listen for window resize events
+    window.addEventListener('resize', checkScreenWidth);
+
+    // Initial check when the page loads
+    checkScreenWidth();
 </script>
 </body>
 </html>
