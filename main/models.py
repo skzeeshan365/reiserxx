@@ -20,7 +20,10 @@ from django.utils.text import slugify
 from google.cloud import translate
 from google.oauth2 import service_account
 
+from shortuuidfield import ShortUUIDField  # Import ShortUUIDField
+
 from main import utils
+from main.utils import generate_unique_short_slug
 
 
 class Category(models.Model):
@@ -71,7 +74,6 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, related_name='posts')
     draft = models.BooleanField(default=False)
     is_ad = models.BooleanField(default=False)
-
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -287,6 +289,18 @@ class Post(models.Model):
             return self.summary.get(post=self).summary
         except Summary.DoesNotExist:
             return None
+
+
+class PostLink(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='post_link')
+    short_slug = ShortUUIDField(unique=True, editable=False)
+
+
+@receiver(post_save, sender=Post)
+def create_short_slug(sender, instance, created, **kwargs):
+    if created:
+        short_slug = generate_unique_short_slug()  # Generate a unique short slug
+        PostLink.objects.create(post=instance, short_slug=short_slug)
 
 
 class Summary(models.Model):

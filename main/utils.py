@@ -1,11 +1,13 @@
 import io
 import json
+import uuid
 
 import cloudinary
 import vocalhost
 from PIL import Image
 from cloudinary.uploader import upload
 from sendgrid import Mail, SendGridAPIClient
+from shortuuidfield import ShortUUIDField
 
 from djangoProject1 import settings
 
@@ -236,3 +238,7 @@ def whisper(url):
     response = requests.post(API_URL, headers=headers, data=data)
     os.remove(audio)
     return response.json()['text']
+
+
+def generate_unique_short_slug():
+    return str(uuid.uuid4())[:8]

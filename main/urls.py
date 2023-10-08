@@ -31,14 +31,18 @@ urlpatterns = [
     path('tag/<slug:tag_slug>/', views.search_by_tag, name='search_by_tag'),
     path('category/', views.categories, name='category'),
     path('category/<slug:category_slug>/', views.search_by_category, name='search_by_category'),
-    path('<str:user>/<slug:post_slug>/<str:code>/', views.translate_post, name='translate'),
     path('privacy-policy/', views.policy, name='policy'),
     path('terms-of-service/', views.terms, name='terms_of_service'),
     path('refund-policy/', views.refund, name='refund_policy'),
 
+    path('share/<str:short_slug>/', views.open_shared_post, name='open_shared'),
+
     path('languages/', views.lang_page, name='lang_page'),
-    path('<str:code>/', views.lang_posts_page, name='lang_posts_page'),
-    path('languages/<str:code>/', views.load_lang_posts, name='load_lang_posts'),
+    path('languages/<str:code>/', views.lang_posts_page, name='lang_posts_page'),
+    path('api/languages/<str:code>/', views.load_lang_posts, name='load_lang_posts'),
+
+
+    path('<str:user>/<slug:post_slug>/<str:code>/', views.translate_post, name='translate'),
 
     path('comment_reply/<int:comment_id>/', views.post_reply, name='post_reply'),
     re_path(r'^(?P<user>[^/]+)/(?P<post_slug>[^/]+)/$', views.open_post, name='open'),

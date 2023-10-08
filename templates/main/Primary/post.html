@@ -202,22 +202,89 @@
 
     </style>
 
+    <style>
+
+    .modal-title {
+        font-weight: 900
+    }
+
+    .modal-content {
+        border-radius: 13px
+    }
+
+    .modal-body {
+        color: #3b3b3b
+    }
+
+    .img-thumbnail {
+        border-radius: 33px;
+        width: 61px;
+        height: 61px
+    }
+
+    .fab:before {
+        position: relative;
+        top: 13px
+    }
+
+    .smd {
+        width: 200px;
+        font-size: small;
+        text-align: center
+    }
+
+    .modal-footer {
+        display: block
+    }
+
+    .ur {
+        border: none;
+        background-color: #e6e2e2;
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px
+    }
+
+    .cpy {
+        border: none;
+        background-color: #e6e2e2;
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+        cursor: pointer
+    }
+
+    button.focus,
+    button:focus {
+        outline: 0;
+        box-shadow: none !important
+    }
+
+    .ur.focus,
+    .ur:focus {
+        outline: 0;
+        box-shadow: none !important
+    }
+
+    .message {
+        font-size: 11px;
+        color: #ee5535
+    }</style>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
             crossorigin="anonymous"></script>
     <script>
-    // Get the right-side section element
-    const rightSideSection = document.querySelector('.right-side-section');
+        // Get the right-side section element
+        const rightSideSection = document.querySelector('.right-side-section');
 
-    // Get the main content element
-    const mainContent = document.querySelector('.col-md-8');
+        // Get the main content element
+        const mainContent = document.querySelector('.col-md-8');
 
-    // Calculate the maximum height for the right-side section based on the main content's height
-    const maxHeight = mainContent.offsetHeight;
+        // Calculate the maximum height for the right-side section based on the main content's height
+        const maxHeight = mainContent.offsetHeight;
 
-    // Set the maximum height for the right-side section
-    rightSideSection.style.maxHeight = maxHeight + 'px';
+        // Set the maximum height for the right-side section
+        rightSideSection.style.maxHeight = maxHeight + 'px';
 
-</script>
+    </script>
 </head>
 <body>
 
@@ -366,7 +433,25 @@
                 </ul>
             </div>
             <!-- End Tags -->
-            <div class="row listrecent listrelated">
+
+            <div class="after-post-tags d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img width="30" height="30" src="{% static 'reiserx/img/clap.png' %}" alt="Clap Icon">
+                    <small style="margin-top: 5px; margin-left: 5px;">0</small>
+                </div>
+
+                <div>
+                    <button data-toggle="modal" data-target="#exampleModal" class="btn subscribe">
+                        <i class="fas fa-hand-peace"></i> SHARE
+                    </button>
+
+                    {% include 'main/Primary/share.html' %}
+
+                </div>
+            </div>
+
+            <br>
+            <div class="row listrecent listrelated" style="margin-top: 50px;">
 
                 {% for post in related %}
                     <!-- begin post -->
@@ -462,29 +547,30 @@
 
                 <br>
 
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
-     crossorigin="anonymous"></script>
-<!-- sidebar_display_ad -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-1588658066763563"
-     data-ad-slot="1344560231"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+                <script async
+                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
+                        crossorigin="anonymous"></script>
+                <!-- sidebar_display_ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1588658066763563"
+                     data-ad-slot="1344560231"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
 
             </div>
         </div>
     </div>
     <!-- End Right Side Section -->
 
-<!-- Begin Related
-================================================== -->
+    <!-- Begin Related
+    ================================================== -->
 
 
-<br>
+    <br>
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
             {% for comment in comments %}

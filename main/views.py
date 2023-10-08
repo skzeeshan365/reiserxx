@@ -16,7 +16,7 @@ from django.template.loader import render_to_string
 from djangoProject1 import settings
 from . import utils
 from .forms import CommentForm, ContactForm, SubscriberForm, StableDiffusionForm, TagModelForm, WhisperModelForm
-from .models import Category, Subscriber, Comment, Reply, Summary, TranslatedPost
+from .models import Category, Subscriber, Comment, Reply, Summary, TranslatedPost, PostLink
 from .models import Post, Contact
 from .models import Tag
 from .sitemap_lang import DynamicSitemap
@@ -101,6 +101,11 @@ def open_post(request, user, post_slug):
                 'code': 'en'}
 
     return render(request, 'main/Primary/post.html', contents)
+
+
+def open_shared_post(request, short_slug):
+    post = get_object_or_404(PostLink, short_slug=short_slug)
+    return redirect('open', user=post.post.author, post_slug=post.post.slug)
 
 
 def post_reply(request, comment_id):
@@ -624,7 +629,8 @@ def lang_page(request):
 
 def lang_posts_page(request, code):
     language_dict = {language['code']: language for language in language_list}
-    return render(request, 'main/Languages/posts.html', {'current_menu': 1, 'page_title': f"Home - {language_dict[code]['name']} - ReiserX", 'code': code, 'name': language_dict[code]['name']})
+    name = language_dict[code]['name']
+    return render(request, 'main/Languages/posts.html', {'current_menu': 1, 'page_title': f"Home - {name} - ReiserX", 'code': code, 'name': name})
 
 
 def load_lang_posts(request, code):
