@@ -237,13 +237,13 @@ class Post(models.Model):
     @staticmethod
     def search_by_title(query):
         return Post.objects.filter(title__icontains=query, draft=False).only('title', 'description', 'content', 'image',
-                                                                             'timestamp',
+                                                                             'timestamp_created',
                                                                              'author')
 
     @classmethod
     def get_posts_by_user(cls, user):
         return cls.objects.filter(author=user, draft=False).only('title', 'description', 'content', 'image',
-                                                                 'timestamp')
+                                                                 'timestamp_created')
 
     def translate(self, code):
         try:
