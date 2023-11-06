@@ -1,11 +1,80 @@
-const count = document.getElementById('count');
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Message</title>
+
+  <link rel="stylesheet" href="{% static 'birthday/styles/flexbox-center-container.css' %}" media="all">
+  <link rel="stylesheet" href="{% static 'birthday/styles/system-fonts.css' %}" media="all">
+  <link rel="stylesheet" href="{% static 'birthday/styles/style.css' %}" media="all">
+    <!-- Custom styles for this template -->
+    <link href="{% static '/reiserx/css/mediumish-v2.css' %}" rel="stylesheet">
+
+    <style>
+        .btn.subscribe {
+  position: fixed;
+  left: 45%;
+  bottom: 230px; /* Adjust this value to set the desired distance from the bottom */
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 12px;
+            padding-right: 12px;
+            font-size: 16px;
+            z-index: 2;
+            text-decoration: none;
+}
+
+        .btn.subscribe:first-child {
+  left: 45%; /* Adjust this value to set the position of the first button */
+}
+
+.btn.subscribe:last-child {
+  left: 50%; /* Adjust this value to set the position of the second button */
+}
+.giftbox:after {
+  content: "Open"; !important;
+}
+    </style>
+</head>
+
+<body>
+  <canvas id=c></canvas>
+  <canvas id="confetti"></canvas>
+  <div class="container" id="count">
+    <h1 id="head">Countdown to your birthday:</h1>
+    <ul>
+      <li><span id="day"></span>days</li>
+      <li><span id="hour"></span>hours</li>
+      <li><span id="minute"></span>minutes</li>
+      <li><span id="second"></span>seconds</li>
+    </ul>
+  </div>
+  <div id="merrywrap" class="merrywrap">
+    <canvas id="snowfall"></canvas>
+<div class="giftbox">
+      <div class="cover">
+        <div></div>
+      </div>
+      <div class="box"></div>
+    </div>
+      <a href="{% url 'message_yes2'%}" class="btn subscribe">HA QUBUL HAI</a>
+
+  </div>
+</body>
+<script src="{% static 'birthday/scripts/confetti.min.js' %}" charset="utf-8"></script>
+<script>
+    const count = document.getElementById('count');
 const head = document.getElementById('head');
 const giftbox = document.getElementById('merrywrap');
 const canvasC = document.getElementById('c');
 
 const config = {
   birthdate: 'Jan 29, 2020',
-  name: "MS ALIZEH" //naam idhar daalna ghadhe
+  name: "SACHME" //naam idhar daalna ghadhe
 };
 
 function hideEverything() {
@@ -48,7 +117,7 @@ x = setInterval(function() {
     hw = w / 2, // half-width
     hh = h / 2,
     opts = {
-      strings: [config.name, 'ON MEHER OF 100 CHOCOLATES', 'KYA APKO QUBUL HAI?'], //aur yaha greetings
+      strings: [config.name, 'QUBUL HAI?'], //aur yaha greetings
       charSize: 30,
       charSpacing: 35,
       lineHeight: 40,
@@ -494,3 +563,7 @@ x = setInterval(function() {
     init();
   }
 }, second);
+
+</script>
+
+</html>

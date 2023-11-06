@@ -6,11 +6,38 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>Apsa</title>
+  <title>Message</title>
 
   <link rel="stylesheet" href="{% static 'birthday/styles/flexbox-center-container.css' %}" media="all">
   <link rel="stylesheet" href="{% static 'birthday/styles/system-fonts.css' %}" media="all">
   <link rel="stylesheet" href="{% static 'birthday/styles/style.css' %}" media="all">
+    <!-- Custom styles for this template -->
+    <link href="{% static '/reiserx/css/mediumish-v2.css' %}" rel="stylesheet">
+
+    <style>
+        .btn.subscribe {
+  position: fixed;
+  left: 45%;
+  bottom: 230px; /* Adjust this value to set the desired distance from the bottom */
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 12px;
+            padding-right: 12px;
+            font-size: 16px;
+              z-index: 2; /* Add this line to ensure the buttons are on top */
+            text-decoration: none;
+
+}
+
+        .btn.subscribe:first-child {
+  left: 45%; /* Adjust this value to set the position of the first button */
+}
+
+.btn.subscribe:last-child {
+  left: 50%; /* Adjust this value to set the position of the second button */
+}
+
+    </style>
 </head>
 
 <body>
@@ -33,6 +60,9 @@
       </div>
       <div class="box"></div>
     </div>
+<a href="{% url 'message_no' %}" class="btn subscribe">NAHI</a>
+      <a href="{% url 'message_yes' %}" class="btn subscribe">QUBUL HAI</a>
+
   </div>
 </body>
 <script src="{% static 'birthday/scripts/confetti.min.js' %}" charset="utf-8"></script>
