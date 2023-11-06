@@ -5,7 +5,7 @@ const canvasC = document.getElementById('c');
 
 const config = {
   birthdate: 'Jan 29, 2020',
-  name: "HELLO MS APSA" //naam idhar daalna ghadhe
+  name: "MS ALIZEH" //naam idhar daalna ghadhe
 };
 
 function hideEverything() {
@@ -48,7 +48,7 @@ x = setInterval(function() {
     hw = w / 2, // half-width
     hh = h / 2,
     opts = {
-      strings: [config.name, 'OR KOI PROOF CHAIYE', '?'], //aur yaha greetings
+      strings: [config.name, 'ON MEHER OF 100 CHOCOLATES', 'KYA APKO QUBUL HAI?'], //aur yaha greetings
       charSize: 30,
       charSpacing: 35,
       lineHeight: 40,
