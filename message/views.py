@@ -1,10 +1,11 @@
+from django.http import Http404
 from django.shortcuts import render
 
 # Create your views here.
 
 
 def home(request):
-    return render(request, 'secondary/Test/birthday.html')
+    raise Http404
 
 
 def no(request):
