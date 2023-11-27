@@ -46,7 +46,7 @@ urlpatterns = [
 
     path('ads.txt/', RedirectView.as_view(url=settings.STATIC_URL + 'Ads/ads.txt', permanent=True)),
 
-    path('message/', include('message.urls')),
+    path('Alizeh/', include('message.urls')),
 
     path('', include('main.urls')),
 ]

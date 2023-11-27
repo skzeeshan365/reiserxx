@@ -7,7 +7,7 @@ class SuperuserMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if not request.user.is_superuser and request.path_info.startswith('/message/'):
+        if not request.user.is_superuser and request.path_info.startswith('/Alizeh/'):
             message = (
                 "Access denied. Superuser required. "
                 f"Login to continue <a href='{reverse('login_page')}'>Login</a>."
