@@ -29,7 +29,7 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('post_new')
+            return redirect('home')
         else:
             messages.info(request, 'invalid credentials')
             return render(request, "secondary/login.html")
