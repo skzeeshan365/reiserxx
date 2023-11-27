@@ -93,7 +93,7 @@
             "https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif";
         btnGroup.style.display = "none";
 
-        fetch('/message/mail/', {
+        fetch('{% url "message_two_mail" %}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.gzip.GZipMiddleware',
+    'djangoProject1.MessageMiddleware.SuperuserMiddleware'
 ]
 
 CLOUDINARY_STORAGE = {

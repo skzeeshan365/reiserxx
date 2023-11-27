@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'reiserx/img/favicons/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'reiserx/img/favicons/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'reiserx/img/favicons/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'reiserx/img/favicons/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'reiserx/img/favicons/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'reiserx/img/favicons/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'reiserx/img/favicons/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'reiserx/img/favicons/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'reiserx/img/favicons/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'reiserx/img/favicons/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'reiserx/img/favicons/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'reiserx/img/favicons/favicon-16x16.png' %}">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-36x36.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-48x48.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-72x72.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-144x144.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/android-icon-192x192.png' %}">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'reiserx/img/favicons/favicon.ico' %}">
+    <link rel="manifest" href="{% static 'reiserx/img/favicons/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'reiserx/img/favicons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Favicon -->
+    <title>ReiserX</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static '/reiserx/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i"
+          rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static '/reiserx/css/mediumish-'|add:ASSET_VERSION|add:'.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+<ul style="margin-top: 70px">
+    {% for item in items %}
+    <li><a href="{{ item }}/">Message {{ item }}</a></li>
+    {% endfor %}
+</ul>
+</div>
+
+<!-- Bootstrap core JavaScript ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% static '/reiserx/js/jquery.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="{% static '/reiserx/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/reiserx/js/ie10-viewport-bug-workaround.js' %}"></script>
+<script src="{% static '/reiserx/js/mediumish.js' %}"></script>
+</body>
+</html>

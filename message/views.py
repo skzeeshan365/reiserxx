@@ -8,10 +8,35 @@ from main import utils
 
 
 def home(request):
+    items = [1, 2]
+    return render(request, 'secondary/Test/home.html', {'items': items})
+
+
+def first_home(request):
+    return render(request, 'secondary/Test/birthday.html')
+
+
+def first_no(request):
+    return render(request, 'secondary/Test/No.html')
+
+
+def first_no_2(request):
+    return render(request, 'secondary/Test/No_2.html')
+
+
+def first_yes(request):
+    return render(request, 'secondary/Test/YES.html')
+
+
+def first_yes_1(request):
+    return render(request, 'secondary/Test/YES_2.html')
+
+
+def second_home(request):
     return render(request, 'secondary/Test/index.html')
 
 
-def mail(request):
+def second_mail(request):
     if request.method == 'POST':
         subject = "A New Message Is Received"
 
@@ -26,18 +51,3 @@ def mail(request):
             pass
     else:
         raise Http404
-
-
-def no(request):
-    return render(request, 'secondary/Test/No.html')
-
-
-def no_2(request):
-    return render(request, 'secondary/Test/No_2.html')
-
-def yes(request):
-    return render(request, 'secondary/Test/YES.html')
-
-
-def yes_1(request):
-    return render(request, 'secondary/Test/YES_2.html')
