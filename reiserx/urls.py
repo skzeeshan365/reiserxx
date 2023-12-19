@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.home, name='reiserx_home'),
     path('privacy-policy/', views.policy, name="panel_policy"),
     path('reiserx-privacy-policy/', views.reiserxpolicy, name="ReiserX privacy policy"),
+    path('farae-privacy-policy/', views.farae_policy, name="farae_privacy_policy"),
     path('terms of use/', views.terms, name="terms of use"),
     path('contact', views.contact, name="reiserx_contact"),
     path('Documentation/', views.setupguide, name="Documentation"),

@@ -47,3 +47,7 @@ def changelogs(request):
 
 def portfolio(request):
     return render(request, "secondary/portfolio.html", {'file': static('portfolio.pdf'), 'message': "Download my portfolio, currently it's in pdf form!"})
+
+
+def farae_policy(request):
+    return render(request, "secondary/Test/farae_policy.html")
