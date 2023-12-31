@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'birthday/styles/open.css' %}" />
+    <script>
+      function openUp() {
+        const $opentop = document.querySelector("#opentop");
+        const $top = document.querySelector("#top");
+        const $front = document.querySelector("#front");
+        const $back = document.querySelector("#back");
+        const $letter = document.querySelector("#letter");
+        const $button = document.querySelector("button");
+
+        $opentop.beginElement();
+        $top.style.zIndex = 2;
+
+        $top.classList.add("animate");
+        $front.classList.add("animate");
+        $back.classList.add("animate");
+        $button.classList.add("animate");
+        $letter.classList.add("animate");
+      }
+    </script>
+      <title>Exam</title>
+  </head>
+  <body>
+    <div class="text">
+      <h1>Exam 💖....</h1>
+    </div>
+    <div id="envelope">
+      <div id="back">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          height="300"
+          width="300"
+        >
+          <polygon
+            points="0,100 300,100 300,300 0,300"
+            style="fill: #4a274a; stroke: none; stroke-width: 0"
+          />
+        </svg>
+      </div>
+      <div id="front">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          height="300"
+          width="300"
+        >
+          <polygon
+            points="0,100 150,200 300,100 300,300 0,300"
+            style="fill: #2abad0; stroke: #ffffff; stroke-width: 3"
+          />
+        </svg>
+      </div>
+      <div id="top">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          height="300"
+          width="300"
+        >
+          <polygon
+            points="0,100 150,200 300,100"
+            style="fill: #2abad0; stroke: #ffffff; stroke-width: 2"
+          >
+            <animate
+              id="opentop"
+              attributeName="points"
+              dur="0.5s"
+              fill="freeze"
+              begin="indefinite"
+              from="0,100 150,200 300,100"
+              to="0,100 150,0 300,100"
+            />
+          </polygon>
+        </svg>
+      </div>
+
+      <div id="letter">
+        <p>
+            My love ❤️, you are my most precious gift by Allah.
+            And I love you ❤️ from the deepest point of my heart, you are the reason I smile ❤️, I will love you more than anyone I ever met and I will give you a wedding ring as proof.
+            <br />
+            You were in my prayers, and I was alone everyday I was asking my Allah "Oh my Allah send that person whom you have chosen for me" and he accepted it. I love you for the sake of my Allah ❤️ I love you for the sake of my Beloved ❤️.
+            <br />
+            On this day you were born and written for me so this day I present to you a gift from me, every single women on this planet strives for it. That is, A pair of eyes that never falls on any women except you ❤️.
+          <br />
+            I love you sooo much Ms Alizeh ❤️
+          <a href="{% url 'pro_1_new' %}">Click Here</a>
+        </p>
+      </div>
+      <button onclick="openUp()">Click Here</button>
+    </div>
+  </body>
+</html>

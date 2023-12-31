@@ -16,4 +16,11 @@ urlpatterns = [
     # Message Second
     path('2/', views.second_home, name='message_two_home'),
     path('2/mail/', views.second_mail, name='message_two_mail'),
+
+    # Message Third
+    path('3/', views.pro_1_home, name='pro_1_home'),
+    path('3/exam/', views.pro_1_exam, name='pro_1_exam'),
+    path('3/propose/', views.pro_1_new, name='pro_1_new'),
+    path('3/accept/', views.pro_1_accept, name='pro_1_accept'),
+
 ]

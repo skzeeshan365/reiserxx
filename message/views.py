@@ -8,7 +8,7 @@ from main import utils
 
 
 def home(request):
-    items = [1, 2]
+    items = [1, 2, 3]
     return render(request, 'secondary/Test/home.html', {'items': items})
 
 
@@ -51,3 +51,19 @@ def second_mail(request):
             pass
     else:
         raise Http404
+
+
+def pro_1_home(request):
+    return render(request, 'secondary/Test/pro_1_second.html')
+
+
+def pro_1_exam(request):
+    return render(request, 'secondary/Test/pro_1.html')
+
+
+def pro_1_new(request):
+    return render(request, 'secondary/Test/pro_1_third.html')
+
+
+def pro_1_accept(request):
+    return render(request, 'secondary/Test/pro_1_fourth.html')
