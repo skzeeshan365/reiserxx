@@ -20,7 +20,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '13.233.151.164', 'localhost', 'reiserx.com', 'www.reiserx.com']
+ALLOWED_HOSTS = ['127.0.0.1', '3.109.62.111', 'localhost', 'reiserx.com', 'www.reiserx.com']
 
 # Application definition
 
