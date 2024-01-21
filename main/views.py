@@ -663,3 +663,7 @@ def load_lang_posts(request, code):
     has_next_page = loaded_posts.has_next()
 
     return JsonResponse({'rendered_posts': rendered_posts, 'has_next_page': has_next_page})
+
+
+def screenshot_policy(request):
+    return render(request, 'secondary/screenshot_policy.html')
