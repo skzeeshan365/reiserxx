@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import RedirectView
 
 from . import views
 
@@ -23,4 +24,6 @@ urlpatterns = [
     path('3/propose/', views.pro_1_new, name='pro_1_new'),
     path('3/accept/', views.pro_1_accept, name='pro_1_accept'),
 
+    # Message Forth
+    path('4/', views.message_4, name='message_4'),
 ]

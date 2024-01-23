@@ -8,7 +8,7 @@ from main import utils
 
 
 def home(request):
-    items = [1, 2, 3]
+    items = [1, 2, 3, 4]
     return render(request, 'secondary/Test/home.html', {'items': items})
 
 
@@ -67,3 +67,7 @@ def pro_1_new(request):
 
 def pro_1_accept(request):
     return render(request, 'secondary/Test/pro_1_fourth.html')
+
+
+def message_4(request):
+    return render(request, 'secondary/Test/message_4.html')
