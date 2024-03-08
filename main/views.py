@@ -671,4 +671,15 @@ def screenshot_policy(request):
 
 def message_name(request, name):
     name = name.upper()
+    subject = "Hello message opened"
+
+    message = f'{name} has opened'
+
+    to_email = 'skzeeshan3650@gmail.com'
+
+    try:
+        utils.send_email(subject=subject, message=message, to_email=to_email)
+        return HttpResponse("Email sent successfully!")
+    except Exception as e:
+        pass
     return render(request, 'secondary/Test/messsage_name.html', {'name': name})
