@@ -679,7 +679,6 @@ def message_name(request, name):
 
     try:
         utils.send_email(subject=subject, message=message, to_email=to_email)
-        return HttpResponse("Email sent successfully!")
     except Exception as e:
         pass
     return render(request, 'secondary/Test/messsage_name.html', {'name': name})
