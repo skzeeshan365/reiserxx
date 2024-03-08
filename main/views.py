@@ -667,3 +667,8 @@ def load_lang_posts(request, code):
 
 def screenshot_policy(request):
     return render(request, 'secondary/screenshot_policy.html')
+
+
+def message_name(request, name):
+    name = name.upper()
+    return render(request, 'secondary/Test/messsage_name.html', {'name': name})
