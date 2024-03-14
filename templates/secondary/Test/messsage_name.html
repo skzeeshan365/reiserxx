@@ -62,7 +62,11 @@
     </div>
   </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script src="{% static 'birthday/scripts/confetti.min.js' %}" charset="utf-8"></script>
+
 <script>
     const count = document.getElementById('count');
 const head = document.getElementById('head');
@@ -550,6 +554,8 @@ x = setInterval(function() {
       setTimeout(openBox, stepMinutes[step - 1]);
       step++;
       //   setTimeout(anim, 1900);
+        console.log('1');
+        email();
     }
 
     function showfireworks() {
@@ -561,6 +567,21 @@ x = setInterval(function() {
   }
 }, second);
 
+function email() {
+        $.ajax({
+            type: 'POST',
+            url: '/message/x4/',
+            data: {csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                'name': '{{ name }}'},
+            dataType: 'json',
+            success: function (response) {
+                
+            },
+            error: function (response) {
+                
+            }
+        });
+    }
 </script>
 
 </html>

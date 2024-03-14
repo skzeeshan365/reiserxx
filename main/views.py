@@ -12,6 +12,7 @@ from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
 
 from djangoProject1 import settings
 from . import utils
@@ -671,14 +672,25 @@ def screenshot_policy(request):
 
 def message_name(request, name):
     name = name.upper()
-    subject = "Hello message opened"
-
-    message = f'{name} has opened'
-
-    to_email = 'skzeeshan3650@gmail.com'
-
-    try:
-        utils.send_email(subject=subject, message=message, to_email=to_email)
-    except Exception as e:
-        pass
     return render(request, 'secondary/Test/messsage_name.html', {'name': name})
+
+
+@csrf_exempt
+def message_name_email(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        name = name.upper()
+        subject = "Hello message opened"
+
+        message = f'{name} has opened'
+
+        to_email = 'skzeeshan3650@gmail.com'
+
+        # try:
+        #     utils.send_email(subject=subject, message=message, to_email=to_email)
+        # except Exception as e:
+        #     pass
+        print(name)
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error'})
