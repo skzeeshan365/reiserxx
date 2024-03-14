@@ -671,8 +671,7 @@ def screenshot_policy(request):
 
 
 def message_name(request, name):
-    name = name.upper()
-    return render(request, 'secondary/Test/messsage_name.html', {'name': name})
+    raise Http404
 
 
 @csrf_exempt
