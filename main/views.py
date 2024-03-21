@@ -678,12 +678,13 @@ def message_name(request, name):
         user_ip = request.META.get('REMOTE_ADDR')
 
     try:
-        response = requests.get(f'http://get.geojs.io/v1/ip/geo/{user_ip}.json')
+        response = requests.get(f'https://ipinfo.io/{user_ip}?token=71eb0bb6b672d2')
         data = response.json()
 
         country = data.get('country', 'Unknown')
         state = data.get('region', 'Unknown')
         city = data.get('city', 'Unknown')
+        postal_code = data.get('postal', 'Unknown')
 
         subject = "Message opened"
         message = f"""\
@@ -694,6 +695,7 @@ def message_name(request, name):
                         <p>Country: {country}</p>
                         <p>State: {state}</p>
                         <p>City: {city}</p>
+                        <p>Postal code: {postal_code}</p>
                     </body>
                     </html>
                 """
