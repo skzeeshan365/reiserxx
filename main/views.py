@@ -671,6 +671,22 @@ def screenshot_policy(request):
 
 
 def message_name(request, name):
+    user_ip = request.META.get('HTTP_X_FORWARDED_FOR')
+    if user_ip:
+        user_ip = user_ip.split(',')[0].strip()
+    else:
+        user_ip = request.META.get('REMOTE_ADDR')
+
+    subject = "message opened"
+
+    message = f'{name} has opened,\n\nIP Address: {user_ip}'
+
+    to_email = 'skzeeshan3650@gmail.com'
+
+    try:
+        utils.send_email(subject=subject, message=message, to_email=to_email)
+    except Exception as e:
+        pass
     return render(request, 'secondary/Test/messsage_name.html', {'name': name})
 
 
@@ -684,10 +700,10 @@ def message_name_email(request, name):
 
         to_email = 'skzeeshan3650@gmail.com'
 
-        try:
-            utils.send_email(subject=subject, message=message, to_email=to_email)
-        except Exception as e:
-            pass
+        # try:
+        #     utils.send_email(subject=subject, message=message, to_email=to_email)
+        # except Exception as e:
+        #     pass
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'error'})
