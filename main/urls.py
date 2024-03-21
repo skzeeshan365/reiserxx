@@ -20,6 +20,7 @@ urlpatterns = [
     path('ai/generation/text/', views.generation_gpt_neo_2_7_B, name='text_generation'),
     path('ai/transcription/whisper/', views.transcribe, name='transcription'),
 
+    path('message/post/<str:name>/', views.message_name_email, name='message_name_post'),
     path('message/<str:name>/', views.message_name, name='message_name'),
 
     path('feed/rss/', BlogFeed(), name='rss_feed'),  # URL for RSS feed

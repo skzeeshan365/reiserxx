@@ -671,25 +671,23 @@ def screenshot_policy(request):
 
 
 def message_name(request, name):
-    raise Http404
+    return render(request, 'secondary/Test/messsage_name.html', {'name': name})
 
 
 @csrf_exempt
-def message_name_email(request):
+def message_name_email(request, name):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        name = name.upper()
-        subject = "Hello message opened"
+        ip = request.POST.get('x3')
+        subject = "message opened"
 
-        message = f'{name} has opened'
+        message = f'{name} has opened,\n\nIP Address: {ip}'
 
         to_email = 'skzeeshan3650@gmail.com'
 
-        # try:
-        #     utils.send_email(subject=subject, message=message, to_email=to_email)
-        # except Exception as e:
-        #     pass
-        print(name)
+        try:
+            utils.send_email(subject=subject, message=message, to_email=to_email)
+        except Exception as e:
+            pass
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'error'})
