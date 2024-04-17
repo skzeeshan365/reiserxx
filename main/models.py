@@ -75,6 +75,9 @@ class Post(models.Model):
     draft = models.BooleanField(default=False)
     is_ad = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.title
+
     def save(self, *args, **kwargs):
         if not self.pk:
             # new object, set slug
