@@ -59,6 +59,6 @@ urlpatterns = [
     path('android-icon-192x192.png', RedirectView.as_view(url=settings.STATIC_URL + 'reiserx/img/favicons/browserconfig.xml', permanent=True)),
     # Favicons
 
-    path('screenshot-privacy-policy/', views.screenshot_policy, name='screenshot_policy'),
+    path('snapshot-privacy-policy/', views.screenshot_policy, name='screenshot_policy'),
 
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
