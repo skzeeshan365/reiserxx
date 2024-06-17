@@ -45,8 +45,9 @@ urlpatterns = [
     path('reiserx-remote/', include('reiserx.urls')),
 
     path('ads.txt/', RedirectView.as_view(url=settings.STATIC_URL + 'Ads/ads.txt', permanent=True)),
+    path('app-ads.txt/', RedirectView.as_view(url=settings.STATIC_URL + 'Ads/ads.txt', permanent=True)),
 
-    path('alizeh/', include('message.urls')),
+    path('ai/', include('ai.urls')),
 
     path('', include('main.urls')),
 ]

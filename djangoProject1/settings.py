@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'tinymce',
     'django.contrib.sitemaps',
     'captcha',
+    "ai.apps.AiConfig"
 ]
 
 MIDDLEWARE = [
@@ -202,3 +203,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PAYPAL_CLIENT_ID = 'your_paypal_client_id'
 PAYPAL_SECRET = 'your_paypal_secret'
+GEMINI_API = os.getenv("GEMINI_API")
