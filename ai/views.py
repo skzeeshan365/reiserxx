@@ -54,10 +54,10 @@ def multimodel(request):
         #     img], stream=True)
         # response.resolve()
 
-        response = json.dumps({"response": "Successful"})
+        response = json.dumps({"text": "Successful"})
 
         # Return JSON response with generated content
-        return JsonResponse({'markdown_text': response})
+        return JsonResponse(response)
 
         # Handle other HTTP methods (GET, PUT, DELETE, etc.) if needed
     return JsonResponse({'error': 'Method not allowed'}, status=405)
