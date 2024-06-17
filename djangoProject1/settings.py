@@ -18,7 +18,7 @@ VOCALHOST_API = os.getenv('VOCALHOST_API')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '3.109.62.111', 'localhost', 'reiserx.com', 'www.reiserx.com']
 
@@ -201,6 +201,4 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-PAYPAL_CLIENT_ID = 'your_paypal_client_id'
-PAYPAL_SECRET = 'your_paypal_secret'
 GEMINI_API = os.getenv("GEMINI_API")
