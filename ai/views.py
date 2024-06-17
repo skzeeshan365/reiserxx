@@ -43,19 +43,18 @@ def multimodel(request):
 
         try:
             img = Image.open(img)
-            # Optionally, you can resize or preprocess the image here if required
         except Exception as e:
             return HttpResponse('Failed to process image: ' + str(e), status=400)
 
         try:
-            # genai.configure(api_key=settings.GEMINI_API)
-            # model = genai.GenerativeModel('gemini-1.5-flash')
-            # response = model.generate_content([
-            #     text,
-            #     img], stream=True)
-            # response.resolve()
+            genai.configure(api_key=settings.GEMINI_API)
+            model = genai.GenerativeModel('gemini-1.5-flash')
+            response = model.generate_content([
+                text,
+                img], stream=True)
+            response.resolve()
 
-            response = 'response.text'
+            response = response.text
             return JsonResponse({"response": response})
         except Exception as e:
             return HttpResponse('Failed to generate response, please try again later', status=500)
