@@ -53,6 +53,7 @@ def multimodel(request):
         #     "describe this image.",
         #     img], stream=True)
         # response.resolve()
+
         response = json.dumps({"response": "Successful"})
 
         # Return JSON response with generated content
