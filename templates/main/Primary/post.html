@@ -58,7 +58,11 @@
     <!-- META TAGS -->
     <meta property="og:title" content="{{ post.title }}"/>
     <meta property="og:description" content="{{ post.description }}"/>
-    <meta property="og:image" content="{{ post.image.url }}"/>
+    {% if post.image %}
+        <meta property="og:image" content="{{ post.image.url }}"/>
+    {% else %}
+        <meta property="og:image" content="{% static 'reiserx/img/img_placeholder.png' %}"/>
+    {% endif %}
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:type" content="article">
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
@@ -414,8 +418,13 @@
                 <!-- End Top Menta -->
             </div>
             <!-- Begin Featured Image -->
+        {% if post.image %}
             <img class="featured-image img-fluid" src="{{ post.image.url }}?f_auto,q_auto" alt="{{ post.title }}"
                  loading="lazy">
+        	{% else %}
+            <img class="featured-image img-fluid" src="{% static 'reiserx/img/img_placeholder.png' %}" alt="{{ post.title }}"
+                 loading="lazy">
+        {% endif %}
             <!-- End Featured Image -->
 
             <!-- Begin Post Content -->
@@ -458,8 +467,13 @@
                     <div class="col-md-6">
                         <div class="card card-flat">
                             <a href="{% url 'open' post.get_author_name post.slug %}">
+                                {% if post.image %}
                                 <img class="img-fluid img-thumb" src="{{ post.image.url }}" alt="{{ post.title }}"
                                      style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: 185px; width: 100%;">
+                                {% else %}
+                                    <img class="img-fluid img-thumb" src="{% static 'reiserx/img/img_placeholder.png' %}" alt="{{ post.title }}"
+                                     style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); height: 185px; width: 100%;">
+                                {% endif %}
                             </a>
                             <div class="card-block">
                                 <h5 class="card-title"><a

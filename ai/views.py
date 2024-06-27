@@ -53,7 +53,6 @@ def multimodel(request):
                 text,
                 img], stream=True)
             response.resolve()
-
             response = response.text
             return JsonResponse({"response": response})
         except Exception as e:

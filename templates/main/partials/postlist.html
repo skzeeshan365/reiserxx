@@ -1,3 +1,4 @@
+{% load static %}
 <style>
     .ads-container {
         overflow-x: hidden;
@@ -67,9 +68,11 @@
                                         <div class="col-2">
                                             <div class="thumbnail-wrapper">
                                                 <a href="{% url 'open' post.get_author_name post.slug %}">
-                                                    <div class="thumbnail"
-                                                         style="background-image: url('{{ post.image.url }}?f_auto,q_auto');"
-                                                         role="img" aria-label="{{ post.title }}"></div>
+                                                    {% if post.image %}
+                                                        <div class="thumbnail" style="background-image: url('{{ post.image.url }}?f_auto,q_auto');" role="img" aria-label="{{ post.title }}"></div>
+                                                    {% else %}
+                                                        <div class="thumbnail" style="background-image: url({% static 'reiserx/img/img_placeholder.png' %});" role="img" aria-label="{{ post.title }}"></div>
+                                                    {% endif %}
                                                 </a>
                                             </div>
                                         </div>

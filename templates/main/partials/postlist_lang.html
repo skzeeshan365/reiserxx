@@ -1,3 +1,4 @@
+{% load static %}
 <style>
     .ads-container {
         overflow-x: hidden;
@@ -68,9 +69,13 @@
                                         <div class="col-2">
                                             <div class="thumbnail-wrapper">
                                                 <a href="{% url 'translate' lang_post.post.get_author_name lang_post.post.slug lang_post.language_code %}">
-                                                    <div class="thumbnail"
+                                                    {% if lang_post.image %}
+                                                        <div class="thumbnail"
                                                          style="background-image: url('{{ lang_post.post.image.url }}?f_auto,q_auto');"
                                                          role="img" aria-label="{{ lang_post.title }}"></div>
+                                                    {% else %}
+                                                        {% static 'reiserx/img/img_placeholder.png' %}
+                                                    {% endif %}
                                                 </a>
                                             </div>
                                         </div>
