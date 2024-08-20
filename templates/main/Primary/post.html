@@ -271,7 +271,37 @@
     .message {
         font-size: 11px;
         color: #ee5535
-    }</style>
+    }
+    
+     .nav-link {
+        color: #fff;
+        font-size: medium;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+    .nav-link:hover {
+        color: #1C9963;
+    }
+    .navbar {
+        background-color: #1C9963;
+    }
+    
+    .navbar-toggler-icon {
+    background-image: none;
+    border: 1px solid transparent;
+}
+
+.navbar-toggler-icon::before {
+    content: '\2630'; 
+    color: #ffffff;   
+    font-size: 24px;  
+}
+
+.nav-item:hover {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+    </style>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588658066763563"
             crossorigin="anonymous"></script>
@@ -354,8 +384,8 @@
                         <a class="nav-link" href="{% url 'category' %}">CATEGORY</a>
                     </li>
                     <li class="nav-item">
-                <a href="https://www.paypal.com/ncp/payment/DCYMNW6FX7H8A">DONATE</a>
-                    </li>
+                    <a class="nav-link" href="https://www.paypal.com/ncp/payment/DCYMNW6FX7H8A">DONATE</a>
+                </li>
                 </ul>
                 <!-- End Menu -->
             </div>
