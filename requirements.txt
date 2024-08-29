@@ -1,5 +1,5 @@
 cloudinary==1.33.0
-Django==4.2.2
+Django~=5.0.6
 Pillow==9.5.0
 python-dotenv==1.0.0
 Requests==2.31.0
