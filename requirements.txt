@@ -1,4 +1,4 @@
-cloudinary==1.33.0
+cloudinary==1.41.0
 Django~=5.0.6
 Pillow==9.5.0
 python-dotenv==1.0.0
